@@ -2,6 +2,17 @@
 
 Complete end-to-end pipeline for training and deploying offline RL policies in e-commerce environments. Includes customer simulation, offline policy learning (FQI), evaluation (OPE), and deployment options.
 
+## About this archive
+
+This repository is the curated artifact accompanying the master thesis *Reinforcement Learning in E-Commerce: Comparing Single-Step and Multi-Step Decision Making in Simulated Shopping Sessions*. Its history begins with a single snapshot commit rather than continuing the development repository.
+
+Two things are deliberately **not** included:
+
+- **Operational deployment runbooks (`deploy/`).** These describe the live study infrastructure and are withheld while that infrastructure is in use. Documents that record work performed — such as the preregistration checklist — still refer to them by filename; those references are historical records and have deliberately not been rewritten to match this archive.
+- **An unrelated behavioural-analysis project** that shared the development repository. Its data belongs to a different context and is not part of this thesis.
+
+Everything the thesis cites is present, in particular both preregistrations, the sequentiality-sweep runner, and all four result sets under [`Experiments/`](Experiments/).
+
 
 ## 📁 Project Structure
 

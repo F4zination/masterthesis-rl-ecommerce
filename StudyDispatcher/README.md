@@ -101,4 +101,6 @@ V2_BASE_URL=http://127.0.0.1:8002 V3_BASE_URL=http://127.0.0.1:8003 \
 ## Deployment
 
 The dispatcher is one service in the top-level `docker-compose.yml` stack
-(dispatcher + V2 + V3 + nginx/TLS). See [../deploy/README.md](../deploy/README.md).
+(dispatcher + V2 + V3 + nginx/TLS). The operational runbooks that accompanied the
+live study deployment are not part of this public archive; see the note in the
+repository README.
