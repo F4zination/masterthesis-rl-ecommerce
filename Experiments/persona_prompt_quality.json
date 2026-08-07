@@ -1,0 +1,1211 @@
+{
+  "judge_model": "claude-opus-5",
+  "generated_at": "2026-08-02T08:50:11.299394+00:00",
+  "replicates": 5,
+  "seed": 20260731,
+  "rubric_sha256": "e2582f3a489f57f333709cc2d0123943defee018a0fa26569d59d102e2795f3e",
+  "criteria": {
+    "clarity": "Is the prompt immediately understandable to a non-expert crowdworker on a single reading? Consider sentence complexity, ambiguity, and whether the participant would know what to do next. A prompt that requires re-reading, or that leaves the participant unsure whether they may leave, scores low.",
+    "behavioral_specificity": "Does the prompt establish a distinct situational motive that separates this cell from the other four, WITHOUT prescribing actions? The target is a motive ('money is tight this month'), not an instruction ('compare at least three products'). Score low both when the motive is too vague to differentiate the cell AND when the prompt dictates the behavior it is supposed to elicit — the latter manufactures the archetype instead of observing it.",
+    "neutrality": "Is the prompt free of demand characteristics — cues that tell the participant which behavior the researcher wants? Look for implied obligations to purchase, to spend a particular amount of time, to explore a certain number of pages, or any framing that makes one course of action read as the 'correct' one. Explicit permission not to act is neutral; pressure toward action is not.",
+    "hypothesis_leakage": "Could an attentive participant infer any of the withheld facts listed above from this prompt? Score 5 when nothing in the wording points to them, and 1 when the prompt effectively announces one. Judge only what the prompt reveals, not what participants might notice later while browsing."
+  },
+  "cross_cell_criterion": "Cross-cell fairness: are these five prompts matched in length, register, reading difficulty, and motivational intensity, so that differences in observed behavior can be attributed to the situational motive rather than to the prompts being unequally demanding or unequally engaging? Systematic asymmetry — one prompt notably longer, more urgent, or more prescriptive than the rest — is the failure mode. Score 5 for a well-matched set, 1 when at least one cell is clearly advantaged or disadvantaged by its wording.",
+  "judge_system_prompt": "You are an experimental-methods reviewer evaluating participant-facing scenario wording for a within-subjects online shopping study. You are rigorous and independent: your task is to find weaknesses, not to endorse the material.\n\n# Study context\nThe prompts under evaluation are shown once, in a modal, to crowdworkers who have just entered a simulated online shop built for a research study. Each participant sees exactly one of the five prompts and then browses freely; the session ends when they choose to end it. No real money is involved and no real order is placed.\n\nThe five prompts are meant to induce five different shopping dispositions (open-ended browsing; a specific electronics need; a considered home purchase; constrained budget; idle time with no goal) purely by supplying a situational motive.\n\n# Facts that must not leak to participants\nParticipants must NOT be able to infer any of the following from the prompt:\n1. That the shop displays adaptive recommendation widgets whose selection varies.\n2. That there are two experimental conditions using different decision policies.\n3. That their behavior will be compared against a behavioral simulation.\n4. That purchasing, conversion, or funnel depth are outcomes of interest.\n5. That they have been assigned a persona or behavioral archetype.\n\n# Scoring scale\nScore each criterion on an integer scale from 1 to 5: 1 = serious problem that would compromise the study, 2 = clear weakness, 3 = acceptable but improvable, 4 = good with only minor reservations, 5 = no reservations. Use the full range; do not default to the middle.\n\nJudge only the text placed in front of you. Do not speculate about material you have not been shown, and do not reward a prompt for being short if brevity costs clarity. Each justification must cite specific wording from the prompt.",
+  "results": [
+    {
+      "revision": "f9c6392^",
+      "prompt_sha256": {
+        "explorer": "0e47741fb9f052b7fed706e54cbb6a28235b25dee57e7a99e283dd101ca7224f",
+        "fastbuyer": "b7e969a6520dfb400db25fa668020f496841efe47ac7dcbe3a40fdc89ee5e11a",
+        "detailedcomparator": "c0318464f6ae79e37809e3c91ad46fff246ba29ba6b3facce883e37fb55a4381",
+        "discounthunter": "0926a7e00e1cc7e5cae37ded531c53f789971df934d74f4525db88b93cbb6f83",
+        "windowshopper": "9cefd454889c9632ac85826f5f414ebd9ca55aa67ea844d3bb0325d5e5a1457c"
+      },
+      "prompts": {
+        "explorer": "Your Task â€” Gift Buyer\n\nYou are looking for a birthday gift for a friend. You do not have a specific product in mind yet. Please browse the shop, explore a few product categories, and buy something that you think would make a nice gift. You are free to spend as much or as little time browsing as you like before deciding.\n\nA purchase is welcome, but only buy if you find something you actually like.",
+        "fastbuyer": "Your Task â€” Efficient Buyer\n\nYou need to buy an electronics accessory (for example, headphones or a charging cable). You already have a rough idea of what you want. Please find a suitable product and complete the purchase when you feel ready.\n\nTry to work at a natural pace â€” no need to rush.",
+        "detailedcomparator": "Your Task â€” Careful Researcher\n\nYou are planning to buy a product for your home (for example, a kitchen appliance, a desk item, or a home accessory). You want to make a well-informed decision. Please look at and compare at least 3 different products before deciding what to buy. Read product descriptions carefully.\n\nA purchase is welcome, but only buy if you found something that genuinely fits your needs.",
+        "discounthunter": "Your Task â€” Deal Seeker\n\nYou are shopping on a tight budget and are looking for good value. Browse the shop and pay attention to prices, discounts, and any special offers you come across. Only buy something if you feel it is genuinely a good deal. Do not feel obligated to purchase at full price.\n\nIf nothing seems like good value, you may end the session without buying.",
+        "windowshopper": "Your Task â€” Casual Browser\n\nYou have a few free minutes and feel like browsing an online shop â€” no pressure, no deadline. Explore the shop as you naturally would during a casual browsing session. There is no requirement to buy anything, but you are welcome to if something catches your eye.\n\nAfter 8 minutes, or sooner if you feel you are done, end the session."
+      },
+      "per_persona": {
+        "explorer": {
+          "clarity": {
+            "mean": 3.2,
+            "sd": 0.447,
+            "min": 3,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              3,
+              3,
+              3,
+              4,
+              3
+            ]
+          },
+          "behavioral_specificity": {
+            "mean": 2.0,
+            "sd": 0.0,
+            "min": 2,
+            "max": 2,
+            "n": 5,
+            "raw": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "neutrality": {
+            "mean": 2.0,
+            "sd": 0.0,
+            "min": 2,
+            "max": 2,
+            "n": 5,
+            "raw": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "hypothesis_leakage": {
+            "mean": 1.0,
+            "sd": 0.0,
+            "min": 1,
+            "max": 1,
+            "n": 5,
+            "raw": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        "fastbuyer": {
+          "clarity": {
+            "mean": 3.2,
+            "sd": 0.447,
+            "min": 3,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              3,
+              3,
+              4,
+              3,
+              3
+            ]
+          },
+          "behavioral_specificity": {
+            "mean": 2.0,
+            "sd": 0.0,
+            "min": 2,
+            "max": 2,
+            "n": 5,
+            "raw": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "neutrality": {
+            "mean": 1.0,
+            "sd": 0.0,
+            "min": 1,
+            "max": 1,
+            "n": 5,
+            "raw": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "hypothesis_leakage": {
+            "mean": 1.0,
+            "sd": 0.0,
+            "min": 1,
+            "max": 1,
+            "n": 5,
+            "raw": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        "detailedcomparator": {
+          "clarity": {
+            "mean": 4.0,
+            "sd": 0.0,
+            "min": 4,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          "behavioral_specificity": {
+            "mean": 1.2,
+            "sd": 0.447,
+            "min": 1,
+            "max": 2,
+            "n": 5,
+            "raw": [
+              1,
+              1,
+              2,
+              1,
+              1
+            ]
+          },
+          "neutrality": {
+            "mean": 2.0,
+            "sd": 0.0,
+            "min": 2,
+            "max": 2,
+            "n": 5,
+            "raw": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "hypothesis_leakage": {
+            "mean": 1.0,
+            "sd": 0.0,
+            "min": 1,
+            "max": 1,
+            "n": 5,
+            "raw": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        "discounthunter": {
+          "clarity": {
+            "mean": 4.2,
+            "sd": 0.447,
+            "min": 4,
+            "max": 5,
+            "n": 5,
+            "raw": [
+              4,
+              4,
+              4,
+              5,
+              4
+            ]
+          },
+          "behavioral_specificity": {
+            "mean": 2.0,
+            "sd": 0.0,
+            "min": 2,
+            "max": 2,
+            "n": 5,
+            "raw": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "neutrality": {
+            "mean": 2.0,
+            "sd": 0.0,
+            "min": 2,
+            "max": 2,
+            "n": 5,
+            "raw": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "hypothesis_leakage": {
+            "mean": 1.0,
+            "sd": 0.0,
+            "min": 1,
+            "max": 1,
+            "n": 5,
+            "raw": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        "windowshopper": {
+          "clarity": {
+            "mean": 4.0,
+            "sd": 0.0,
+            "min": 4,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          "behavioral_specificity": {
+            "mean": 2.2,
+            "sd": 0.447,
+            "min": 2,
+            "max": 3,
+            "n": 5,
+            "raw": [
+              2,
+              2,
+              2,
+              3,
+              2
+            ]
+          },
+          "neutrality": {
+            "mean": 3.0,
+            "sd": 0.0,
+            "min": 3,
+            "max": 3,
+            "n": 5,
+            "raw": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ]
+          },
+          "hypothesis_leakage": {
+            "mean": 1.4,
+            "sd": 0.548,
+            "min": 1,
+            "max": 2,
+            "n": 5,
+            "raw": [
+              1,
+              2,
+              1,
+              2,
+              1
+            ]
+          }
+        }
+      },
+      "cross_cell_fairness": {
+        "mean": 2.0,
+        "sd": 0.0,
+        "min": 2,
+        "max": 2,
+        "n": 5,
+        "raw": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      "justifications": {
+        "explorer": [
+          {
+            "replicate": 0,
+            "strongest_concern": "The literal persona label in the header ('Your Task \\a",
+            "clarity": "The language is simple and a crowdworker would grasp the gift-shopping setup on one reading, but the instructions are internally inconsistent: 'buy something that you think would make a nice gift' is a directive, while the closing line hedges with 'A purchase is welcome, but only buy if you find something you actually like.' The reader must reconcile a command to buy with a conditional permission not to, and nothing states how or whether they may end the session without purchasing.",
+            "behavioral_specificity": "The motive is distinct enough ('a birthday gift for a friend... no specific product in mind yet' clearly separates this cell from the electronics-need or budget-constrained cells), but the prompt then dictates the very behavior it should be observing: 'Please browse the shop, explore a few product categories, and buy something.' Prescribing category exploration and a purchase manufactures the browsing-then-converting archetype rather than letting the situational motive produce it.",
+            "neutrality": "'Please browse the shop, explore a few product categories, and buy something' constitutes an explicit instruction to purchase and to visit multiple pages, which is precisely the demand characteristic the criterion warns against. The mitigating clause 'only buy if you find something you actually like' is genuine permission not to act, but it arrives after two imperatives to buy and cannot fully neutralise them; 'A purchase is welcome' additionally frames buying as the approved outcome.",
+            "hypothesis_leakage": "The header 'Your Task \\a assigned behavioural archetype outright, directly disclosing withheld fact 5 and signalling to an attentive participant that they are one of several typed shopper roles. Compounding this, 'A purchase is welcome' telegraphs that purchasing/conversion is an outcome the researchers care about (withheld fact 4)."
+          },
+          {
+            "replicate": 1,
+            "strongest_concern": "The literal persona label 'Gift Buyer' in the header announces that the participant has been assigned a behavioral archetype \\u2014 one of the facts that must not leak \\u2014 and, combined with the explicit 'buy something' instruction and 'A purchase is welcome', signals that purchasing is the measured outcome.",
+            "clarity": "The scenario itself ('a birthday gift for a friend', 'no specific product in mind yet') is plain and readable on one pass, but the instructions are internally inconsistent: the participant is first told to 'buy something that you think would make a nice gift' as a flat imperative, then told 'only buy if you find something you actually like.' A crowdworker must re-read to work out whether purchasing is required or optional, and 'explore a few product categories' leaves 'a few' undefined as a quantity they may feel accountable for.} ",
+            "behavioral_specificity": "A distinct motive does exist ('a birthday gift for a friend' with 'no specific product in mind'), but the prompt then dictates the very behavior the cell is meant to observe: 'browse the shop, explore a few product categories, and buy something.' Breadth of exploration and completion of a purchase are the plausible dependent measures, so instructing them manufactures the archetype rather than eliciting it; it also blurs against the 'open-ended browsing' cell, which it now differs from mainly by the purchase mandate.",
+            "neutrality": "Three separate cues push toward buying: the imperative 'buy something that you think would make a nice gift', the endorsement 'A purchase is welcome', and the instruction to 'explore a few product categories'. The mitigating clause 'only buy if you find something you actually like' and 'as much or as little time browsing as you like' soften but do not offset an explicitly stated preferred course of action, and no permission to leave empty-handed is stated in equally direct terms.",
+            "hypothesis_leakage": "The header 'Your Task \" archetype outright \\u2014 'Gift Buyer' \\u2014 which directly discloses withheld fact 5, that participants have been assigned a persona; the em-dash label format also signals one cell among several. Additionally, 'A purchase is welcome' foregrounds purchasing as something the researcher values, hinting at withheld fact 4 (conversion as an outcome of interest)."
+          },
+          {
+            "replicate": 2,
+            "strongest_concern": "The persona label 'Gift Buyer' in the header explicitly tells participants they have been assigned a behavioral archetype, which is one of the facts that must not leak and which risks converting natural shopping into role performance.",
+            "clarity": "The sentences are short and plain, and a crowdworker would understand the gift scenario on one reading, but the instructions are internally inconsistent: 'buy something that you think would make a nice gift' is an unconditional directive, while the closing line reframes it as 'A purchase is welcome, but only buy if you find something you actually like.' A participant would plausibly re-read to determine whether purchasing is required, and nothing tells them how or when they may end the session.",
+            "behavioral_specificity": "The motive ('a birthday gift for a friend', 'no specific product in mind yet') is reasonably distinct, but the prompt then dictates the very behaviors it should be observing: 'browse the shop, explore a few product categories, and buy something'. Prescribing category exploration and a purchase manufactures the browsing-and-converting pattern rather than letting the gift motive produce it.",
+            "neutrality": "Multiple cues signal the desired behavior: the imperative 'buy something', the quantified exploration instruction 'explore a few product categories', and 'A purchase is welcome', which reads as researcher endorsement of conversion. The mitigating clauses ('only buy if you find something you actually like', 'as much or as little time') soften but do not offset the explicit pressure toward purchase.",
+            "hypothesis_leakage": "The header 'Your Task \\u2014 Gift Buyer' hands the participant a named behavioral archetype outright, directly disclosing withheld fact 5, and invites role-playing rather than natural behavior. 'A purchase is welcome' additionally signals that buying is an outcome the researchers care about (withheld fact 4)."
+          },
+          {
+            "replicate": 3,
+            "strongest_concern": "The persona label \"Gift Buyer\" in the header announces to the participant that they have been assigned a behavioral archetype — a direct disclosure of a withheld fact — and it is compounded by \"A purchase is welcome,\" which flags conversion as an outcome of interest.",
+            "clarity": "The language is plain and a crowdworker would know what to do next: \"browse the shop, explore a few product categories, and buy something.\" The only friction is a mild internal tension between the imperative \"buy something that you think would make a nice gift\" and the later hedge \"only buy if you find something you actually like,\" which may require a second reading to resolve; the prompt also never states how or when a participant may end the session.",
+            "behavioral_specificity": "The motive itself — \"a birthday gift for a friend\" with \"no specific product in mind yet\" — is distinct and would separate this cell from the electronics-need or budget-constrained cells. But the prompt then dictates the very behavior it should observe: \"explore a few product categories\" prescribes breadth of browsing, and \"buy something\" prescribes conversion, manufacturing the open-ended-browser-who-converts archetype rather than letting it emerge.",
+            "neutrality": "\"Please browse the shop, explore a few product categories, and buy something\" is a direct instruction toward both exploration breadth and purchase, and \"A purchase is welcome\" adds explicit endorsement of one course of action. The mitigating clause \"only buy if you find something you actually like\" is a weak counterweight because it still presupposes buying as the default, and \"free to spend as much or as little time browsing as you like\" only releases pressure on time, not on the purchase itself.",
+            "hypothesis_leakage": "The header \"Your Task — Gift Buyer\" literally names an assigned behavioral archetype, disclosing withheld fact 5 in the first three words. Additionally, \"A purchase is welcome\" signals to an attentive participant that whether they buy is being tracked, pointing at withheld fact 4."
+          },
+          {
+            "replicate": 4,
+            "strongest_concern": "The explicit archetype label 'Gift Buyer' in the header announces persona assignment to the participant, and the accompanying purchase instructions ('buy something', 'A purchase is welcome') simultaneously reveal conversion as the outcome of interest — two withheld facts leaked in a single short prompt.",
+            "clarity": "Sentences are short and the situation ('looking for a birthday gift for a friend') is easy to grasp, but the prompt sends conflicting signals: the imperative 'buy something that you think would make a nice gift' is directly qualified two lines later by 'only buy if you find something you actually like,' forcing a re-read to work out whether purchase is required or optional. Exit conditions are also under-specified — the participant is told they may spend as long as they like 'before deciding,' which presumes a decision to buy and never states that ending without a purchase is permitted.",
+            "behavioral_specificity": "The motive itself is serviceable and distinct ('a birthday gift for a friend... no specific product in mind yet' separates this cell from the specific-need and budget cells), but the prompt then dictates the very behavior it should be observing: 'browse the shop, explore a few product categories, and buy something.' Instructing category exploration and a purchase manufactures the open-ended-browser archetype rather than letting it emerge, which is exactly the failure mode the criterion warns against.",
+            "neutrality": "'A purchase is welcome' is an explicit endorsement of one course of action, and the earlier imperative 'buy something' compounds it; the softener 'only buy if you find something you actually like' does not neutralise a direct instruction to purchase. 'Explore a few product categories' additionally sets a floor on browsing breadth, telling the participant how much exploration the researcher expects.",
+            "hypothesis_leakage": "The header 'Your Task — Gift Buyer' literally names an assigned persona label, disclosing withheld fact 5 in the first four words. The double emphasis on buying ('buy something', 'A purchase is welcome') further signals that purchase/conversion is the outcome being measured (withheld fact 4)."
+          }
+        ],
+        "fastbuyer": [
+          {
+            "replicate": 0,
+            "strongest_concern": "The prompt both names the archetype in its header (\"Efficient Buyer\") and mandates the outcome under study (\"complete the purchase\"), simultaneously disclosing persona assignment and rendering conversion/funnel-depth measures uninterpretable, since any purchase observed reflects compliance with the instruction rather than the induced disposition.",
+            "clarity": "The core instruction — \"buy an electronics accessory (for example, headphones or a charging cable)\" and \"complete the purchase when you feel ready\" — is plain and actionable on one reading, with helpful concrete examples. However, the header label \"Efficient Buyer\" pulls against \"Try to work at a natural pace — no need to rush,\" leaving the participant momentarily unsure whether speed is being asked of them. The prompt also never addresses whether they may end the session without buying, since ending is implicitly defined as purchase completion.",
+            "behavioral_specificity": "The situational motive is genuinely distinct — \"an electronics accessory\" plus \"You already have a rough idea of what you want\" separates this cell from open-ended browsing or idle time. But the prompt then dictates the very behavior it should be observing: \"Please find a suitable product and complete the purchase\" is an instruction, not a motive, and the label \"Efficient Buyer\" tells the participant what kind of shopper to be. The archetype is manufactured rather than elicited.",
+            "neutrality": "\"Please find a suitable product and complete the purchase\" is an explicit, not merely implied, obligation to transact — the strongest possible demand characteristic for a shopping study. There is no permission not to act; the only concession offered is on pace (\"no need to rush\"), which addresses time rather than the mandated outcome. Any non-purchase becomes a task failure in the participant's eyes.",
+            "hypothesis_leakage": "The heading \"Your Task — Efficient Buyer\" openly announces that the participant has been assigned a named behavioral archetype, a fact that must not leak. Additionally, the directive to \"complete the purchase\" signals that purchasing/conversion is the outcome the researchers care about. Two of the five withheld facts are effectively disclosed in the first line and the main instruction."
+          },
+          {
+            "replicate": 1,
+            "strongest_concern": "The visible archetype label \"Efficient Buyer\" names the assigned persona outright — the single most damaging leak — and is compounded by \"complete the purchase,\" which both signals conversion as the outcome of interest and manufactures the transactional behavior the cell is supposed to measure.",
+            "clarity": "The core instruction — \"buy an electronics accessory (for example, headphones or a charging cable)\" and \"find a suitable product and complete the purchase\" — is plainly worded and a crowdworker would know what to do next. However, the header label \"Efficient Buyer\" pulls against \"Try to work at a natural pace — no need to rush,\" creating a contradiction the participant must reconcile, and nothing tells them whether or how they may end the session if they decide not to buy.",
+            "behavioral_specificity": "The situational motive is genuinely distinct — \"an electronics accessory... You already have a rough idea of what you want\" clearly separates this cell from open-ended browsing or idle time. But the prompt then crosses from motive into instruction with \"Please find a suitable product and complete the purchase,\" mandating the very terminal behavior the cell is presumably meant to observe, and the \"Efficient Buyer\" title further prescribes a manner of shopping rather than supplying a reason for it.",
+            "neutrality": "\"Please find a suitable product and complete the purchase when you feel ready\" is an explicit obligation to transact; there is no permission not to buy, so declining reads as task failure. The archetype label \"Efficient Buyer\" adds a second demand cue about how quickly to shop, and the hedge \"no need to rush\" does not offset an imperative to purchase.",
+            "hypothesis_leakage": "The heading \"Your Task — Efficient Buyer\" directly announces that the participant has been assigned a behavioral archetype, which is withheld fact 5, and invites them to enact that label rather than behave naturally. In addition, \"complete the purchase\" signals that purchasing/conversion is the outcome the researchers care about, touching withheld fact 4."
+          },
+          {
+            "replicate": 2,
+            "strongest_concern": "The visible archetype label \"Efficient Buyer\" paired with the direct order to \"complete the purchase\" simultaneously discloses the persona assignment and the conversion outcome, converting an intended motive manipulation into an explicit behavioral instruction that will inflate purchase rates in this cell.",
+            "clarity": "The wording is short and plainly phrased — \"You need to buy an electronics accessory (for example, headphones or a charging cable)\" gives a concrete, unambiguous starting point, and \"find a suitable product and complete the purchase when you feel ready\" tells the participant exactly what to do next. The one reservation is that the prompt never indicates that the participant may end the session without buying; because the only stated endpoint is completing a purchase, a literal-minded worker could be unsure whether leaving empty-handed is permitted.",
+            "behavioral_specificity": "The situational motive (\"an electronics accessory... You already have a rough idea of what you want\") does differentiate this cell from open-ended browsing or budget constraint, but the prompt then dictates the very behavior it should be observing: \"Please find a suitable product and complete the purchase.\" Combined with the header label \"Efficient Buyer\" and the pacing instruction \"Try to work at a natural pace,\" the archetype is manufactured by instruction rather than elicited by motive.",
+            "neutrality": "\"complete the purchase\" is an explicit instruction to convert, making one course of action unambiguously the correct one and leaving no permission to abandon; the mitigating clause \"no need to rush\" softens pace but not the purchase obligation. The title \"Efficient Buyer\" adds a second demand characteristic by telling participants what kind of shopper the researcher expects them to be, which will contaminate dwell time and exploration depth as well.",
+            "hypothesis_leakage": "The header \"Your Task — Efficient Buyer\" directly announces that the participant has been assigned a behavioral archetype (withheld fact 5), and the label is even descriptive enough to hint that other participants received different labels. \"complete the purchase\" further signals that purchasing/conversion is the outcome the researchers care about (withheld fact 4), so two of the five protected facts are effectively stated on the face of the prompt."
+          },
+          {
+            "replicate": 3,
+            "strongest_concern": "The explicit archetype label 'Efficient Buyer' combined with the instruction to 'complete the purchase' simultaneously reveals persona assignment, flags conversion as the dependent measure, and coerces the behavior the cell is supposed to observe.",
+            "clarity": "The sentences are short and the task ('buy an electronics accessory (for example, headphones or a charging cable)') is immediately graspable, but the heading 'Efficient Buyer' sits in direct tension with 'Try to work at a natural pace — no need to rush', so a participant must reconcile a speed label with an anti-speed instruction. Nothing tells the participant how or whether they may end the session without buying, since the only stated endpoint is 'complete the purchase when you feel ready'.",
+            "behavioral_specificity": "The situational motive ('You already have a rough idea of what you want') does differentiate this cell from open-ended browsing or idle time, but the prompt then dictates the very behavior it should be observing: 'Please find a suitable product and complete the purchase.' Combined with the 'Efficient Buyer' label, the archetype is manufactured by instruction rather than elicited by motive.",
+            "neutrality": "'Please find a suitable product and complete the purchase' is an explicit obligation to transact, making purchase the manifestly 'correct' course of action with no permission to leave empty-handed. The hedge 'no need to rush' softens pace pressure only, not the purchase mandate, and the 'Efficient Buyer' title adds a further cue about how the researcher expects the participant to behave.",
+            "hypothesis_leakage": "The heading 'Your Task — Efficient Buyer' literally names a behavioral archetype, announcing withheld fact 5 that participants have been assigned a persona. The directive to 'complete the purchase' additionally signals that conversion is the outcome of interest (withheld fact 4)."
+          },
+          {
+            "replicate": 4,
+            "strongest_concern": "The visible archetype label 'Efficient Buyer' hands the participant their assigned persona, and the mandated 'complete the purchase' simultaneously reveals conversion as the outcome of interest — two withheld facts leaked in the first and third lines.",
+            "clarity": "The core instruction is plain enough on one reading — 'buy an electronics accessory (for example, headphones or a charging cable)' with a concrete example set — but the header 'Efficient Buyer' sits in direct tension with 'Try to work at a natural pace — no need to rush', leaving the participant unsure whether speed is being asked of them. The prompt also never states that the session may be ended at will; 'complete the purchase when you feel ready' implies the only exit is a completed transaction.",
+            "behavioral_specificity": "The situational motive ('You already have a rough idea of what you want') does differentiate this cell from open-ended browsing or idle time, but the prompt then dictates the very behavior it should be observing: 'Please find a suitable product and complete the purchase.' Combined with the label 'Efficient Buyer', the archetype is manufactured by instruction rather than elicited by motive.",
+            "neutrality": "'complete the purchase when you feel ready' is an explicit obligation to transact, with no permission not to buy; the only latitude offered is timing ('when you feel ready'), not whether. The title 'Efficient Buyer' further signals that a brisk, low-deliberation path is the 'correct' one, and the softener 'no need to rush' does not offset a mandated purchase.",
+            "hypothesis_leakage": "'Your Task — Efficient Buyer' names a behavioral archetype directly to the participant, disclosing withheld fact 5 outright. The instruction to 'complete the purchase' also signals that purchasing/conversion is the outcome being measured (withheld fact 4), inviting compliance-driven rather than natural transaction behavior."
+          }
+        ],
+        "detailedcomparator": [
+          {
+            "replicate": 0,
+            "strongest_concern": "The explicit archetype label 'Careful Researcher' in the header tells participants they have been assigned a behavioral persona, which both leaks a withheld fact and invites role-performance; combined with the prescriptive 'compare at least 3 different products', the prompt scripts the very behavior it is meant to measure.",
+            "clarity": "The language is plain and concrete — 'a kitchen appliance, a desk item, or a home accessory' gives an immediate, actionable starting point, and the sentences are short. Minor reservation: the prompt never states whether the participant may end the session at will, and 'before deciding what to buy' implies a purchase is expected before the closing sentence walks that back, which may require a second reading to reconcile.",
+            "behavioral_specificity": "The prompt substitutes explicit instructions for a motive: 'Please look at and compare at least 3 different products' and 'Read product descriptions carefully' dictate the exact comparison behavior the cell is presumably meant to observe. A quantified quota ('at least 3') manufactures the deliberative archetype rather than letting a situational motive ('you want to make a well-informed decision') produce it, so any observed comparison depth is compliance, not disposition.",
+            "neutrality": "Multiple demand characteristics stack up: an explicit exploration quota ('at least 3 different products'), an effort directive ('Read product descriptions carefully'), and a nudge toward transacting ('A purchase is welcome'). The conditional hedge 'only buy if you found something that genuinely fits your needs' partially restores permission not to act, but it does not offset the numeric browsing requirement, which makes one course of action plainly the 'correct' one.",
+            "hypothesis_leakage": "The header 'Your Task â€” Careful Researcher' directly announces a behavioral archetype label, disclosing withheld fact 5 in the first three words the participant reads. Additionally, 'A purchase is welcome' signals that buying is something the researchers are tracking, pointing at withheld fact 4."
+          },
+          {
+            "replicate": 1,
+            "strongest_concern": "The explicit archetype label \"Careful Researcher\" combined with the prescriptive quota \"compare at least 3 different products\" both announces the persona manipulation and manufactures the browsing-depth behavior the cell is meant to elicit, undermining the validity of any comparison across conditions.",
+            "clarity": "The wording is plain and immediately actionable: \"planning to buy a product for your home (for example, a kitchen appliance, a desk item, or a home accessory)\" gives concrete anchors, and the closing sentence resolves the exit question by making purchase optional (\"only buy if you found something that genuinely fits your needs\"). The one soft spot is that \"compare at least 3 different products\" sets a floor without saying what counts as comparing (opening a listing? reading the full description?), which a literal-minded worker might pause over, and no guidance is given on when the session should end.",
+            "behavioral_specificity": "The prompt does supply a differentiating motive (\"a product for your home... You want to make a well-informed decision\"), but it then dictates the very behavior the cell is supposed to reveal: \"Please look at and compare at least 3 different products before deciding what to buy. Read product descriptions carefully.\" A numeric comparison quota manufactures browsing depth rather than observing it, so any measured difference between this cell and the others reflects instruction compliance, not disposition.",
+            "neutrality": "\"Please look at and compare at least 3 different products\" is an explicit obligation to explore a set number of items, which is precisely the demand characteristic the criterion warns about, and \"A purchase is welcome\" nudges toward transacting. The hedge \"only buy if you found something that genuinely fits your needs\" partly offsets the purchase pressure, but nothing offsets the exploration quota or the instruction to \"Read product descriptions carefully,\" both of which mark a single course of action as correct.",
+            "hypothesis_leakage": "The header \"Your Task \\a persona label attached to the participant, which directly discloses withheld fact 5 (assignment to a behavioral archetype) and signals that other participants receive different labels. \"A purchase is welcome\" additionally hints that purchasing is an outcome the researchers care about (fact 4)."
+          },
+          {
+            "replicate": 2,
+            "strongest_concern": "The header literally names the assigned archetype ('Careful Researcher'), announcing to the participant that they have been cast in a behavioral role; combined with the prescriptive 'at least 3 products' quota, this both leaks the design and manufactures the dependent behavior.",
+            "clarity": "The sentences are short and plain, and a crowdworker would know exactly what to do next: browse home products, 'compare at least 3 different products', and optionally buy. The only ambiguity is the exit condition — nothing states when or how the session may be ended, and 'A purchase is welcome, but only buy if...' leaves it slightly unclear whether leaving empty-handed is a legitimate stopping point or a failure to complete the task.",
+            "behavioral_specificity": "The situational motive — 'planning to buy a product for your home' and wanting 'a well-informed decision' — does differentiate this cell from open-ended browsing or budget constraint, but the prompt then dictates the very behavior it should be measuring: 'compare at least 3 different products before deciding' and 'Read product descriptions carefully'. This manufactures the deliberative archetype by instruction rather than eliciting it from motive, so comparison depth becomes an experimenter artifact rather than an observation.",
+            "neutrality": "The numeric quota 'at least 3 different products' and the imperative 'Read product descriptions carefully' tell participants precisely how much exploration the researcher wants, and 'A purchase is welcome' applies mild pressure toward transacting. The mitigating clause 'only buy if you found something that genuinely fits your needs' is genuine permission not to act, but it cannot offset an explicit page/comparison quota that a compliant crowdworker will treat as a completion requirement.",
+            "hypothesis_leakage": "The heading 'Your Task /labthe behavioral archetype — 'Careful Researcher' — which directly announces withheld fact 5, that the participant has been assigned a persona. Additionally, 'A purchase is welcome' signals that purchasing is something the study cares about (fact 4), and the archetype label invites the inference that other participants received different archetypes, gesturing at multiple conditions."
+          },
+          {
+            "replicate": 3,
+            "strongest_concern": "The visible archetype label \"Careful Researcher\" combined with the prescriptive quota \"compare at least 3 different products\" both leaks the persona assignment and dictates the very behavior the cell is supposed to observe, making the resulting data a compliance measure rather than a disposition measure.",
+            "clarity": "The wording is plain and a crowdworker would know what to do on one reading: browse home products, \"compare at least 3 different products,\" and buy only if something fits. Minor ambiguity arises from \"before deciding what to buy,\" which presupposes a purchase, sitting slightly awkwardly against the later conditional \"only buy if you found something that genuinely fits your needs\"; nothing states how or when the session may be ended.",
+            "behavioral_specificity": "The situational motive (a considered home purchase, \"a kitchen appliance, a desk item, or a home accessory\") is present but immediately overridden by explicit action prescriptions: \"Please look at and compare at least 3 different products\" and \"Read product descriptions carefully.\" This is verbatim the failure mode described in the criterion \\u2014 it manufactures the deliberative archetype by instruction rather than eliciting it from a motive, so any observed comparison behavior is uninterpretable.",
+            "neutrality": "The prompt sets an explicit exploration quota (\"at least 3 different products\") and an effort norm (\"Read product descriptions carefully\"), both of which tell the participant exactly which behavior is wanted. \"A purchase is welcome\" applies mild pressure toward transacting, only partly offset by the conditional \"only buy if you found something that genuinely fits your needs\"; the header \"Careful Researcher\" further signals the desired self-presentation.",
+            "hypothesis_leakage": "The header \"Your Task \\u2014 Careful Researcher\" explicitly names a behavioral archetype, directly announcing withheld fact 5 that participants have been assigned a persona. \"A purchase is welcome\" additionally flags purchasing as something the researchers care about (fact 4), and the labelled-type framing invites the inference that other participants received other labels."
+          },
+          {
+            "replicate": 4,
+            "strongest_concern": "The title 'Careful Researcher' explicitly names the assigned behavioral archetype to the participant, simultaneously breaching the persona-concealment requirement and, together with the 'compare at least 3 different products' quota, converting the intended motive manipulation into an instruction-following task.",
+            "clarity": "The wording is plain and a crowdworker would know what to do on one reading: 'buy a product for your home (for example, a kitchen appliance, a desk item, or a home accessory)' with concrete examples, and 'compare at least 3 different products' is unambiguous. Minor reservations: 'A purchase is welcome, but only buy if you found something that genuinely fits your needs' leaves the exit condition implicit — the participant is not told they may simply end the session if nothing fits, and must infer that 'at least 3' is a floor they should not stop below.",
+            "behavioral_specificity": "The situational motive ('planning to buy a product for your home... You want to make a well-informed decision') is immediately overwritten by direct behavioral instructions: 'Please look at and compare at least 3 different products before deciding' and 'Read product descriptions carefully.' This manufactures the deliberative archetype by fiat rather than eliciting it, and the numeric quota makes the key dependent measure (breadth of comparison) an experimenter-supplied compliance target rather than an observation.",
+            "neutrality": "The prompt carries several demand cues: a mandated exploration count ('at least 3 different products'), an effort instruction ('Read product descriptions carefully'), and a nudge toward transacting in 'A purchase is welcome.' The hedge 'only buy if you found something that genuinely fits your needs' partially restores neutrality on the purchase decision, but it does nothing to offset the explicit page/product quota, which tells the participant exactly what the researcher counts as correct behavior.",
+            "hypothesis_leakage": "The header 'Your Task \\a behavioral archetype directly to the participant, disclosing withheld fact 5 in the very first line; the label even names the disposition ('Careful Researcher') that the cell is meant to induce. In addition, 'A purchase is welcome' foregrounds buying as something the study cares about, pointing at withheld fact 4 (purchasing/conversion as an outcome of interest)."
+          }
+        ],
+        "discounthunter": [
+          {
+            "replicate": 0,
+            "strongest_concern": "The title 'Your Task \" the persona label to the participant, which is the single most direct violation of the withheld-facts list and risks role-playing rather than natural shopping behavior; it should be removed and the deal-seeking instructions replaced with a bare situational constraint.",
+            "clarity": "The language is plain and short — 'You are shopping on a tight budget and are looking for good value' — and the exit route is unambiguous ('you may end the session without buying'), so a crowdworker would know what to do next on one reading. The only friction is 'Do not feel obligated to purchase at full price,' which introduces a slightly confusing implicature (that buying at a discount is expected, or that prices might be negotiable) not supported by anything else in the text.",
+            "behavioral_specificity": "The situational motive ('shopping on a tight budget') is present and does differentiate this cell, but the prompt then dictates the very behavior it should be measuring: 'pay attention to prices, discounts, and any special offers' is an attention instruction, and 'Only buy something if you feel it is genuinely a good deal' is an explicit purchase decision rule. This manufactures deal-seeking conduct rather than letting a budget constraint generate it, so any observed price sensitivity is compliance, not disposition.",
+            "neutrality": "There is no time or exploration pressure, and the closing sentence gives genuine permission not to act ('If nothing seems like good value, you may end the session without buying'), which is good. However, 'Only buy something if you feel it is genuinely a good deal' and 'Do not feel obligated to purchase at full price' clearly signal which purchase behavior counts as correct, and the repeated framing around buying makes the transaction the salient evaluated act rather than one option among many.",
+            "hypothesis_leakage": "The header 'Your Task \" a assigned behavioral archetype outright, directly disclosing withheld fact 5; a participant reading 'Deal Seeker' knows they have been cast in a type. The heavy emphasis on whether and how they buy ('Only buy something if...', 'without buying') additionally hints that purchase decisions are the outcome under study."
+          },
+          {
+            "replicate": 1,
+            "strongest_concern": "The persona label 'Deal Seeker' in the header directly discloses that participants have been assigned a behavioral archetype, inviting role-play performance rather than natural shopping and compromising the entire cell.",
+            "clarity": "The wording is short, plain, and actionable on a single reading: 'Browse the shop and pay attention to prices, discounts, and any special offers' tells the participant exactly what to do, and 'you may end the session without buying' removes any doubt about whether they may leave. The only soft spot is the undefined threshold in 'genuinely a good deal', which leaves the purchase decision criterion subjective, but this does not impede comprehension.",
+            "behavioral_specificity": "The situational motive is present and differentiating ('shopping on a tight budget and are looking for good value'), but the prompt then dictates the very behavior it should be observing: 'pay attention to prices, discounts, and any special offers' and 'Only buy something if you feel it is genuinely a good deal' are action instructions, not circumstances. Price-attentive browsing and deal-contingent purchasing are the dependent measures for this cell, so the prompt manufactures rather than elicits the archetype.",
+            "neutrality": "'Do not feel obligated to purchase at full price' negates only full-price buying and thereby implies that buying at a discount is the sanctioned outcome, and 'Only buy something if you feel it is genuinely a good deal' sets an explicit rule for the correct course of action. The closing 'you may end the session without buying' is genuinely neutral permission, but it is outweighed by three separate purchase-conditioning clauses that signal what the researcher considers right behavior.",
+            "hypothesis_leakage": "The header 'Your Task \\u28203\\u2014 Deal Seeker' explicitly announces an assigned behavioral archetype, which is precisely withheld fact 5, and it does so in the most prominent position in the modal. The repeated purchase conditioning ('Only buy something if...', 'without buying') further signals that whether and when the participant buys is the outcome being tracked, touching withheld fact 4."
+          },
+          {
+            "replicate": 2,
+            "strongest_concern": "The persona label 'Deal Seeker' in the heading directly announces to the participant that they have been assigned a behavioral archetype, which is one of the facts that must not leak; it also invites role-play of the label rather than genuine shopping behavior.",
+            "clarity": "The sentences are short and plain ('You are shopping on a tight budget and are looking for good value'), and the closing line 'you may end the session without buying' removes ambiguity about whether the participant may leave. The only friction is the subjective threshold 'genuinely a good deal' and the slightly odd phrase 'Do not feel obligated to purchase at full price', which could leave a participant wondering whether discounted purchases are expected of them.",
+            "behavioral_specificity": "A differentiating motive is present ('shopping on a tight budget'), but the prompt then dictates the very behavior it is meant to observe: 'Browse the shop and pay attention to prices, discounts, and any special offers' and 'Only buy something if you feel it is genuinely a good deal'. This manufactures price-sensitive browsing and a purchase-gating rule rather than letting the budget motive produce them, so the resulting behavior cannot be read as evidence of the disposition.",
+            "neutrality": "The framing 'Your Task' plus an explicit decision rule ('Only buy something if...', 'Do not feel obligated to purchase at full price') signals a correct course of action to the participant, and directing attention to 'prices, discounts, and any special offers' tells them what the researcher is watching. The permission clause 'you may end the session without buying' is genuinely neutral, but it is conditioned on 'If nothing seems like good value', which subtly frames non-purchase as needing justification.",
+            "hypothesis_leakage": "The heading 'Your Task \\— DealCes Seeker' names a behavioral archetype outright, telling the participant they have been assigned a persona label \\— exactly the withheld fact about persona assignment. The repeated purchase framing ('Only buy something...', 'end the session without buying') additionally signals that whether and when they buy is the measured outcome."
+          },
+          {
+            "replicate": 3,
+            "strongest_concern": "The explicit persona label 'Deal Seeker' in the header directly discloses that the participant has been assigned a behavioral archetype, which is one of the facts that must not leak; it should be removed and replaced with a neutral heading.",
+            "clarity": "The sentences are short and plain ('You are shopping on a tight budget and are looking for good value'), and the exit condition is stated unambiguously ('If nothing seems like good value, you may end the session without buying'). A crowdworker would know on one reading what the situation is and that leaving is permitted.",
+            "behavioral_specificity": "A distinguishing motive is present ('shopping on a tight budget'), but the prompt then dictates the very behavior it is meant to elicit: 'Browse the shop and pay attention to prices, discounts, and any special offers you come across' and 'Only buy something if you feel it is genuinely a good deal.' Price-attention and deal-contingent purchasing are exactly the dependent behaviors of a budget-constrained cell, so the archetype is manufactured by instruction rather than observed.",
+            "neutrality": "The explicit non-purchase permission ('you may end the session without buying') is genuinely neutral, but the surrounding text carries heavy demand cues: the imperative to 'pay attention to prices, discounts, and any special offers' and the reassurance 'Do not feel obligated to purchase at full price' jointly signal that scrutinising discounts and resisting full-price items is the researcher-approved course of action. The repeated framing around buying also keeps purchase salient as the evaluated outcome.",
+            "hypothesis_leakage": "The header 'Your Task \" aces the withheld fact that participants have been assigned a behavioral archetype \" a 'Deal Seeker' is a named persona label, not a situational motive. Compounding this, three of the five sentences turn on whether the participant buys ('Only buy something if...', 'Do not feel obligated to purchase at full price', 'end the session without buying'), signalling that purchase/conversion is the outcome of interest."
+          },
+          {
+            "replicate": 4,
+            "strongest_concern": "The literal archetype label in the heading ('Your Task \\u2014 Deal Seeker') tells the participant they have been cast in a behavioral role, which both discloses a withheld fact and invites role-performance rather than natural shopping.",
+            "clarity": "The language is plain and short — 'You are shopping on a tight budget and are looking for good value' — and the closing line 'you may end the session without buying' removes any doubt about whether the participant is allowed to leave. The only soft spot is the judgement-laden threshold 'Only buy something if you feel it is genuinely a good deal,' which gives no operational sense of what counts as 'genuinely,' but this would not require re-reading.",
+            "behavioral_specificity": "The situational motive ('shopping on a tight budget') is present and does distinguish this cell, but the prompt then dictates the very behavior it is meant to elicit: 'pay attention to prices, discounts, and any special offers' is an explicit attention instruction, and 'Only buy something if you feel it is genuinely a good deal' is a purchase rule. Deal-seeking behavior is thereby manufactured rather than observed, so price-comparison activity in this cell cannot be read as an emergent disposition.",
+            "neutrality": "The permission to leave ('If nothing seems like good value, you may end the session without buying') is properly neutral, but the surrounding text broadcasts the desired conduct: 'Only buy something if you feel it is genuinely a good deal' and 'Do not feel obligated to purchase at full price' jointly mark discount-hunting as the correct course and full-price buying as the wrong one. A participant reading this knows exactly what the researcher hopes to see, and the triple emphasis on the buy/not-buy decision keeps purchasing salient as the focal act.",
+            "hypothesis_leakage": "The heading 'Your Task \\, names an archetype label, which directly discloses withheld fact 5 — that the participant has been assigned a persona or behavioral archetype. Compounding this, the repeated purchase framing ('Only buy something if...', 'without buying') signals that whether and what they buy is what is being measured (withheld fact 4)."
+          }
+        ],
+        "windowshopper": [
+          {
+            "replicate": 0,
+            "strongest_concern": "The title \"Your Task â€” Casual Browser\" explicitly names the assigned behavioral archetype to the participant, leaking withheld fact 5 and simultaneously prescribing the disposition the cell is supposed to elicit naturally; it should be replaced with a neutral heading such as \"Your scenario.\"",
+            "clarity": "The language is plain and a crowdworker would know what to do: \"Explore the shop as you naturally would\" and \"end the session\" are unambiguous, and permission to leave is explicit (\"sooner if you feel you are done\"). The one snag is the internal tension between \"no pressure, no deadline\" and the immediately following \"After 8 minutes\" — a careful reader may pause to work out whether eight minutes is a floor, a ceiling, or a suggestion.",
+            "behavioral_specificity": "The supplied motive — \"You have a few free minutes and feel like browsing\" — is thin and barely distinguishable from an open-ended browsing cell; \"casual browsing\" and \"goalless free time\" are near-synonymous framings. Worse, the prompt names the behavior it wants rather than only the situation: \"Explore the shop as you naturally would during a casual browsing session\" plus the header label \"Casual Browser\" tells the participant the archetype to enact, manufacturing rather than observing it.",
+            "neutrality": "The purchase framing is handled reasonably — \"There is no requirement to buy anything, but you are welcome to if something catches your eye\" grants explicit permission not to act — though raising buying at all makes it salient as a possible outcome. The \"After 8 minutes\" anchor is a clear demand characteristic on duration: despite \"no deadline,\" it supplies a target session length participants are likely to aim for, contaminating any time-on-site or depth measure.",
+            "hypothesis_leakage": "The header \"Your Task â€” Casual Browser\" literally hands the participant a behavioral archetype label, which is precisely withheld fact 5; an attentive reader infers they have been slotted into a named shopper type and, by extension, that other types exist. The secondary hint that purchasing is of interest (\"you are welcome to if something catches your eye\") compounds this, but the archetype label alone is disqualifying."
+          },
+          {
+            "replicate": 1,
+            "strongest_concern": "The archetype label in the header, \"Your Task \\u2014 Casual Browser\", effectively tells the participant they have been cast as a behavioral type, leaking the persona-assignment fact and risking role-play rather than natural behavior; it should be replaced with a neutral heading such as \"Your Scenario\".",
+            "clarity": "The language is plain and single-reading comprehensible: \"You have a few free minutes and feel like browsing an online shop \\u2014 no pressure, no deadline\" needs no unpacking, and the exit rule (\"end the session\") is stated explicitly so the participant knows they may leave. The only ambiguity is whether \"After 8 minutes, or sooner if you feel you are done\" sets a floor, a ceiling, or a target \\u2014 a participant could reasonably read it as an obligation to remain for eight minutes before quitting.",
+            "behavioral_specificity": "The motive supplied \\u2014 \"a few free minutes\", \"no pressure, no deadline\" \\u2014 is nearly indistinguishable from the separate 'idle time with no goal' cell, so this prompt does not clearly separate open-ended browsing from aimless time-filling. It also drifts from motive into instruction with \"Explore the shop as you naturally would during a casual browsing session\" and the imposed \"After 8 minutes\" horizon, which prescribes the dwell behavior the cell is meant to observe rather than letting it emerge.",
+            "neutrality": "The purchase framing is handled well: \"There is no requirement to buy anything, but you are welcome to if something catches your eye\" is explicit permission rather than pressure. However, the stated \"8 minutes\" anchors a session length and creates an implied duration norm, and the instruction to \"Explore the shop\" signals that exploration (rather than, say, an immediate exit) is the wanted behavior.",
+            "hypothesis_leakage": "The header \"Your Task \\u2014 Casual Browser\" attaches a named behavioral type to the participant, which is close to a direct disclosure of withheld fact 5 (assignment to a persona/archetype) and invites the inference that other participants were labelled differently. The explicit reference to whether one buys (\"no requirement to buy anything\") also faintly foregrounds purchase as something being watched, though nothing points to recommendation widgets, policy conditions, or the simulation comparison."
+          },
+          {
+            "replicate": 2,
+            "strongest_concern": "The subtitle 'Casual Browser' hands the participant their assigned persona label explicitly, which is exactly the fact the design requires be withheld; it should be deleted or replaced with a neutral header such as 'Before you start'.",
+            "clarity": "The language is plain and a crowdworker would know what to do on one reading: 'Explore the shop as you naturally would' and 'end the session'. The one snag is the internal contradiction between 'no pressure, no deadline' and the very next sentence imposing 'After 8 minutes', which invites a second reading to work out whether 8 minutes is a floor, a ceiling, or a suggestion; it is also unstated how one physically 'end[s] the session'.",
+            "behavioral_specificity": "The motive supplied — 'You have a few free minutes and feel like browsing' — is almost indistinguishable from the intended idle-time/no-goal cell, so it fails to carve out a separate disposition among the five. It also edges into prescribing the behavior it should be eliciting: 'Explore the shop as you naturally would during a casual browsing session' names the target activity (exploring, casual browsing) rather than leaving a motive from which browsing would emerge.",
+            "neutrality": "The purchase framing is commendably even-handed — 'There is no requirement to buy anything, but you are welcome to' — which is explicit permission rather than pressure. However, 'After 8 minutes' installs a duration expectation that reads as the researcher's preferred session length, undercutting the earlier 'no pressure, no deadline' and creating a mild obligation to keep browsing until the clock is satisfied.",
+            "hypothesis_leakage": "The header 'Your Task — Casual Browser' assigns and names a behavioral archetype outright, directly disclosing withheld fact 5; the participant is told which shopper type they have been cast as. 'Your Task' compounds this by signalling that a role is being performed rather than a situation inhabited, and a participant who compares notes or reasons about the label would immediately infer the existence of other assigned types."
+          },
+          {
+            "replicate": 3,
+            "strongest_concern": "The archetype label \"Casual Browser\" in the header tells the participant outright that they have been cast in a named shopper role, which is precisely one of the facts that must not leak and may prompt role-playing of the label rather than natural behavior.",
+            "clarity": "The language is plain and short — \"You have a few free minutes and feel like browsing an online shop — no pressure, no deadline\" — and the exit condition is stated explicitly (\"end the session\"), so a crowdworker would know what to do and that they may leave. The only wrinkle is that \"After 8 minutes, or sooner if you feel you are done\" could read as either a minimum dwell requirement or a cap, which a careful participant might have to parse twice.",
+            "behavioral_specificity": "The motive — \"a few free minutes\", \"no pressure, no deadline\" — is a genuine situational frame rather than an action list, and it plausibly separates idle browsing from a targeted-need cell. But it is thin and highly confusable with a general open-ended-browsing cell, and \"Explore the shop as you naturally would during a casual browsing session\" edges from motive into instruction by naming the browsing mode the researcher wants to observe.",
+            "neutrality": "The purchase framing is well balanced — \"There is no requirement to buy anything, but you are welcome to if something catches your eye\" is explicit permission not to act. However, \"After 8 minutes\" plants a concrete duration anchor that signals how long the researcher expects browsing to last, and the header \"Your Task\" converts free browsing into an assignment to be performed, both of which are demand cues on the time dimension.",
+            "hypothesis_leakage": "The header \"Your Task — Casual Browser\" applies an explicit behavioral archetype label to the participant, which directly discloses withheld fact 5 (assignment to a persona) and invites the inference that other participants received other labels, edging toward fact 2. The clause \"no requirement to buy anything, but you are welcome to if something catches your eye\" also foregrounds purchasing as a salient dimension, giving a mild hint toward fact 4."
+          },
+          {
+            "replicate": 4,
+            "strongest_concern": "The visible archetype label \"Casual Browser\" in the heading explicitly tells the participant they have been assigned a behavioral type, directly leaking withheld fact 5 and inviting role-play rather than natural behavior; it should be replaced with a neutral heading such as \"Your Task\".",
+            "clarity": "The language is plain and short — \"You have a few free minutes and feel like browsing an online shop\" and \"There is no requirement to buy anything\" are unambiguous on a single reading, and the exit instruction (\"end the session\") tells the participant exactly what to do to finish. The one wobble is \"After 8 minutes, or sooner if you feel you are done\", which conflates a target duration with a permission to leave early and could be read either as a floor (stay until 8) or a ceiling (stop by 8).",
+            "behavioral_specificity": "The motive supplied — \"a few free minutes\", \"no pressure, no deadline\" — is essentially the same construct as the intended 'idle time with no goal' cell, so it does little to separate open-ended browsing from aimless time-filling; nothing in the wording gives this participant any distinguishing interest, curiosity, or occasion. It also edges into prescription with \"Explore the shop as you naturally would during a casual browsing session\", which names the behavior (casual browsing) rather than supplying a situation from which casual browsing would follow.",
+            "neutrality": "The disclaimer \"There is no requirement to buy anything\" is genuinely neutral, but pairing it with \"you are welcome to if something catches your eye\" makes purchase a salient, sanctioned option and subtly frames buying as the noteworthy alternative. The stated \"After 8 minutes\" also imposes an expected session length, which is a demand characteristic on dwell time even though early exit is permitted.",
+            "hypothesis_leakage": "The heading \"Your Task — Casual Browser\" directly announces an assigned behavioral archetype, which is exactly withheld fact 5; a participant reading a persona label on their instructions can infer they were slotted into a type and that others were slotted into different ones. The explicit reference to buying (\"no requirement to buy anything, but you are welcome to\") additionally hints that purchase behavior is being watched."
+          }
+        ]
+      },
+      "fairness_notes": [
+        {
+          "replicate": 0,
+          "presentation_order": [
+            "fastbuyer",
+            "windowshopper",
+            "discounthunter",
+            "detailedcomparator",
+            "explorer"
+          ],
+          "least_comparable_cell": "cell-4",
+          "justification": "The set is roughly matched in length and register, but demand structure is systematically unequal in ways that directly touch the likely dependent measures. Cell-4 alone imposes a numeric behavioral quota (\"compare at least 3 different products\") plus an extra instruction (\"Read product descriptions carefully\"), while cell-2 alone imposes an external stopping rule (\"After 8 minutes, or sooner if you feel you are done, end the session\") that contradicts cell-5's \"free to spend as much or as little time browsing as you like\" — so depth and dwell time are partly instructed rather than motivated. Purchase pressure is also uncalibrated: cell-1 effectively mandates it (\"complete the purchase when you feel ready\"), cell-5 instructs it (\"buy something that you think would make a nice gift\"), whereas cell-2 states \"There is no requirement to buy anything\" and cell-3 says \"you may end the session without buying\", so conversion differences would be confounded with instruction strength. Cell-1 is additionally the shortest and gives no browsing guidance at all, unlike the other four."
+        },
+        {
+          "replicate": 1,
+          "presentation_order": [
+            "detailedcomparator",
+            "discounthunter",
+            "explorer",
+            "fastbuyer",
+            "windowshopper"
+          ],
+          "least_comparable_cell": "cell-4",
+          "justification": "The set is roughly matched in register and reading level, but purchase permission is systematically unequal: cell-4 mandates completion (\"find a suitable product and complete the purchase\"), cell-1/cell-3 permit conditionally (\"A purchase is welcome, but only buy if...\"), cell-2 discourages full-price buying (\"you may end the session without buying\"), and cell-5 states \"There is no requirement to buy anything\" — an asymmetry that pre-determines conversion and funnel depth rather than letting the situational motive drive it. Session length is also unequally constrained: only cell-5 imposes a clock (\"After 8 minutes\"), while cell-3 says \"as much or as little time... as you like\" and cell-4 says \"no need to rush\", so dwell-time comparisons are confounded by instruction. Prescriptiveness is likewise uneven — cell-1 sets a countable quota (\"compare at least 3 different products\", \"Read product descriptions carefully\") whereas cell-4 is the shortest and vaguest at roughly two-thirds the word count, and the explicit archetype headers (\"Careful Researcher\", \"Deal Seeker\") vary in how flattering/demanding they sound.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+        },
+        {
+          "replicate": 2,
+          "presentation_order": [
+            "windowshopper",
+            "explorer",
+            "discounthunter",
+            "detailedcomparator",
+            "fastbuyer"
+          ],
+          "least_comparable_cell": "cell-1",
+          "justification": "Length and register are roughly matched (~40–60 words, same 'Your Task —' header and polite imperative voice), but three substantive asymmetries would confound the very outcomes at issue. Only cell-1 imposes a duration anchor ('After 8 minutes, or sooner if you feel you are done, end the session'), while cells 2 and 5 explicitly de-anchor time ('as much or as little time', 'no need to rush') and cells 3–4 say nothing — so any dwell-time or session-length difference is partly an artifact of instruction, not disposition. Only cell-4 imposes a quantified compliance demand ('compare at least 3 different products', 'Read product descriptions carefully'), which mechanically inflates browsing depth relative to the other four; and purchase pressure is graded rather than matched, running from a direct order ('buy something that you think would make a nice gift'; 'complete the purchase when you feel ready') through permissive ('A purchase is welcome') to actively discouraging ('you may end the session without buying', 'Do not feel obligated to purchase at full price'). The uniform archetype labels ('Deal Seeker', 'Efficient Buyer') are at least symmetric, but cell-5 is also the thinnest at roughly 40 words with no engagement hook comparable to 'if something catches your eye'.\n"
+        },
+        {
+          "replicate": 3,
+          "presentation_order": [
+            "windowshopper",
+            "explorer",
+            "detailedcomparator",
+            "fastbuyer",
+            "discounthunter"
+          ],
+          "least_comparable_cell": "cell-1",
+          "justification": "The set is roughly matched on register and reading level (all use a \"Your Task \\u2014 [Label]\" header and polite \"Please...\" imperatives), but it is badly unmatched on task demand and on the very behaviors likely to be measured. Only cell-1 supplies a duration anchor (\"After 8 minutes, or sooner if you feel you are done, end the session\"), while cell-2 says \"spend as much or as little time as you like\" and cell-4 only \"work at a natural pace\" \\u2014 so session length differences will partly reflect the instruction, not the motive. Purchase pressure is likewise unequal and explicit: cell-4 instructs \"complete the purchase when you feel ready\" and cell-2 \"buy something that you think would make a nice gift\", whereas cell-1 (\"no requirement to buy anything\") and cell-5 (\"you may end the session without buying\") hand participants an exit; cell-3 additionally imposes a compliance quota (\"compare at least 3 different products\", \"Read product descriptions carefully\") that mechanically inflates funnel depth and page dwell relative to cell-4's leaner three-sentence instruction. Length is also uneven (cell-4 is noticeably the shortest and least prescriptive), and the persona headers themselves vary in how strongly they typecast effort (\"Careful Researcher\" vs. \"Casual Browser\").-1"
+        },
+        {
+          "replicate": 4,
+          "presentation_order": [
+            "windowshopper",
+            "fastbuyer",
+            "discounthunter",
+            "detailedcomparator",
+            "explorer"
+          ],
+          "least_comparable_cell": "cell-1",
+          "justification": "The set is roughly matched in length (~45–65 words) and register, but motivational intensity and prescriptiveness are systematically unequal. Cell 2 issues an unconditional directive — \"find a suitable product and complete the purchase\" — while cells 1, 3, 4 and 5 all attach conditions or outs (\"There is no requirement to buy anything\", \"Only buy something if you feel it is genuinely a good deal\", \"only buy if you found something that genuinely fits your needs\", \"only buy if you find something you actually like\"), so any conversion difference could be a pure demand artefact. Cell 4 uniquely imposes a countable task load (\"compare at least 3 different products\", \"Read product descriptions carefully\"), and cell 1 uniquely imposes a session ceiling (\"After 8 minutes ... end the session\") that directly contradicts cell 5's \"free to spend as much or as little time browsing as you like\" — making exposure time, and hence funnel depth, incomparable across cells by construction rather than by motive."
+        }
+      ]
+    },
+    {
+      "revision": "working",
+      "prompt_sha256": {
+        "explorer": "e45a0def8c86b980f28a8e4dda68a395b10d62889c0bcada937265ce8a558e2e",
+        "fastbuyer": "e1189cee0cc54c21473061ec6234fd994d32efa0729b2ce0554a850e04266159",
+        "detailedcomparator": "6ff75714e313aac4053752e2e07db7b789ca9d2e060ff245835fe04379c4f628",
+        "discounthunter": "ed56d5b61eee5d6a9e9aeb04971bfce5aa62347718976fd95b2a828b68878107",
+        "windowshopper": "a476202b552266a5fa21fa2fb1df8d387782735b31261567e24e2f86e80eda0c"
+      },
+      "prompts": {
+        "explorer": "Testing a new online shop\n\nA friend's birthday is coming up and you have not thought about a present yet. Have a look around and see what the shop has to offer. If a product appeals to you, you are welcome to “buy” it — no real money is involved and no real order is placed.\n\nThere is nothing you have to find or do. When you feel you have explored the shop enough, end the session.",
+        "fastbuyer": "Testing a new online shop\n\nYour headphones broke last week, so an electronics accessory has been on your list. Have a look around and see what the shop has to offer. If a product appeals to you, you are welcome to “buy” it — no real money is involved and no real order is placed.\n\nThere is nothing you have to find or do. When you feel you have explored the shop enough, end the session.",
+        "detailedcomparator": "Testing a new online shop\n\nSomething for your home has been on your mind lately — a kitchen gadget, a desk item, that sort of thing. Have a look around and see what the shop has to offer. If a product appeals to you, you are welcome to “buy” it — no real money is involved and no real order is placed.\n\nThere is nothing you have to find or do. When you feel you have explored the shop enough, end the session.",
+        "discounthunter": "Testing a new online shop\n\nMoney is a little tight this month. Have a look around and see what the shop has to offer. If a product appeals to you, you are welcome to “buy” it — no real money is involved and no real order is placed.\n\nThere is nothing you have to find or do. When you feel you have explored the shop enough, end the session.",
+        "windowshopper": "Testing a new online shop\n\nYou have a few free minutes and nothing in particular in mind. Have a look around and see what the shop has to offer. If a product appeals to you, you are welcome to “buy” it — no real money is involved and no real order is placed.\n\nThere is nothing you have to find or do. When you feel you have explored the shop enough, end the session."
+      },
+      "per_persona": {
+        "explorer": {
+          "clarity": {
+            "mean": 4.4,
+            "sd": 0.548,
+            "min": 4,
+            "max": 5,
+            "n": 5,
+            "raw": [
+              4,
+              4,
+              5,
+              4,
+              5
+            ]
+          },
+          "behavioral_specificity": {
+            "mean": 3.0,
+            "sd": 0.0,
+            "min": 3,
+            "max": 3,
+            "n": 5,
+            "raw": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ]
+          },
+          "neutrality": {
+            "mean": 3.6,
+            "sd": 0.548,
+            "min": 3,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              4,
+              4,
+              3,
+              3,
+              4
+            ]
+          },
+          "hypothesis_leakage": {
+            "mean": 3.8,
+            "sd": 0.447,
+            "min": 3,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              4,
+              4,
+              3,
+              4,
+              4
+            ]
+          }
+        },
+        "fastbuyer": {
+          "clarity": {
+            "mean": 4.0,
+            "sd": 0.0,
+            "min": 4,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          "behavioral_specificity": {
+            "mean": 3.6,
+            "sd": 0.548,
+            "min": 3,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              4,
+              4,
+              3,
+              3,
+              4
+            ]
+          },
+          "neutrality": {
+            "mean": 3.6,
+            "sd": 0.548,
+            "min": 3,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              3,
+              4,
+              3,
+              4,
+              4
+            ]
+          },
+          "hypothesis_leakage": {
+            "mean": 3.4,
+            "sd": 0.548,
+            "min": 3,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              3,
+              4,
+              3,
+              4,
+              3
+            ]
+          }
+        },
+        "detailedcomparator": {
+          "clarity": {
+            "mean": 4.0,
+            "sd": 0.0,
+            "min": 4,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          "behavioral_specificity": {
+            "mean": 2.4,
+            "sd": 0.548,
+            "min": 2,
+            "max": 3,
+            "n": 5,
+            "raw": [
+              3,
+              2,
+              2,
+              2,
+              3
+            ]
+          },
+          "neutrality": {
+            "mean": 4.0,
+            "sd": 0.0,
+            "min": 4,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          "hypothesis_leakage": {
+            "mean": 4.0,
+            "sd": 0.0,
+            "min": 4,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ]
+          }
+        },
+        "discounthunter": {
+          "clarity": {
+            "mean": 4.0,
+            "sd": 0.0,
+            "min": 4,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          "behavioral_specificity": {
+            "mean": 3.4,
+            "sd": 0.548,
+            "min": 3,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              3,
+              3,
+              4,
+              3,
+              4
+            ]
+          },
+          "neutrality": {
+            "mean": 4.0,
+            "sd": 0.0,
+            "min": 4,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          "hypothesis_leakage": {
+            "mean": 3.2,
+            "sd": 0.837,
+            "min": 2,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              4,
+              4,
+              3,
+              2,
+              3
+            ]
+          }
+        },
+        "windowshopper": {
+          "clarity": {
+            "mean": 4.4,
+            "sd": 0.548,
+            "min": 4,
+            "max": 5,
+            "n": 5,
+            "raw": [
+              5,
+              4,
+              4,
+              4,
+              5
+            ]
+          },
+          "behavioral_specificity": {
+            "mean": 2.8,
+            "sd": 0.837,
+            "min": 2,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              4,
+              3,
+              3,
+              2,
+              2
+            ]
+          },
+          "neutrality": {
+            "mean": 3.6,
+            "sd": 0.548,
+            "min": 3,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              3,
+              4,
+              4,
+              4,
+              3
+            ]
+          },
+          "hypothesis_leakage": {
+            "mean": 3.8,
+            "sd": 0.447,
+            "min": 3,
+            "max": 4,
+            "n": 5,
+            "raw": [
+              3,
+              4,
+              4,
+              4,
+              4
+            ]
+          }
+        }
+      },
+      "cross_cell_fairness": {
+        "mean": 3.2,
+        "sd": 0.447,
+        "min": 3,
+        "max": 4,
+        "n": 5,
+        "raw": [
+          3,
+          4,
+          3,
+          3,
+          3
+        ]
+      },
+      "justifications": {
+        "explorer": [
+          {
+            "replicate": 0,
+            "strongest_concern": "The sentence \"There is nothing you have to find or do\" contradicts and largely neutralises the birthday-gift motive that is this cell's only differentiator, risking convergence with the intended no-goal/idle condition.",
+            "clarity": "The wording is plain and short, the fictional-purchase mechanic is unambiguous (\"no real money is involved and no real order is placed\"), and the exit route is explicit (\"When you feel you have explored the shop enough, end the session\"). The one snag is the internal tension between being given an errand (\"A friend's birthday is coming up and you have not thought about a present yet\") and being told \"There is nothing you have to find or do\" — an attentive reader may pause to work out whether the gift is actually the task.",
+            "behavioral_specificity": "The gift-for-a-friend framing supplies a genuine motive rather than an instruction, and it plausibly separates this cell from an electronics need or a budget constraint. But the follow-up sentence \"There is nothing you have to find or do\" actively cancels the goal it just installed, pushing this cell toward the idle/no-goal cell it is supposed to be distinguished from. \"Have a look around and see what the shop has to offer\" also edges from motive toward a mild browsing directive, and no recipient, occasion budget, or taste cue is supplied to anchor the search.",
+            "neutrality": "The permission framing is well handled — \"If a product appeals to you, you are welcome to 'buy' it\" and \"There is nothing you have to find or do\" both licence inaction. Residual pressure comes from foregrounding the purchase affordance at all, reinforced by the stakes-removing \"no real money is involved,\" and from \"when you feel you have explored the shop enough,\" which implies some unspecified quantum of exploration is expected before leaving.",
+            "hypothesis_leakage": "Nothing in the text mentions recommendations, conditions, comparison against a model, or archetypes; \"Testing a new online shop\" reveals only the study framing participants already know. The mild exposure is that a whole sentence is devoted to the mock-purchase mechanic (\"you are welcome to 'buy' it\"), which could suggest to a careful reader that whether they buy is being watched."
+          },
+          {
+            "replicate": 1,
+            "strongest_concern": "The gift motive is undercut within the same prompt: \"Testing a new online shop\" plus \"There is nothing you have to find or do\" recast the session as goal-free site evaluation, risking convergence with the idle-time cell and weakening between-condition differentiation.",
+            "clarity": "The sentences are short and plain, and the exit rule is unambiguous — \"When you feel you have explored the shop enough, end the session\" tells the participant they may leave at will. The only friction is the header \"Testing a new online shop\", which casts the participant as a product tester and sits oddly against the shopper role described immediately below; a careful reader might briefly wonder whether they are meant to evaluate the site or to shop on it.",
+            "behavioral_specificity": "The motive — \"A friend's birthday is coming up and you have not thought about a present yet\" — is a genuine situational motive rather than an action instruction, and it plausibly separates gift-browsing from an electronics need or a tight budget. But the prompt then dismantles it: \"There is nothing you have to find or do\" directly negates the gift errand, and \"Testing a new online shop\" reframes the session as site evaluation, so the induced disposition may collapse toward generic clicking that is indistinguishable from the idle-time cell. \"Have a look around and see what the shop has to offer\" is mildly directive but stays generic enough not to prescribe measurable behavior.",
+            "neutrality": "Purchase is offered as permission, not obligation — \"If a product appeals to you, you are welcome to 'buy' it\" — and \"There is nothing you have to find or do\" is an explicit release from performance. Residual pull comes from \"see what the shop has to offer\" and \"explored the shop enough\", which together imply that some quantity of exploration is the expected default and could inflate browsing depth beyond what the motive alone would produce.",
+            "hypothesis_leakage": "Nothing points to adaptive widgets, two policy conditions, a behavioral simulation, or an assigned archetype; the birthday framing reads as an ordinary cover story rather than a persona label. The mild exposure is that the scare-quoted \"buy\" plus \"no real money is involved and no real order is placed\" foregrounds the purchase action as the notable affordance, which an attentive participant could read as a hint that whether they buy is being watched."
+          },
+          {
+            "replicate": 2,
+            "strongest_concern": "The sentence \"There is nothing you have to find or do\" cancels the birthday-gift motive the prompt just supplied, collapsing the distinction between this cell and the intended idle/no-goal cell and weakening the manipulation's discriminant validity.",
+            "clarity": "The wording is short, concrete, and uses everyday language: \"A friend's birthday is coming up and you have not thought about a present yet\" needs no interpretation, and \"When you feel you have explored the shop enough, end the session\" removes any doubt about whether and how the participant may leave. The scare-quoted \"\\u201cbuy\\u201d it \\u2014 no real money is involved and no real order is placed\" pre-empts the most likely point of confusion. Nothing here would require a second reading.",
+            "behavioral_specificity": "The gift-occasion framing (\"A friend's birthday is coming up\") does supply a motive rather than an instruction, and it plausibly separates this cell from the electronics-need and budget cells. However, the very next paragraph, \"There is nothing you have to find or do,\" largely dissolves the motive it just established, pushing this cell toward the idle-time-with-no-goal condition and blurring the intended contrast. \"Have a look around and see what the shop has to offer\" also edges from motive into a light behavioral directive to browse.",
+            "neutrality": "The purchase framing is properly permissive (\"If a product appeals to you, you are welcome to \\u201cbuy\\u201d it\"), and \"There is nothing you have to find or do\" is explicit permission not to act. But the header \"Testing a new online shop\" recruits the participant as a product tester, a role that carries an implicit obligation to be thorough, and \"when you feel you have explored the shop enough\" presupposes exploration as the expected activity and implies a sufficiency threshold to be met. These are mild but real cues toward extended browsing.",
+            "hypothesis_leakage": "Nothing points to recommendation widgets, two policy conditions, a behavioral simulation, or a persona assignment. However, the prompt gives the buy action unusual prominence \\u2014 an entire sentence devoted to \"you are welcome to \\u201cbuy\\u201d it \\u2014 no real money is involved and no real order is placed\" \\u2014 which flags purchase as the salient measured act and nudges toward withheld fact 4 (conversion as an outcome of interest). The tester framing \"Testing a new online shop\" also invites speculation about what exactly is being tested."
+          },
+          {
+            "replicate": 3,
+            "strongest_concern": "The sentence \"There is nothing you have to find or do\" directly undercuts the birthday-present motive the prompt has just established, weakening the intended disposition and risking overlap with the idle-browsing cell.",
+            "clarity": "Sentences are short and plain, the fictional nature is stated (\"no real money is involved and no real order is placed\"), and the exit route is explicit (\"When you feel you have explored the shop enough, end the session\"). The one snag is the apparent contradiction between being told a friend's birthday present has not been thought about and then \"There is nothing you have to find or do,\" which may make a careful reader pause to reconcile the two.",
+            "behavioral_specificity": "The gift-for-a-friend's-birthday framing does supply a situational motive rather than an action script, and it is not obviously interchangeable with an electronics need or a budget squeeze. However, \"There is nothing you have to find or do\" actively cancels the motive it just installed, and \"Have a look around and see what the shop has to offer\" is generic enough that the resulting disposition risks collapsing into the idle-time-no-goal cell it is supposed to be distinguished from.",
+            "neutrality": "\"If a product appeals to you, you are welcome to \\u201cbuy\\u201d it\" is phrased as permission, and \"There is nothing you have to find or do\" is a genuine release from obligation. But the prompt still combines a mild deadline cue (\"a birthday is coming up and you have not thought about a present yet\") with an explicit purchase affordance, and \"when you feel you have explored the shop enough\" presupposes that some quantity of exploration is expected, which together tilt toward browsing-then-buying as the sanctioned course.",
+            "hypothesis_leakage": "Nothing in \"Testing a new online shop\" hints at adaptive widgets, two policy conditions, a behavioral simulation, or an assigned archetype; the second-person scenario reads as ordinary framing rather than persona assignment. The only residual signal is that the prompt bothers to explain the purchase mechanism in quotes (\"you are welcome to \\u201cbuy\\u201d it\"), which could suggest to an attentive reader that whether they buy is being watched."
+          },
+          {
+            "replicate": 4,
+            "strongest_concern": "The sentence \"There is nothing you have to find or do\" contradicts the birthday-gift motive established one line earlier, diluting the intended disposition and blurring this cell with the idle/no-goal condition.",
+            "clarity": "Every sentence is short and plain: \"A friend's birthday is coming up and you have not thought about a present yet\" and \"When you feel you have explored the shop enough, end the session\" leave no doubt about the situation or how to exit. The parenthetical reassurance \"no real money is involved and no real order is placed\" pre-empts the most likely source of confusion, and nothing here would require a second reading.",
+            "behavioral_specificity": "The gift-for-a-friend framing is a genuine motive rather than an instruction, and \"you have not thought about a present yet\" plausibly supports undirected browsing. However, \"There is nothing you have to find or do\" actively cancels the goal just supplied, and \"Have a look around and see what the shop has to offer\" is category-free, so the cell collapses toward the idle/no-goal condition it is supposed to be distinguished from. The motive is present but immediately diluted, weakening separation between cells.",
+            "neutrality": "\"There is nothing you have to find or do\" is a clean explicit release from obligation, and the purchase invitation is properly conditional (\"If a product appeals to you\"). Two minor cues remain: naming the buy affordance at all foregrounds purchasing as the salient action, and \"when you feel you have explored the shop enough\" implies an unspecified sufficiency threshold the participant must reach before leaving.",
+            "hypothesis_leakage": "Nothing in the wording alludes to varying recommendation widgets, multiple conditions, a simulation comparison, or an assigned archetype; \"Testing a new online shop\" reads as ordinary usability framing. The one mild exposure is that \"you are welcome to \\u201cbuy\\u201d it\" plus the reassurance about \"no real order\" makes the purchase act conspicuous enough that an attentive participant could guess buying behaviour is being recorded."
+          }
+        ],
+        "fastbuyer": [
+          {
+            "replicate": 0,
+            "strongest_concern": "The concrete need (\"headphones broke\") is immediately diluted by the vaguer \"an electronics accessory\" and the generic invitation to \"have a look around and see what the shop has to offer\", which risks collapsing this cell's distinct motive into the open-ended browsing cell.",
+            "clarity": "The prompt is short, plainly worded, and the exit condition is explicit (\"When you feel you have explored the shop enough, end the session\"), so a crowdworker knows they may leave at will. The only friction is the slide from a concrete event (\"Your headphones broke last week\") to the vaguer category \"an electronics accessory has been on your list\", which may make a reader pause over whether they are meant to look for headphones specifically or any accessory.",
+            "behavioral_specificity": "The situational motive is genuinely distinct \\u2014 a triggering event (\"Your headphones broke last week\") supplies a specific electronics need without telling the participant to search, compare, or purchase anything. However, \"Have a look around and see what the shop has to offer\" is generic browse framing that pulls this cell toward the open-ended browsing condition, and generalising the need to \"an electronics accessory\" further blunts the intended focus.",
+            "neutrality": "\"There is nothing you have to find or do\" is a strong neutrality safeguard, but it sits alongside two mild pressures: pairing a stated unmet need with \"If a product appeals to you, you are welcome to \\u2018buy\\u2019 it\" makes purchase the salient resolution of the scenario, and \"when you feel you have explored the shop enough\" implies a sufficiency threshold the participant must reach before leaving. Neither is coercive, but together they tilt the reading toward browse-then-buy.",
+            "hypothesis_leakage": "Nothing points to adaptive widgets, multiple conditions, or a simulation comparison, but the double disclaimer around purchasing (\"you are welcome to \\u2018buy\\u2019 it \\u2014 no real money is involved and no real order is placed\") foregrounds the buy action as the notable thing on offer, which an attentive participant could read as a signal that purchasing is what is being measured. The supplied backstory also makes it evident a role has been assigned, though not that it is one of several archetypes."
+          },
+          {
+            "replicate": 1,
+            "strongest_concern": "The motive is diluted by broadening \"Your headphones broke\" into \"an electronics accessory has been on your list\" and then inviting general looking around, which blurs this cell's specific-need disposition toward the open-ended browsing cell it is supposed to be distinguished from.",
+            "clarity": "The language is plain and the exit condition is explicit (\"When you feel you have explored the shop enough, end the session\"), so a crowdworker would know they may leave whenever they wish. The one snag is the slide from a concrete event (\"Your headphones broke last week\") to a broader category (\"an electronics accessory has been on your list\"), which may make a reader pause over whether they are meant to replace headphones specifically or shop for any accessory. Also, \"on your list\" is an idiom that assumes a shopping-list mental model not otherwise established.",
+            "behavioral_specificity": "The prompt supplies a genuine situational motive (a broken item creating a replacement need) rather than an action instruction, and \"There is nothing you have to find or do\" actively blocks task-following. However, the generalisation to \"an electronics accessory\" plus the open invitation to \"Have a look around and see what the shop has to offer\" softens the targeted need into something close to undirected browsing, eroding the separation from the open-ended browsing cell.",
+            "neutrality": "Purchase is offered conditionally and permissively (\"If a product appeals to you, you are welcome to 'buy' it\"), and the release clause \"There is nothing you have to find or do\" removes task pressure. Mild residual demand comes from \"when you feel you have explored the shop enough,\" which presupposes that some quantum of exploration is expected before leaving, and from devoting a full sentence to the buying option, which raises purchase salience.",
+            "hypothesis_leakage": "Nothing points to adaptive widgets, multiple conditions, or a simulation comparison, and the title \"Testing a new online shop\" is uninformative in the right way. The main residual cue is the dedicated sentence about buying plus the reassurance that \"no real money is involved and no real order is placed,\" which could suggest to an attentive reader that whether they purchase is being recorded; the assigned backstory (\"Your headphones broke last week\") also makes it evident a role has been supplied, though not that it is one of several archetypes."
+          },
+          {
+            "replicate": 2,
+            "strongest_concern": "The two closing framings \\u2014 \"Have a look around and see what the shop has to offer\" and \"There is nothing you have to find or do\" \\u2014 neutralise the very motive the cell exists to induce, making this condition behaviorally hard to separate from an open-ended browsing or idle-time cell.",
+            "clarity": "The sentences are short and the exit condition is explicit (\"When you feel you have explored the shop enough, end the session\"), so a crowdworker would know what to do and that leaving is permitted. Two small frictions remain: \"an electronics accessory has been on your list\" introduces an undefined \"list\" and generalises away from the concrete trigger (broken headphones), leaving the participant momentarily unsure whether they are meant to replace headphones or shop for accessories generally; and the header \"Testing a new online shop\" invites a usability-tester reading that sits awkwardly beside the personal-need role-play.",
+            "behavioral_specificity": "The motive is genuinely specific and non-prescriptive (\"Your headphones broke last week\"), which differentiates it from the budget and idle cells. However, the follow-up sentences actively dilute it: \"Have a look around and see what the shop has to offer\" is generic browse framing indistinguishable from an open-ended-browsing cell, and \"There is nothing you have to find or do\" directly contradicts the just-established need, telling the participant the errand can be dropped. The cell's distinctiveness is thus undercut by its own wording.",
+            "neutrality": "\"There is nothing you have to find or do\" is properly permissive, but the purchase affordance is given unusual salience: \"If a product appeals to you, you are welcome to \\u201cbuy\\u201d it \\u2014 no real money is involved and no real order is placed\" pairs an invitation with an explicit removal of cost, which reads as a nudge toward transacting for a participant already told they need an accessory. \"When you feel you have explored the shop enough\" also implies a normative amount of exploration the participant must reach before leaving.",
+            "hypothesis_leakage": "Nothing points to adaptive widgets, conditions, a simulation, or persona assignment. But the prompt foregrounds the transaction more than necessary \\u2014 \"you are welcome to \\u201cbuy\\u201d it\", \"no real money is involved and no real order is placed\" \\u2014 which signals to an attentive reader that whether and what they buy is what the researchers are watching (withheld fact 4). The quoted \"buy\" further marks it as the notable, instrumented action."
+          },
+          {
+            "replicate": 3,
+            "strongest_concern": "The generic instruction \"Have a look around and see what the shop has to offer\" dilutes the specific-need motive it follows, risking convergence with the open-ended browsing cell and undermining the within-subjects contrast this prompt is supposed to create.",
+            "clarity": "The language is plain and the exit condition is explicit (\"When you feel you have explored the shop enough, end the session\"), and the disclaimer \"no real money is involved and no real order is placed\" removes the main source of participant anxiety. The only friction is the slight mismatch between \"Your headphones broke last week\" and the vaguer \"an electronics accessory has been on your list\" — a participant may pause to decide whether they are meant to replace the headphones or buy some unrelated accessory, and \"on your list\" is an unexplained referent.",
+            "behavioral_specificity": "The motive is genuinely situational (\"Your headphones broke last week\") and would in principle separate this cell from open-ended browsing, but the very next sentence, \"Have a look around and see what the shop has to offer,\" is a diffuse browsing directive that pulls the participant back toward exactly the undirected exploration the open-ended cell is presumably meant to capture. The need is also under-specified as \"an electronics accessory\" rather than a concrete replacement target, so the differentiating force of the motive is weakened from both sides — vaguer than it should be, and partially overwritten by a generic instruction.",
+            "neutrality": "Purchase is offered conditionally and permissively (\"If a product appeals to you, you are welcome to 'buy' it\"), and \"There is nothing you have to find or do\" is a clean release from task pressure. The residual pull is in \"when you feel you have explored the shop enough\", which presupposes exploration as the activity being performed and mildly implies a threshold of browsing the participant should reach before leaving; combined with \"has been on your list\" it lightly frames acquisition as the natural endpoint.",
+            "hypothesis_leakage": "Nothing references recommendation widgets, alternative conditions, comparison to a simulation, or funnel metrics; \"Testing a new online shop\" is a bland cover story. The minor exposure is that the supplied backstory (\"Your headphones broke last week\") is transparently a scenario handed to the participant rather than their own circumstance, which an attentive crowdworker could read as having been assigned a shopper role, and the explicit scare-quoted \"buy\" foregrounds purchase as a salient event."
+          },
+          {
+            "replicate": 4,
+            "strongest_concern": "The fabricated personal backstory (\"Your headphones broke last week, so an electronics accessory has been on your list\") transparently signals that the participant has been assigned a role, which is one of the facts that must not leak and may also prompt role-playing rather than natural shopping behavior.",
+            "clarity": "Sentences are short and plain, and the exit rule is explicit (\"When you feel you have explored the shop enough, end the session\"), so a crowdworker knows they may leave at will. The one wobble is the mismatch between \"Your headphones broke\" and \"an electronics accessory has been on your list\" — a participant may pause over whether they are meant to look for replacement headphones specifically or any accessory, and \"on your list\" is an unexplained shorthand.}_placeholder\": null}",
+            "behavioral_specificity": "The motive is concrete and clearly separates this cell from open-ended browsing or idle time: a triggering event (\"Your headphones broke last week\") plus a product category. No action is dictated — no instruction to search, compare, or purchase, only the conditional \"If a product appeals to you, you are welcome to 'buy' it.\" The soft steer \"Have a look around and see what the shop has to offer\" pulls slightly toward diffuse browsing and partly blunts the targeted-need character of this cell.",
+            "neutrality": "Purchase is framed as permitted, not expected (\"you are welcome to\", conditional on \"If a product appeals to you\"), and the explicit release \"There is nothing you have to find or do\" is genuine permission not to act. Mild residual demand cues remain: \"Have a look around\" is a soft instruction to explore, and \"when you feel you have explored the shop enough\" presupposes that exploring is the activity being measured and hints at some unstated sufficiency threshold of time or coverage.",
+            "hypothesis_leakage": "Nothing points to recommendation widgets, two policies, or a simulation comparison. However, the prompt asserts a backstory that is false for most readers (\"Your headphones broke last week\"), which makes it plain the participant has been handed an assigned scenario rather than acting as themselves — a direct route to inferring withheld fact 5. Highlighting the buy affordance with scare-quoted \"buy\" also nudges attention toward purchasing as the thing being watched (fact 4), even though it is hedged."
+          }
+        ],
+        "detailedcomparator": [
+          {
+            "replicate": 0,
+            "strongest_concern": "The intended \"considered home purchase\" motive is undercut by trivial examples (\"a kitchen gadget, a desk item\") and by browse-style framing (\"see what the shop has to offer\", \"nothing you have to find or do\"), risking poor separation from the open-ended browsing cell.",
+            "clarity": "The language is plain and short, and the exit condition is explicit (\"When you feel you have explored the shop enough, end the session\"), so a crowdworker would know they may leave at any point. The one friction is the near-contradiction between being told something \"has been on your mind lately\" and immediately after that \"There is nothing you have to find or do\", which could prompt a second reading to work out whether the home item matters.",
+            "behavioral_specificity": "It supplies a category-level motive without prescribing actions, which is correct in form, but \"a kitchen gadget, a desk item, that sort of thing\" evokes small, low-deliberation purchases rather than a considered home purchase, so the intended disposition is under-specified. The differentiating force is further diluted by \"Have a look around and see what the shop has to offer\" and \"There is nothing you have to find or do\", phrasing that reads much like an open-ended browsing cell.",
+            "neutrality": "Purchase is offered conditionally and with explicit release from obligation: \"If a product appeals to you, you are welcome to 'buy' it\" and \"There is nothing you have to find or do\". Mild residual pull comes from \"When you feel you have explored the shop enough\", which implies some minimum amount of exploration is expected before leaving.",
+            "hypothesis_leakage": "Nothing mentions recommendations, alternative policies, simulation comparison, or archetypes. The framing \"Testing a new online shop\" plus the flagged option to \"buy\" with scare quotes does make purchase salient as a trackable event, a faint hint toward purchasing being of interest, though this disclosure is largely unavoidable given the fake-checkout design."
+          },
+          {
+            "replicate": 1,
+            "strongest_concern": "The intended \"considered home purchase\" motive is both too weak and self-undermining: trivial exemplars (\"a kitchen gadget, a desk item\") carry no sense of deliberation, and \"There is nothing you have to find or do\" cancels the intention just after it is planted, collapsing this cell toward the open-ended and idle-time cells.",
+            "clarity": "The wording is plain and short, and the exit condition is explicit (\"When you feel you have explored the shop enough, end the session\"), so a crowdworker will know they may leave at will. The only friction is the deliberately unspecified target — \"a kitchen gadget, a desk item, that sort of thing\" — which may leave a literal-minded participant briefly unsure what they are meant to be looking for, though \"There is nothing you have to find or do\" resolves it on the same reading.",
+            "behavioral_specificity": "The category cue (\"Something for your home\") does separate this cell from an electronics need, but nothing in the wording conveys a *considered* purchase: the exemplars \"a kitchen gadget, a desk item\" are low-stakes impulse-grade items, and there is no cue of deliberation, stakes, duration of the intention, or importance beyond \"has been on your mind lately\". Worse, \"Have a look around and see what the shop has to offer\" plus \"There is nothing you have to find or do\" actively dilutes the motive toward the open-ended-browsing and idle-time cells, so the cell risks being behaviorally indistinguishable from two of the other four. It does at least avoid prescribing actions, which is the correct half of the target.",
+            "neutrality": "Permission is properly conditional and non-obligating — \"If a product appeals to you, you are welcome to \\u201cbuy\\u201d it\" and \"There is nothing you have to find or do\" — with no quota of products, pages, or time. The mild residual cue is \"When you feel you have explored the shop enough\", which implies that some threshold of exploration exists and may nudge participants to browse longer than they otherwise would before feeling licensed to stop.",
+            "hypothesis_leakage": "Nothing points to adaptive widgets, two policy conditions, or a behavioral simulation; \"Testing a new online shop\" is a bland cover. Two faint traces remain: the sanctioned purchase affordance (\"you are welcome to \\u201cbuy\\u201d it\") and \"explored the shop enough\" together hint that buying and depth of exploration are things the study cares about, and the imposed mental state (\"has been on your mind lately\") could suggest to an attentive reader that a disposition has been supplied to them."
+          },
+          {
+            "replicate": 2,
+            "strongest_concern": "The situational motive is too thin to define a distinct cell: \"something for your home... that sort of thing\" supplies only a loose product category, and \"There is nothing you have to find or do\" immediately dissolves it, so this condition risks collapsing into the open-ended browsing cell.",
+            "clarity": "The wording is plain and the two closing sentences (\"There is nothing you have to find or do. When you feel you have explored the shop enough, end the session\") remove any doubt about whether the participant may leave. The only minor snag is the example set \"a kitchen gadget, a desk item\" — a desk item is not unambiguously \"for your home,\" which slightly muddies the category on first reading, though not enough to require re-reading.",
+            "behavioral_specificity": "The motive is supplied only as a diffuse category — \"Something for your home has been on your mind lately\" with the deliberately loose gloss \"that sort of thing\" — which conveys no deliberation, stakes, price level, or urgency, so it is hard to see what separates this cell from the open-ended browsing cell. The immediately following \"There is nothing you have to find or do\" actively cancels the goal the first sentence just planted, and \"Have a look around and see what the shop has to offer\" reads as generic browsing rather than a considered purchase. To its credit it prescribes no actions, but the differentiating force of the motive is very weak.",
+            "neutrality": "Purchase is offered conditionally and with explicit permission to decline — \"If a product appeals to you, you are welcome to 'buy' it\" plus \"There is nothing you have to find or do\" — which is properly non-coercive. The residual concern is \"When you feel you have explored the shop enough,\" where \"enough\" implies an unstated sufficiency threshold for exploration and may nudge participants to keep browsing longer than they otherwise would.",
+            "hypothesis_leakage": "Nothing points to adaptive widgets, multiple conditions, a simulation comparison, or persona assignment. The mild exposure is that the scare-quoted \"buy\" together with the reassurance \"no real money is involved and no real order is placed\" makes the purchase act conspicuously salient, and \"explored the shop enough\" hints that exploration is being watched — an attentive participant could guess purchasing/browsing depth matters, though this is arguably unavoidable given the consent-style disclosure."
+          },
+          {
+            "replicate": 3,
+            "strongest_concern": "The situational motive is too weak and too generic to distinguish this cell: \"something for your home has been on your mind\" conveys no deliberation or stakes, and \"There is nothing you have to find or do\" plus \"have a look around\" pushes the prompt back toward the open-ended and idle-browsing cells it is supposed to be separated from.",
+            "clarity": "The language is plain and single-reading friendly, and the exit rule is explicit (\"When you feel you have explored the shop enough, end the session\"), so the participant knows they may leave at will. Minor friction comes from the example set \"a kitchen gadget, a desk item, that sort of thing,\" where \"a desk item\" sits oddly under \"something for your home\" and leaves the intended scope slightly fuzzy; \"explored the shop enough\" also gives no anchor for what counts as enough.",
+            "behavioral_specificity": "The only differentiating content is the category hint \"Something for your home has been on your mind lately,\" which supplies a domain but not the deliberation or stakes that a *considered* purchase cell requires \\u2014 there is no sense of it mattering, costing, or being weighed. That thin motive is then actively undercut by \"Have a look around and see what the shop has to offer\" and \"There is nothing you have to find or do,\" which read as open-ended browsing and collapse this cell toward the free-browsing and idle-time cells. It does at least avoid prescribing actions (no instruction to compare or shortlist), which keeps it from scoring lower.",
+            "neutrality": "Purchase is framed conditionally and permissively (\"If a product appeals to you, you are welcome to \\u2018buy\\u2019 it\"), and \"There is nothing you have to find or do\" is explicit permission not to act. The residual pull is mild: \"has been on your mind lately\" seeds a pre-existing intent to acquire something, and \"when you feel you have explored the shop enough\" presupposes exploration as the expected activity and hints that some quantity of it is normative.",
+            "hypothesis_leakage": "Nothing points to adaptive widgets, two policy conditions, a behavioral simulation, or an assigned archetype; the motive is written in ordinary first-person terms rather than as a type. The one soft signal is the combination of the header \"Testing a new online shop\" with the scare-quoted \"\\u2018buy\\u2019 it \\u2014 no real money is involved and no real order is placed,\" which foregrounds the purchase act enough that an attentive participant might guess buying is being watched, though the disclaimer is also ethically necessary."
+          },
+          {
+            "replicate": 4,
+            "strongest_concern": "The supplied motive is too weak and too low-stakes to carry a 'considered home purchase' cell: \"a kitchen gadget, a desk item\" plus \"If a product appeals to you\" cue casual impulse rather than deliberation, so this cell may not separate empirically from the open-ended browsing or idle-time cells.",
+            "clarity": "The sentences are short and plain, and the exit condition is explicit (\"When you feel you have explored the shop enough, end the session\"), so a crowdworker knows they may leave at will. The one genuine ambiguity is the header \"Testing a new online shop\" set against \"Something for your home has been on your mind lately\" — the participant must reconcile whether they are evaluating a website or shopping for themselves, which may require a second reading to settle.",
+            "behavioral_specificity": "The motive is supplied rather than an instruction (\"Something for your home has been on your mind lately\"), which is the right form, but its content is thin for a *considered* purchase: the exemplars \"a kitchen gadget, a desk item, that sort of thing\" are low-stakes, low-deliberation items, and \"If a product appeals to you\" invites impulse rather than deliberation. Combined with \"There is nothing you have to find or do,\" the cell risks collapsing into the open-ended-browsing or idle-time cells, since only a loose product domain distinguishes it.",
+            "neutrality": "Pressure to purchase is well contained by \"you are welcome to\" and the explicit \"There is nothing you have to find or do.\" Two residual cues pull toward action: \"Have a look around and see what the shop has to offer\" reads as a mild instruction to browse, and \"explored the shop enough\" implies there exists a quantity of exploration that counts as sufficient, which could inflate page depth; the \"Testing\" header may also recruit evaluative rather than naturalistic behavior.",
+            "hypothesis_leakage": "Nothing points to adaptive widgets, two policy conditions, or a behavioral simulation; \"see what the shop has to offer\" is generic. The mild residual risks are that \"Something for your home has been on your mind lately\" attributes a state of mind to the participant that an attentive reader could recognize as an assigned framing, and the explicit buying clause (\"you are welcome to 'buy' it\") slightly foregrounds purchase as a salient option."
+          }
+        ],
+        "discounthunter": [
+          {
+            "replicate": 0,
+            "strongest_concern": "The budget manipulation is self-cancelling: \"Money is a little tight this month\" is undercut two sentences later by \"no real money is involved and no real order is placed,\" so the only feature distinguishing this cell from open-ended browsing is explicitly declared irrelevant to the participant's situation.",
+            "clarity": "The sentences are short and plain, and the exit condition is explicit (\"When you feel you have explored the shop enough, end the session\"), so a crowdworker will know they may leave. The one snag is the internal tension between \"Money is a little tight this month\" and the later \"no real money is involved\" — an attentive reader may pause to work out whether the budget framing is meant to apply at all, which invites a re-read.",
+            "behavioral_specificity": "\"Money is a little tight this month\" is a genuine motive rather than an instruction, and nothing prescribes comparing, filtering, or purchasing, which is the right design. But the motive is carried by a single unelaborated clause with no anchor (no rough budget, no reason), and it is immediately diluted by the generic \"Have a look around and see what the shop has to offer\" plus the reassurance that \"no real money is involved,\" which removes the very constraint the cell depends on; differentiation from the open-ended browsing cell is therefore thin.",
+            "neutrality": "\"There is nothing you have to find or do\" is explicit permission not to act, and \"When you feel you have explored the shop enough\" leaves duration to the participant. Mild residual pressure comes from the fact that buying is the only concrete action named (\"you are welcome to \\u2018buy\\u2019 it\"), and \"explored the shop enough\" faintly implies an exploration threshold the participant should reach.",
+            "hypothesis_leakage": "Nothing points to adaptive widgets, two policy conditions, a behavioral simulation, or an assigned archetype — \"Testing a new online shop\" is a benign cover. The only exposure is that the purchase step is singled out and explained (\"no real money is involved and no real order is placed\"), which subtly flags buying as the action the researchers are attending to; this is a defensible consent-related disclosure but still makes conversion the most salient act in the prompt."
+          },
+          {
+            "replicate": 1,
+            "strongest_concern": "The manipulation is self-cancelling: \"Money is a little tight this month\" is the sole differentiator of this cell, and the very next sentence tells participants \"no real money is involved and no real order is placed\", removing any reason for the budget constraint to bind their behavior.",
+            "clarity": "The wording is short, plain, and single-clause throughout; \"There is nothing you have to find or do\" and \"When you feel you have explored the shop enough, end the session\" leave no doubt that the participant may leave whenever they like. The one snag is the juxtaposition of \"Money is a little tight this month\" with \"no real money is involved\", which a careful reader may have to pause over to work out whether the budget framing is meant to apply at all.",
+            "behavioral_specificity": "\"Money is a little tight this month\" is correctly framed as a motive rather than an instruction (no \"compare prices\" or \"stay under $X\"), which is the right design choice. But the constraint is both vague (\"a little tight\", no amount, no category) and immediately deflated by the reassurance that \"no real money is involved and no real order is placed\", so the only differentiating sentence is undercut by the very next one. The remaining text — \"Have a look around and see what the shop has to offer\" plus \"There is nothing you have to find or do\" — is generic browsing framing that overlaps heavily with the open-ended and idle-time cells.",
+            "neutrality": "The permission structure is well balanced: \"If a product appeals to you, you are welcome to 'buy' it\" is conditional, and \"There is nothing you have to find or do\" is an explicit release from obligation. Minor residual pressure comes from \"When you feel you have explored the shop enough\", which frames exploration as the expected activity and implies some unspecified sufficiency threshold, and from the fact that purchasing is the only concrete action named anywhere in the text.",
+            "hypothesis_leakage": "Nothing points to adaptive widgets, multiple conditions, a behavioral simulation, or persona assignment; \"Testing a new online shop\" is a plausible cover. The only faint signal is that buying receives a full sentence of scaffolding (\"you are welcome to 'buy' it — no real money is involved and no real order is placed\"), which quietly marks the purchase step as the salient outcome and could hint that conversion is being watched."
+          },
+          {
+            "replicate": 2,
+            "strongest_concern": "The budget motive and the debriefing-style disclaimer undercut each other: \"Money is a little tight this month\" is neutralised by \"no real money is involved,\" so the manipulation may not bite, while the flatly asserted financial premise simultaneously signals to an attentive participant that a scenario role has been imposed on them.",
+            "clarity": "The sentences are short and plain, and the exit condition is explicit and self-determined (\"When you feel you have explored the shop enough, end the session\"), so a crowdworker knows they may leave. The one snag is an internal tension a careful reader may pause on: \"Money is a little tight this month\" sits directly beside \"no real money is involved,\" and \"a little tight\" supplies no reference point (no budget figure, no sense of how tight), which could prompt a re-read to work out what the constraint is supposed to mean here.",
+            "behavioral_specificity": "The prompt supplies exactly the kind of situational motive the rubric targets — \"Money is a little tight this month\" — and prescribes nothing: \"There is nothing you have to find or do,\" with buying framed conditionally (\"If a product appeals to you\"). It stops short of full marks because the motive is immediately deflated by \"no real money is involved,\" and with no price ceiling or hint of what tightness implies, the cell risks collapsing toward the open-ended browsing condition rather than reading as distinctly budget-constrained.",
+            "neutrality": "\"There is nothing you have to find or do\" is clean explicit permission not to act, and duration is left entirely to the participant (\"When you feel you have explored the shop enough\"). The only residual cue is that purchasing is the single action the prompt names and reassures about — \"you are welcome to \\u201cbuy\\u201d it \\u2014 no real money is involved and no real order is placed\" — which makes buying the salient, sanctioned option and gives it slightly more pull than doing nothing.",
+            "hypothesis_leakage": "Nothing points to adaptive widgets, two policy conditions, or a behavioral simulation. However, the scare-quoted \"\\u201cbuy\\u201d\" plus the double reassurance \"no real money is involved and no real order is placed\" foregrounds the purchase act as the thing the researchers have thought hardest about, hinting at fact 4; and the flat, unhedged assertion \"Money is a little tight this month\" states a financial circumstance the participant may know to be false, which invites the inference that a role or scenario has been assigned to them (fact 5)."
+          },
+          {
+            "replicate": 3,
+            "strongest_concern": "The imposed financial premise is self-undermining and self-revealing at once: it tells participants a fact about their own lives that they know was supplied by the researcher (leaking persona assignment), while \"no real money is involved and no real order is placed\" strips the budget constraint of any force, so the cell may neither stay covert nor produce the intended disposition.",
+            "clarity": "The three short sentences are plain and the exit condition is explicit — \"When you feel you have explored the shop enough, end the session\" — so no participant should be left wondering whether they may leave. The only friction is the juxtaposition of \"Money is a little tight this month\" with \"no real money is involved,\" which a careful reader may need a second pass to reconcile as a premise-plus-disclaimer rather than a contradiction.",
+            "behavioral_specificity": "\"Money is a little tight this month\" supplies a motive rather than an instruction, and nothing dictates comparing, filtering, or price-checking, which is correct design. But the constraint is unquantified (no budget figure, no ceiling) and is immediately defused two clauses later by \"no real money is involved and no real order is placed,\" so the scarcity frame has little to bite on; the cell may not separate cleanly from the open-ended browsing prompt.",
+            "neutrality": "\"If a product appeals to you, you are welcome to 'buy' it\" is conditional permission rather than pressure, and \"There is nothing you have to find or do\" plus the participant-controlled ending remove any implied time or page quota. The residual concern is that purchasing is the only concrete action named in the whole prompt, which makes it the salient thing to do even without an explicit push.",
+            "hypothesis_leakage": "Asserting \"Money is a little tight this month\" about a participant whose actual finances the researcher cannot know openly signals that a situation has been assigned to them, pointing directly at withheld fact 5 (persona/archetype assignment) — this is the one prompt element that cannot be read as a plain description of the task. Foregrounding \"buy\" as the single named action also nudges toward fact 4 (purchase/conversion as the outcome of interest)."
+          },
+          {
+            "replicate": 4,
+            "strongest_concern": "The budget premise and the reassurance \"no real money is involved\" sit in the same paragraph and work against each other: the disclaimer both dissolves the scarcity manipulation the cell depends on and, together with the imposed financial state, makes it evident that the participant has been handed a scenario in which buying is the behavior under observation.",
+            "clarity": "The sentences are short, plain, and the exit condition is explicit (\"When you feel you have explored the shop enough, end the session\"), and \"There is nothing you have to find or do\" removes task ambiguity. The one snag is the internal tension between \"Money is a little tight this month\" and the immediately following \"no real money is involved\" — an attentive reader may pause to work out whether the budget constraint is meant to apply at all.",
+            "behavioral_specificity": "\"Money is a little tight this month\" supplies a situational motive rather than an instruction, and prescribes no action (no \"compare prices\", no \"stay under \\u00a3X\"), which cleanly separates this cell from the open-ended, need-driven, considered-purchase, and idle cells. The weakness is that the motive is stated once, hedged (\"a little tight\"), and then actively undercut by \"no real money is involved and no real order is placed\", so the constraint may carry little behavioral force by the time the participant starts browsing.",
+            "neutrality": "\"There is nothing you have to find or do\" and the conditional \"If a product appeals to you, you are welcome to \\u2018buy\\u2019 it\" are permissive rather than obligating, and no time or page quota is implied. Minor reservation: the prompt devotes a full clause to reassuring participants about buying, which makes purchase the most salient available action and mildly lowers the perceived cost of clicking it.",
+            "hypothesis_leakage": "Nothing points to recommendation widgets, two policies, or a behavioral simulation. However, \"Money is a little tight this month\" asserts a financial state the participant knows to be untrue of themselves, which fairly transparently signals an assigned scenario or premise (withheld fact 5), and the emphatic buying disclaimer (\"no real money is involved and no real order is placed\") flags purchasing as the act the study cares about (withheld fact 4)."
+          }
+        ],
+        "windowshopper": [
+          {
+            "replicate": 0,
+            "strongest_concern": "The header \"Testing a new online shop\" frames the participant as a site evaluator rather than an idle shopper, simultaneously creating a demand characteristic toward thorough exploration and hinting that the shop's own features are what is being studied.",
+            "clarity": "Every sentence is short and plain: \"You have a few free minutes and nothing in particular in mind\", \"There is nothing you have to find or do\", and an unambiguous exit rule, \"When you feel you have explored the shop enough, end the session.\" The scare-quoted \"\\u201cbuy\\u201d\" plus the immediate gloss \"no real money is involved and no real order is placed\" removes the main source of confusion in a simulated shop. A non-expert would know what to do and that leaving is permitted on a single reading.",
+            "behavioral_specificity": "The motive \"a few free minutes and nothing in particular in mind\" is a genuine situational state and cleanly separates this cell from a specific-need, considered-purchase, or budget-constrained cell, and it prescribes no counts, comparisons, or targets. The permissive \"If a product appeals to you, you are welcome to \\u201cbuy\\u201d it\" is an affordance rather than an instruction. The mild reservation is that \"Have a look around and see what the shop has to offer\" does lightly direct the very behaviour (browsing breadth) this cell is meant to observe, rather than leaving it to emerge from the motive alone.",
+            "neutrality": "The headline \"Testing a new online shop\" recasts the participant as an evaluator of the site rather than a shopper, which is a demand characteristic distinct from the intended idle-browsing motive and may push toward systematic coverage. \"When you feel you have explored the shop enough\" further implies that some sufficient quantity of exploration is expected, partially undercutting the otherwise good release \"There is nothing you have to find or do.\" The purchase framing itself is properly permissive (\"you are welcome to\"), so the pressure is toward exploration rather than buying.",
+            "hypothesis_leakage": "Nothing points to two conditions, a behavioural simulation, or an assigned archetype, but \"Testing a new online shop\" invites the participant to treat the shop's features as the object under study, which is a soft nudge toward noticing site machinery such as recommendation widgets. More concretely, in a cell defined by having no goal, the prompt still volunteers the option to \"\\u201cbuy\\u201d\" and explains the no-money caveat, which marks purchase as a salient, researcher-relevant act and partly signals that conversion matters."
+          },
+          {
+            "replicate": 1,
+            "strongest_concern": "The prompt undercuts its own goalless motive by issuing exploration directives (\"Have a look around and see what the shop has to offer\", \"when you feel you have explored the shop enough\"), which manufactures browsing behavior instead of observing it and blurs this cell against the open-ended browsing condition.",
+            "clarity": "The wording is short, plain, and unambiguous about how to finish (\"When you feel you have explored the shop enough, end the session\"), so a crowdworker knows they may leave at will. The only friction is the heading \"Testing a new online shop\", which could be read as casting the participant as a usability tester of the site rather than as a shopper, a role ambiguity the body text never resolves.",
+            "behavioral_specificity": "The motive \"You have a few free minutes and nothing in particular in mind\" plus \"There is nothing you have to find or do\" does establish an idle, goalless disposition. However, the prompt then layers directives on top of it — \"Have a look around and see what the shop has to offer\" and \"when you feel you have explored the shop enough\" — which instruct exploration rather than letting it emerge, and this instructed-browsing framing makes the cell hard to separate from an open-ended browsing condition.",
+            "neutrality": "Permission is well hedged: \"If a product appeals to you, you are welcome to 'buy' it\" and \"There is nothing you have to find or do\" explicitly license inaction. Mild demand cues remain: \"a few free minutes\" implies a short expected duration, and \"explored the shop enough\" implies there exists a sufficient quantity of exploration the participant should reach before quitting.",
+            "hypothesis_leakage": "Nothing references recommendation widgets, multiple conditions, simulation comparison, or persona assignment. The one small signal is the singling out of purchase with scare quotes and a disclaimer — \"you are welcome to 'buy' it — no real money is involved and no real order is placed\" — which marks buying as the salient, noteworthy action and could hint that transactions are being watched, though the disclaimer is also plainly necessary."
+          },
+          {
+            "replicate": 2,
+            "strongest_concern": "The situational motive is too thin to reliably differentiate this cell — \"a few free minutes and nothing in particular in mind\" plus \"see what the shop has to offer\" is likely to produce behavior indistinguishable from the open-ended browsing condition, while the \"few free minutes\" clause simultaneously imposes an unintended duration cue.",
+            "clarity": "The sentences are short and plainly worded, and the exit condition is unambiguous: \"When you feel you have explored the shop enough, end the session.\" The one friction point is the header \"Testing a new online shop\", which invites the reading that the participant is a usability tester expected to evaluate the site — a role that sits awkwardly against \"There is nothing you have to find or do\" and may require a second's reconciliation.",
+            "behavioral_specificity": "The motive — \"You have a few free minutes and nothing in particular in mind\" — is stated as a situation rather than an instruction, which is correct in form, but it is so thin that it barely separates this cell from an open-ended browsing cell; \"nothing in particular in mind\" and \"see what the shop has to offer\" are close to the definition of undirected browsing. \"Have a look around\" also edges toward a directive, and \"a few free minutes\" quietly prescribes session length rather than supplying a motive.",
+            "neutrality": "Demand pressure is well controlled: \"There is nothing you have to find or do\" and the conditional \"If a product appeals to you, you are welcome to 'buy' it\" grant explicit permission not to act. The residual issues are that \"a few free minutes\" implants an expectation about how long to stay, and \"no real money is involved and no real order is placed\" removes all cost from purchasing, which can nudge frictionless buying upward.",
+            "hypothesis_leakage": "Nothing points to adaptive widgets, two policy conditions, a behavioral simulation, or an assigned archetype. The mild exposure is that the scare-quoted \"'buy' it\" is the only concrete action singled out for mention, which can signal to an attentive reader that purchase is the event being recorded; \"Testing a new online shop\" also faintly implies some feature of the shop is under examination."
+          },
+          {
+            "replicate": 3,
+            "strongest_concern": "The motive is purely negative (\"nothing in particular in mind\") and is operationalised with the same generic invitation — \"Have a look around and see what the shop has to offer\" — that an open-ended browsing condition would use, so this cell may not be empirically separable from that one.",
+            "clarity": "Sentences are short and plainly worded (\"You have a few free minutes and nothing in particular in mind\"), the buy affordance is explained in one clause, and the exit is explicit (\"When you feel you have explored the shop enough, end the session\"), so a crowdworker knows they may leave at will. The one friction point is the heading \"Testing a new online shop\", which can be read as a usability-testing assignment and sits awkwardly against \"There is nothing you have to find or do\"; a participant may briefly wonder whether they are supposed to be evaluating the site.",
+            "behavioral_specificity": "The stated motive — \"a few free minutes and nothing in particular in mind\" — is defined almost entirely by absence, and the follow-up \"Have a look around and see what the shop has to offer\" is the same generic invitation an open-ended-browsing cell would use, so this cell is at high risk of being behaviorally indistinguishable from that condition. Nothing anchors the idleness situationally (no waiting, killing time before something, low engagement cue), leaving the differentiation to rest on the near-synonymous pair \"free minutes\" vs. \"browsing\". To its credit it prescribes no actions beyond the mild \"Have a look around\".",
+            "neutrality": "\"There is nothing you have to find or do\" is an explicit release from obligation, and the purchase option is conditional and hedged (\"If a product appeals to you, you are welcome to 'buy' it\"), with the scare quotes and \"no real money is involved\" removing pressure. Two soft cues remain: \"When you feel you have explored the shop enough\" implies that some quantum of exploration is expected before leaving, and raising the buy option at all in a deliberately goal-free cell nudges purchase into view.",
+            "hypothesis_leakage": "Nothing references recommendation widgets, alternative policies, a simulation comparison, or an assigned archetype; the framing is a bare situational motive. The mild residual is that the prompt foregrounds the purchase affordance (\"you are welcome to 'buy' it\") and the exploration threshold (\"explored the shop enough\") in a condition that otherwise gives the participant nothing to do, which could hint that buying and depth of browsing are what is being watched."
+          },
+          {
+            "replicate": 4,
+            "strongest_concern": "The motive is defined only by absence (\"nothing in particular in mind\" plus \"Have a look around\"), which makes this cell hard to distinguish from the open-ended browsing cell and risks collapsing two of the five conditions into one.",
+            "clarity": "The wording is plain and short: \"You have a few free minutes and nothing in particular in mind\" and \"There is nothing you have to find or do\" require no re-reading, and the exit is stated unambiguously (\"When you feel you have explored the shop enough, end the session\"). The simulation caveat (\"no real money is involved and no real order is placed\") preempts the most likely confusion. Only the header \"Testing a new online shop\" is slightly loose about whether the participant is a shopper or a usability tester, which is a minor rather than disabling ambiguity.",
+            "behavioral_specificity": "The motive is stated purely as an absence \"a few free minutes and nothing in particular in mind\", which is close to indistinguishable from an open-ended browsing frame; \"Have a look around and see what the shop has to offer\" is precisely what an unmotivated browsing cell would also say, so the cell is under-separated from at least one neighbour. It avoids prescribing counts or comparisons, which is good, but \"Have a look around\" is still a light action directive rather than a situational condition. Nothing in the text anchors the idleness in a concrete situation (waiting, killing time between tasks) that would make this cell recognisably its own.",
+            "neutrality": "The permission framing is genuinely neutral in places (\"There is nothing you have to find or do\"), but \"If a product appeals to you, you are welcome to \\u201cbuy\\u201d it\" raises purchasing to salience in a prompt whose whole premise is having no goal, which reads as a gentle invitation to convert. \"When you feel you have explored the shop enough\" also implies that some threshold of exploration exists and should be reached before leaving. Combined with \"a few free minutes\", these set soft expectations about both duration and action.",
+            "hypothesis_leakage": "Nothing points to adaptive widgets, two policy conditions, a behavioural simulation, or persona assignment; \"Testing a new online shop\" discloses only the already-known fact that this is a study environment. The one soft signal is the unprompted invitation to \"\\u201cbuy\\u201d it\" in a no-goal scenario, which a reflective participant could read as a hint that purchase behaviour is being watched (withheld fact 4). That is an inference from emphasis rather than an announcement, so the leak is mild."
+          }
+        ]
+      },
+      "fairness_notes": [
+        {
+          "replicate": 0,
+          "presentation_order": [
+            "fastbuyer",
+            "windowshopper",
+            "detailedcomparator",
+            "explorer",
+            "discounthunter"
+          ],
+          "least_comparable_cell": "cell-5",
+          "justification": "The set is admirably matched on scaffolding: every cell repeats verbatim \"Have a look around and see what the shop has to offer,\" the identical \"no real money is involved and no real order is placed\" disclaimer, and the same closing \"There is nothing you have to find or do... end the session,\" so register and reading difficulty are effectively constant and only the opening sentence varies. However, the varying sentences are not equated on intensity, valence, or specificity: cell-3 supplies concrete exemplars (\"a kitchen gadget, a desk item, that sort of thing\") and cell-1 supplies a triggering event plus an existing intention (\"broke last week... has been on your list\"), while cell-5's \"Money is a little tight this month.\" is a bare seven-word constraint with no product referent at all, and cell-4 adds a deadline plus mild obligation (\"coming up and you have not thought about a present yet\") that no other cell carries. Cell-5 is further disadvantaged because its inhibitory motive is directly contradicted by the very next sentence's \"no real money is involved,\" so the manipulation is undercut in a way the facilitative motives are not."
+        },
+        {
+          "replicate": 1,
+          "presentation_order": [
+            "windowshopper",
+            "fastbuyer",
+            "explorer",
+            "discounthunter",
+            "detailedcomparator"
+          ],
+          "least_comparable_cell": "cell-4",
+          "justification": "The set is tightly matched: all five share an identical opening (\"Testing a new online shop\"), an identical action clause (\"Have a look around and see what the shop has to offer... you are welcome to \\u201cbuy\\u201d it\") and an identical closing release from demand (\"There is nothing you have to find or do... end the session\"), so register and reading difficulty are effectively constant and only the motive sentence varies. Two residual asymmetries temper the score: the amount of navigational scaffolding is unequal \\u2014 cell-5 supplies concrete exemplars (\"a kitchen gadget, a desk item, that sort of thing\") and cell-2 names a category (\"an electronics accessory\"), whereas cell-4's \"Money is a little tight this month.\" is a bare constraint with no object of desire at all and is the shortest motive in the set. Additionally, cell-3's \"A friend's birthday is coming up and you have not thought about a present yet\" adds a mild deadline and other-directed obligation absent everywhere else, giving it slightly higher motivational intensity than cell-1's \"nothing in particular in mind.\""
+        },
+        {
+          "replicate": 2,
+          "presentation_order": [
+            "windowshopper",
+            "explorer",
+            "discounthunter",
+            "detailedcomparator",
+            "fastbuyer"
+          ],
+          "least_comparable_cell": "cell-3",
+          "justification": "The set is structurally well matched: every cell uses the same header (\"Testing a new online shop\") and identical boilerplate (\"Have a look around and see what the shop has to offer... There is nothing you have to find or do. When you feel you have explored the shop enough, end the session.\"), so length, register, and reading level are near-identical and only the motive sentence varies. However, motivational intensity and specificity are not matched: cells 4 and 5 hand participants concrete category anchors (\"a kitchen gadget, a desk item, that sort of thing\"; \"an electronics accessory\") while cells 1 and 3 supply none, so search behavior will differ for reasons of scaffolding rather than disposition alone; cell 2 additionally adds social obligation and a deadline (\"coming up and you have not thought about a present yet\") that is more pressing than cell 1's \"a few free minutes and nothing in particular in mind.\" Most seriously, the shared boilerplate \"no real money is involved and no real order is placed\" directly neutralizes cell 3's only manipulation (\"Money is a little tight this month\"), so the budget cell is systematically weakened by wording the other cells are unaffected by."
+        },
+        {
+          "replicate": 3,
+          "presentation_order": [
+            "detailedcomparator",
+            "fastbuyer",
+            "windowshopper",
+            "discounthunter",
+            "explorer"
+          ],
+          "least_comparable_cell": "cell-4",
+          "justification": "The set is well controlled on its shared scaffolding — every cell reuses the identical title, the identical invitation (\"Have a look around and see what the shop has to offer... you are welcome to \\u201cbuy\\u201d it\") and the identical closing release (\"There is nothing you have to find or do... end the session\") — so register and reading difficulty are effectively constant. But the manipulation sentences are not equally weighted. Cell-1 alone supplies concrete category exemplars (\"a kitchen gadget, a desk item, that sort of thing\"), making it roughly twice the length of the other motive sentences and far more prescriptive about where to look, while cell-4's motive is only five words (\"Money is a little tight this month\") and, worse, is actively contradicted two sentences later by \"no real money is involved,\" which strips the budget frame of any force the other cells' motives retain. Cell-3's \"a few free minutes\" additionally embeds an implicit session-length cue that no other cell carries, and cell-5's \"is coming up\" adds a mild deadline pressure absent elsewhere, so observed differences in browsing depth or duration could plausibly stem from these incidental cues rather than from the intended disposition."
+        },
+        {
+          "replicate": 4,
+          "presentation_order": [
+            "explorer",
+            "fastbuyer",
+            "discounthunter",
+            "detailedcomparator",
+            "windowshopper"
+          ],
+          "least_comparable_cell": "cell-3",
+          "justification": "Structurally the set is tightly matched: all five share an identical title and identical second and third paragraphs (\"Have a look around…\", \"There is nothing you have to find or do…\"), so register and reading difficulty are effectively constant and only the opening sentence varies. But the varying sentences are not equally specified or equally potent: cell-4 uniquely supplies worked exemplars (\"a kitchen gadget, a desk item, that sort of thing\") and cell-2 names a category (\"an electronics accessory\"), whereas cell-1 gives a recipient but no category (\"a friend's birthday… a present\") and cell-3 gives only a mood (\"Money is a little tight this month\") with no product target at all, so search guidance and hence funnel behavior differ by prompt scaffolding rather than motive alone. More seriously, cell-3's budget manipulation is neutralized by the very next sentence common to all cells — \"no real money is involved\" — which strips the constraint of any force and leaves cell-3 close to cell-5's \"nothing in particular in mind,\" while opening-sentence length also ranges from 7 words (cell-3) to about 20 (cell-4)."
+        }
+      ]
+    }
+  ]
+}

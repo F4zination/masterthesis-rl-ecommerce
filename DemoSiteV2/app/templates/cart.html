@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}Shopping Cart – DemoShop{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Shopping Cart</h1>
+
+{% if items %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th style="width: 140px">Quantity</th>
+                        <th>Subtotal</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr data-product-id="{{ item.product_id }}">
+                        <td>
+                            <div class="d-flex align-items-center gap-3">
+                                <img src="{{ item.product.image_url | thumb }}" alt="{{ item.product.name }}" width="60"
+                                    height="60" class="rounded" style="object-fit:cover">
+                                <a href="/product/{{ item.product.slug }}" class="text-decoration-none">{{
+                                    item.product.name }}</a>
+                            </div>
+                        </td>
+                        <td>&euro;{{ "%.2f"|format(item.product.price) }}</td>
+                        <td>
+                            <div class="input-group input-group-sm">
+                                <button class="btn btn-outline-secondary cart-qty-btn"
+                                    data-product-id="{{ item.product_id }}" data-delta="-1">−</button>
+                                <input type="text" class="form-control text-center cart-qty-input"
+                                    value="{{ item.quantity }}" readonly>
+                                <button class="btn btn-outline-secondary cart-qty-btn"
+                                    data-product-id="{{ item.product_id }}" data-delta="1">+</button>
+                            </div>
+                        </td>
+                        <td class="item-subtotal">&euro;{{ "%.2f"|format(item.product.price * item.quantity) }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-danger cart-remove-btn"
+                                data-product-id="{{ item.product_id }}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Order Summary</h5>
+                <hr>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">Subtotal</span>
+                    <span id="cart-subtotal">&euro;{{ "%.2f"|format(subtotal) }}</span>
+                </div>
+                {% if discount_pct > 0 %}
+                <div class="d-flex justify-content-between mb-2 text-success" id="discount-row">
+                    <span><i class="bi bi-tag-fill me-1"></i>Discount ({{ discount_pct|int }}% SAVE10)</span>
+                    <span>&minus;&euro;{{ "%.2f"|format(discount_amount) }}</span>
+                </div>
+                {% else %}
+                <div class="d-flex justify-content-between mb-2 text-success d-none" id="discount-row">
+                    <span><i class="bi bi-tag-fill me-1"></i>Discount (10% SAVE10)</span>
+                    <span id="discount-amount-display">&minus;&euro;0.00</span>
+                </div>
+                {% endif %}
+                <hr>
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="fw-bold">Total</span>
+                    <span class="fw-bold fs-4" id="cart-total">&euro;{{ "%.2f"|format(total) }}</span>
+                </div>
+                <a href="/checkout" class="btn btn-primary w-100 btn-lg">Proceed to Checkout</a>
+            </div>
+        </div>
+
+        {% if discount_pct == 0 %}
+        <div class="mt-3">
+            {% include "components/promo_code.html" %}
+        </div>
+        {% endif %}
+
+        <!-- Decision Point: Cart -->
+        <div class="widget-slot mt-3" data-decision-point="cart"
+            data-context='{"cart_total": {{ total }}, "item_count": {{ items|length }}}'></div>
+    </div>
+</div>
+{% else %}
+<div class="text-center py-5">
+    <i class="bi bi-cart-x display-1 text-muted"></i>
+    <p class="lead mt-3">Your cart is empty</p>
+    <a href="/" class="btn btn-primary">Continue Shopping</a>
+</div>
+{% endif %}
+{% endblock %}

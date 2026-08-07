@@ -1,0 +1,105 @@
+{
+  "cells": [
+    {
+      "archetype": "Explorer",
+      "conversion_count": 284,
+      "conversion_rate": 0.0284,
+      "funnel_depth_sd": 0.9015520615094622,
+      "mean_funnel_depth": 2.0754,
+      "mean_reward": 0.5431288817197282,
+      "mean_transitions": 3.2979,
+      "n_sessions": 10000,
+      "reward_sd": 1.94827186310321,
+      "seed": 20360724,
+      "transition_sd": 2.2303033460275152
+    },
+    {
+      "archetype": "FastBuyer",
+      "conversion_count": 2282,
+      "conversion_rate": 0.2282,
+      "funnel_depth_sd": 1.408087437279057,
+      "mean_funnel_depth": 2.9702,
+      "mean_reward": 2.5629684203432066,
+      "mean_transitions": 2.9029,
+      "n_sessions": 10000,
+      "reward_sd": 4.374503302406277,
+      "seed": 20460727,
+      "transition_sd": 1.2986301375000513
+    },
+    {
+      "archetype": "DetailedComparator",
+      "conversion_count": 941,
+      "conversion_rate": 0.0941,
+      "funnel_depth_sd": 1.1520576737682748,
+      "mean_funnel_depth": 2.4828,
+      "mean_reward": 1.8786884353688587,
+      "mean_transitions": 4.2602,
+      "n_sessions": 10000,
+      "reward_sd": 3.4149484426413257,
+      "seed": 20560730,
+      "transition_sd": 2.901161428421965
+    },
+    {
+      "archetype": "DiscountHunter",
+      "conversion_count": 397,
+      "conversion_rate": 0.0397,
+      "funnel_depth_sd": 1.0700860098173608,
+      "mean_funnel_depth": 2.1638,
+      "mean_reward": 0.5171045330600903,
+      "mean_transitions": 2.4658,
+      "n_sessions": 10000,
+      "reward_sd": 2.0949373949563954,
+      "seed": 20660733,
+      "transition_sd": 1.3867309264115466
+    },
+    {
+      "archetype": "WindowShopper",
+      "conversion_count": 21,
+      "conversion_rate": 0.0021,
+      "funnel_depth_sd": 0.6245514522052168,
+      "mean_funnel_depth": 1.5893,
+      "mean_reward": -0.31329487637378084,
+      "mean_transitions": 1.94,
+      "n_sessions": 10000,
+      "reward_sd": 0.8624457249646662,
+      "seed": 20760736,
+      "transition_sd": 1.082181644508523
+    }
+  ],
+  "configured_explorer_fastbuyer_submixture_conversion": 0.10832,
+  "configured_mixture": {
+    "conversion_rate": 0.07925,
+    "mean_funnel_depth": 2.276185,
+    "mean_reward": 1.081841484161278,
+    "mean_transitions": 3.08286
+  },
+  "design": {
+    "base_seed": 20260721,
+    "mechanism_strengths": {
+      "delayed_reward_strength": 0.0,
+      "fatigue_rate": 0.0,
+      "transition_coupling_strength": 0.0
+    },
+    "policy": "uniform behavior policy",
+    "sequential_features_emitted": true,
+    "sessions_per_archetype": 10000,
+    "t_max": 20
+  },
+  "inputs": {
+    "archetype_config": {
+      "path": "CustomerSimulation/config/archetypes.yaml",
+      "sha256": "704f52cf32c73ae6695e0a56cbf715205b656e9351cb5f8dd5ec007c97edf0bf"
+    },
+    "script_sha256": "85a31c1013e5c6d91f08a86062b7799904cda651fe97ae1303ff43236283ddcd"
+  },
+  "interpretation_boundary": "Rank ordering and internal consistency are face-validity evidence only; the magnitudes and mixture are not calibrated to organic human traffic.",
+  "mixture_prior": {
+    "DetailedComparator": 0.2,
+    "DiscountHunter": 0.15,
+    "Explorer": 0.3,
+    "FastBuyer": 0.2,
+    "WindowShopper": 0.15
+  },
+  "purpose": "face-validity magnitude audit; not empirical calibration",
+  "schema_version": 1
+}

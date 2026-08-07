@@ -1,0 +1,144 @@
+{
+  "anchor": {
+    "fatigue_rate": {
+      "anchor_gap_fqi_ci95": 0.03921520419940071,
+      "anchor_gap_fqi_mean": -0.06444761647622262,
+      "anchor_gap_ppo_ci95": 0.10107109927291603,
+      "anchor_gap_ppo_mean": 0.15944423654732306,
+      "anchor_value": 0.0,
+      "n_seeds": 5
+    }
+  },
+  "axes": {
+    "fatigue_rate": [
+      {
+        "bandit_mean": 1.4732030307550525,
+        "complete": true,
+        "delta_fqi_minus_bandit_ci95": 0.0,
+        "delta_fqi_minus_bandit_mean": 0.0,
+        "delta_ppo_minus_bandit_ci95": 0.0,
+        "delta_ppo_minus_bandit_mean": 0.0,
+        "fqi_mean": 1.4087554142788299,
+        "fqi_minus_bandit_ci95": 0.03921520419940071,
+        "fqi_minus_bandit_mean": -0.06444761647622262,
+        "n_seeds": 5,
+        "n_seeds_delta": 5,
+        "ppo_mean": 1.6326472673023757,
+        "ppo_minus_bandit_ci95": 0.10107109927291603,
+        "ppo_minus_bandit_mean": 0.15944423654732306,
+        "value": 0.0
+      },
+      {
+        "bandit_mean": 1.271778323515884,
+        "complete": true,
+        "delta_fqi_minus_bandit_ci95": 0.060095180039618945,
+        "delta_fqi_minus_bandit_mean": 0.07745397093216048,
+        "delta_ppo_minus_bandit_ci95": 0.09889118221035069,
+        "delta_ppo_minus_bandit_mean": -0.07378984244745043,
+        "fqi_mean": 1.2847846779718217,
+        "fqi_minus_bandit_ci95": 0.04871879540965436,
+        "fqi_minus_bandit_mean": 0.013006354455937874,
+        "n_seeds": 5,
+        "n_seeds_delta": 5,
+        "ppo_mean": 1.3574327176157566,
+        "ppo_minus_bandit_ci95": 0.07887111614998607,
+        "ppo_minus_bandit_mean": 0.08565439409987263,
+        "value": 0.1
+      },
+      {
+        "bandit_mean": 1.1719073820083312,
+        "complete": true,
+        "delta_fqi_minus_bandit_ci95": 0.06801631830597085,
+        "delta_fqi_minus_bandit_mean": 0.10141811665835587,
+        "delta_ppo_minus_bandit_ci95": 0.050457105959483634,
+        "delta_ppo_minus_bandit_mean": -0.09553477012106577,
+        "fqi_mean": 1.2088778821904647,
+        "fqi_minus_bandit_ci95": 0.05190563893369638,
+        "fqi_minus_bandit_mean": 0.036970500182133256,
+        "n_seeds": 5,
+        "n_seeds_delta": 5,
+        "ppo_mean": 1.2358168484345886,
+        "ppo_minus_bandit_ci95": 0.08080930882489908,
+        "ppo_minus_bandit_mean": 0.0639094664262573,
+        "value": 0.2
+      },
+      {
+        "bandit_mean": 1.05346580538607,
+        "complete": true,
+        "delta_fqi_minus_bandit_ci95": 0.14403656294911876,
+        "delta_fqi_minus_bandit_mean": 0.11979714835207662,
+        "delta_ppo_minus_bandit_ci95": 0.15847818155406576,
+        "delta_ppo_minus_bandit_mean": 0.060528399696652066,
+        "fqi_mean": 1.108815337261924,
+        "fqi_minus_bandit_ci95": 0.11750229582324982,
+        "fqi_minus_bandit_mean": 0.05534953187585401,
+        "n_seeds": 5,
+        "n_seeds_delta": 5,
+        "ppo_mean": 1.273438441630045,
+        "ppo_minus_bandit_ci95": 0.08301272544891496,
+        "ppo_minus_bandit_mean": 0.21997263624397512,
+        "value": 0.4
+      },
+      {
+        "bandit_mean": 1.026004120731205,
+        "complete": true,
+        "delta_fqi_minus_bandit_ci95": 0.08432757168189316,
+        "delta_fqi_minus_bandit_mean": 0.032723972575500505,
+        "delta_ppo_minus_bandit_ci95": 0.1015095166302433,
+        "delta_ppo_minus_bandit_mean": 0.08799008435151709,
+        "fqi_mean": 0.9942804768304828,
+        "fqi_minus_bandit_ci95": 0.08067324276125006,
+        "fqi_minus_bandit_mean": -0.03172364390072211,
+        "n_seeds": 5,
+        "n_seeds_delta": 5,
+        "ppo_mean": 1.273438441630045,
+        "ppo_minus_bandit_ci95": 0.06396936587749452,
+        "ppo_minus_bandit_mean": 0.24743432089884018,
+        "value": 0.6
+      }
+    ]
+  },
+  "axis_roles": {
+    "fatigue_rate": "confirmatory mechanism axis"
+  },
+  "ci_method": "pointwise two-sided 95% Student-t interval across seeds",
+  "config": {
+    "archetypes": "C:\\Users\\finnr\\development\\masterion\\MasterThesisProject\\CustomerSimulation\\config\\archetypes.yaml",
+    "axes": [
+      "fatigue_rate"
+    ],
+    "axis_values": [],
+    "dataset_sessions": 6000,
+    "eval_seed_base": 10000,
+    "eval_sessions": 5000,
+    "expose_history_to_bandit": true,
+    "fqi_iters": 30,
+    "fqi_penalty": 0.15,
+    "gae_lambda": 0.95,
+    "gamma": 0.95,
+    "hidden_sizes": "128,64",
+    "lr": 0.0003,
+    "out_dir": "Experiments/sweep_results_expose_history_v3",
+    "ppo_epochs": 4,
+    "ppo_iterations": 40,
+    "ppo_minibatch": 256,
+    "ppo_mode": "online",
+    "ppo_rollout_sessions": 256,
+    "seeds": [
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "smoke": false,
+    "t_max": 20
+  },
+  "run_fingerprint": "6d7aabe536f51bf69206da22c786293aab16fa30ccc25644142a4eaea0c8cf12",
+  "run_status": {
+    "completed_cells": 25,
+    "expected_cells": 25,
+    "failed_cells": [],
+    "state": "complete"
+  }
+}

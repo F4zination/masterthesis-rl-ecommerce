@@ -1,0 +1,167 @@
+# Clickworker study stack — V2 + V3 demo sites, the assignment dispatcher,
+# and an nginx reverse proxy that terminates TLS (Let's Encrypt via certbot).
+#
+# Public surface (one DNS A-record per hostname, all pointing at this host):
+#   https://${APEX_DOMAIN}/...                -> redirects to the dispatcher
+#   https://${DISPATCHER_DOMAIN}/go?pid=...   -> dispatcher -> redirects below
+#   https://${V2_DOMAIN}/                     -> DemoSiteV2 (Contextual Bandit)
+#   https://${V3_DOMAIN}/                     -> DemoSiteV3 (PPO / sequential RL)
+#
+# First-time setup (issues certificates, then brings everything up):
+#   cp example.env .env       # fill in domains + email
+#   ./deploy/init-letsencrypt.sh
+#   docker compose up -d
+#
+# NOTE: build context for v2/v3 is the repo root because their requirements
+# install `-e ../SharedSchema` and V3 bakes in OfflineTraining/outputs.
+
+services:
+  v2:
+    build:
+      context: .
+      dockerfile: DemoSiteV2/Dockerfile
+    image: demosite-v2:latest
+    environment:
+      # Frozen-policy A/B test: no learning from participant sessions.
+      FREEZE_POLICY: "true"
+      REQUIRE_BANDIT_POLICY: "true"
+      # Empty => the shop footer emits same-origin /imprint, /privacy and
+      # /participant-information links, which the gateway proxies to the
+      # dispatcher. Pointing these at the dispatcher domain sent participants
+      # to the study entry form mid-session, where a new nickname minted a
+      # second assignment.
+      LEGAL_BASE_URL: ""
+      ADMIN_USERNAME: "${ADMIN_USERNAME:-admin}"
+      ADMIN_TOKEN: "${ADMIN_TOKEN:-}"
+      ADMIN_SESSION_SECRET: "${ADMIN_SESSION_SECRET:-}"
+      ADMIN_COOKIE_NAME: "${ADMIN_COOKIE_NAME:-study_admin_session}"
+      ADMIN_LOGIN_URL: "https://${DISPATCHER_DOMAIN}/admin/login"
+    volumes:
+      # Pre-seeded bandit DB (run `make bandit-policy` first) + collected data.
+      - ./DemoSiteV2/data:/app/data
+    expose:
+      - "8000"
+    restart: unless-stopped
+    networks: [studynet]
+
+  v3:
+    build:
+      context: .
+      dockerfile: DemoSiteV3/Dockerfile
+    image: demosite-v3:latest
+    environment:
+      FREEZE_POLICY: "true"
+      LEARNER_ENABLED: "false"
+      # The study treatment is the PPO checkpoint itself. Fail startup rather
+      # than silently serving the tabular/bandit fallback if it is unavailable.
+      POLICY_MODE: "ppo_only"
+      REQUIRE_PPO_CHECKPOINT: "true"
+      # Empty => the shop footer emits same-origin /imprint, /privacy and
+      # /participant-information links, which the gateway proxies to the
+      # dispatcher. Pointing these at the dispatcher domain sent participants
+      # to the study entry form mid-session, where a new nickname minted a
+      # second assignment.
+      LEGAL_BASE_URL: ""
+      ADMIN_USERNAME: "${ADMIN_USERNAME:-admin}"
+      ADMIN_TOKEN: "${ADMIN_TOKEN:-}"
+      ADMIN_SESSION_SECRET: "${ADMIN_SESSION_SECRET:-}"
+      ADMIN_COOKIE_NAME: "${ADMIN_COOKIE_NAME:-study_admin_session}"
+      ADMIN_LOGIN_URL: "https://${DISPATCHER_DOMAIN}/admin/login"
+      # Deployment-condition parity with V2 (which has no timing gate): disable
+      # V3's decision cooldown / 30-opportunity session cap for the study, so
+      # the A/B comparison is policy-only rather than policy + serving cadence.
+      TIMING_ENABLED: "false"
+    volumes:
+      - ./DemoSiteV3/data:/app/data
+    expose:
+      - "8000"
+    restart: unless-stopped
+    networks: [studynet]
+
+  dispatcher:
+    build:
+      context: .
+      dockerfile: StudyDispatcher/Dockerfile
+    image: study-dispatcher:latest
+    environment:
+      # Browser-facing URLs the dispatcher redirects to (must be public https).
+      V2_BASE_URL: "https://${V2_DOMAIN}"
+      V3_BASE_URL: "https://${V3_DOMAIN}"
+      TARGET_PER_CELL: "${TARGET_PER_CELL:-30}"
+      # Comma-separated subset of the known personas to actually recruit.
+      # Empty => all five. The August 2026 design recruits three cells.
+      STUDY_PERSONAS: "${STUDY_PERSONAS:-}"
+      ADMIN_TOKEN: "${ADMIN_TOKEN:-}"
+      ADMIN_USERNAME: "${ADMIN_USERNAME:-admin}"
+      ADMIN_PASSWORD: "${ADMIN_PASSWORD:-}"
+      ADMIN_SESSION_SECRET: "${ADMIN_SESSION_SECRET:-}"
+      ADMIN_COOKIE_NAME: "${ADMIN_COOKIE_NAME:-study_admin_session}"
+      ADMIN_COOKIE_DOMAIN: "${ADMIN_COOKIE_DOMAIN:-}"
+      ADMIN_COOKIE_SECURE: "${ADMIN_COOKIE_SECURE:-true}"
+      ADMIN_SESSION_TTL_SECONDS: "${ADMIN_SESSION_TTL_SECONDS:-28800}"
+      V2_ANALYTICS_INTERNAL_URL: "http://v2:8000"
+      V3_ANALYTICS_INTERNAL_URL: "http://v3:8000"
+      STUDY_FULL_URL: "${STUDY_FULL_URL:-}"
+      STUDY_RESEARCHER_NAME: "${STUDY_RESEARCHER_NAME:-Finn Rehnert}"
+      STUDY_INSTITUTION: "${STUDY_INSTITUTION:-Technische Hochschule Ulm}"
+      LEGAL_CONTROLLER_NAME: "${LEGAL_CONTROLLER_NAME:-}"
+      LEGAL_CONTROLLER_ADDRESS: "${LEGAL_CONTROLLER_ADDRESS:-}"
+      LEGAL_CONTROLLER_EMAIL: "${LEGAL_CONTROLLER_EMAIL:-}"
+      LEGAL_CONTROLLER_PHONE: "${LEGAL_CONTROLLER_PHONE:-}"
+      LEGAL_CONTENT_RESPONSIBLE: "${LEGAL_CONTENT_RESPONSIBLE:-}"
+      LEGAL_ADDITIONAL_IMPRINT_DETAILS: "${LEGAL_ADDITIONAL_IMPRINT_DETAILS:-}"
+      LEGAL_DATA_PROTECTION_CONTACT: "${LEGAL_DATA_PROTECTION_CONTACT:-}"
+      LEGAL_HOSTING_PROVIDER: "${LEGAL_HOSTING_PROVIDER:-}"
+      STUDY_RETENTION_PERIOD: "${STUDY_RETENTION_PERIOD:-}"
+      SERVER_LOG_RETENTION_PERIOD: "${SERVER_LOG_RETENTION_PERIOD:-}"
+      LEGAL_THIRD_COUNTRY_INFORMATION: "${LEGAL_THIRD_COUNTRY_INFORMATION:-}"
+    volumes:
+      - ./StudyDispatcher/data:/app/data
+    expose:
+      - "8000"
+    restart: unless-stopped
+    networks: [studynet]
+
+  nginx:
+    image: nginx:1.27-alpine
+    depends_on: [v2, v3, dispatcher]
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      # Consumed by envsubst in deploy/nginx/templates/default.conf.template.
+      APEX_DOMAIN: "${APEX_DOMAIN}"
+      DISPATCHER_DOMAIN: "${DISPATCHER_DOMAIN}"
+      V2_DOMAIN: "${V2_DOMAIN}"
+      V3_DOMAIN: "${V3_DOMAIN}"
+    volumes:
+      - ./deploy/nginx/templates:/etc/nginx/templates:ro
+      - ./deploy/certbot/conf:/etc/letsencrypt:ro
+      - ./deploy/certbot/www:/var/www/certbot:ro
+    # Render the templates via the official entrypoint (it only runs envsubst
+    # when invoked as `nginx ...`, so we call it explicitly), then reload every
+    # 6h so renewed certificates are picked up without a restart.
+    command:
+      - /bin/sh
+      - -c
+      - |
+        /docker-entrypoint.sh nginx -t
+        ( while :; do sleep 6h & wait $${!}; nginx -s reload; done ) &
+        exec nginx -g 'daemon off;'
+    restart: unless-stopped
+    networks: [studynet]
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./deploy/certbot/conf:/etc/letsencrypt
+      - ./deploy/certbot/www:/var/www/certbot
+    # Attempt renewal twice a day; no-op until a cert is within 30 days of expiry.
+    entrypoint: >
+      /bin/sh -c "trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done"
+    restart: unless-stopped
+    networks: [studynet]
+
+networks:
+  studynet:
+    driver: bridge

@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}DemoShop – Welcome{% endblock %}
+
+{% block content %}
+
+{# ── Clickworker study: persona task-instructions overlay ───────────────── #}
+{% if study_persona %}
+{% set _scenarios = {
+"explorer": {
+"title": "Testing a new online shop",
+"body": "A friend's birthday is coming up and you have not thought about a present yet. Have a look around and see what the shop has to offer. If a product appeals to you, you are welcome to “buy” it — no real money is involved and no real order is placed.",
+"note": "There is nothing you have to find or do. When you feel you have explored the shop enough, end the session."
+},
+"fastbuyer": {
+"title": "Testing a new online shop",
+"body": "Your headphones broke last week, so an electronics accessory has been on your list. Have a look around and see what the shop has to offer. If a product appeals to you, you are welcome to “buy” it — no real money is involved and no real order is placed.",
+"note": "There is nothing you have to find or do. When you feel you have explored the shop enough, end the session."
+},
+"detailedcomparator": {
+"title": "Testing a new online shop",
+"body": "Something for your home has been on your mind lately — a kitchen gadget, a desk item, that sort of thing. Have a look around and see what the shop has to offer. If a product appeals to you, you are welcome to “buy” it — no real money is involved and no real order is placed.",
+"note": "There is nothing you have to find or do. When you feel you have explored the shop enough, end the session."
+},
+"discounthunter": {
+"title": "Testing a new online shop",
+"body": "Money is a little tight this month. Have a look around and see what the shop has to offer. If a product appeals to you, you are welcome to “buy” it — no real money is involved and no real order is placed.",
+"note": "There is nothing you have to find or do. When you feel you have explored the shop enough, end the session."
+},
+"windowshopper": {
+"title": "Testing a new online shop",
+"body": "You have a few free minutes and nothing in particular in mind. Have a look around and see what the shop has to offer. If a product appeals to you, you are welcome to “buy” it — no real money is involved and no real order is placed.",
+"note": "There is nothing you have to find or do. When you feel you have explored the shop enough, end the session."
+}
+} %}
+{% set _s = _scenarios[study_persona] %}
+<div class="modal fade show d-block" id="personaModal" tabindex="-1" role="dialog" style="background:rgba(0,0,0,.55)">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">{{ _s.title }}</h5>
+            </div>
+            <div class="modal-body">
+                <p>{{ _s.body }}</p>
+                <p class="text-muted small mb-0"><em>{{ _s.note }}</em></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="personaModalStart">
+                    Start
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // The task briefing is a one-time instruction, not a recurring interruption:
+    // returning to the home page mid-session must not re-describe the scenario.
+    // Keyed on the worker id so a new participant in the same tab still sees it.
+    (function () {
+        const modal = document.getElementById('personaModal');
+        if (!modal) return;
+        const key = 'persona_brief_seen:{{ study_wid }}';
+        const dismiss = () => {
+            try { sessionStorage.setItem(key, '1'); } catch (_) { }
+            modal.remove();
+        };
+        let seen = false;
+        try { seen = sessionStorage.getItem(key) === '1'; } catch (_) { }
+        if (seen) {
+            modal.remove();
+            return;
+        }
+        document.getElementById('personaModalStart').addEventListener('click', dismiss);
+    })();
+</script>
+{% endif %}
+
+<!-- Hero Banner -->
+<div class="hero-banner rounded-3 p-5 mb-4 text-center text-white">
+    <h1 class="display-5 fw-bold">Welcome to DemoShop</h1>
+    <p class="lead">Discover amazing products at great prices</p>
+    <a href="#featured" class="btn btn-light btn-lg">Browse Products</a>
+</div>
+
+<!-- Decision Point: Landing Page -->
+<div class="widget-slot mb-4" data-decision-point="landing"></div>
+
+<!-- Categories -->
+<h2 class="mb-3">Shop by Category</h2>
+<div class="row g-3 mb-5">
+    {% for cat in categories %}
+    <div class="col-6 col-md-4 col-lg-2">
+        <a href="/category/{{ cat.slug }}" class="card text-decoration-none h-100 category-card">
+            <div class="card-body text-center">
+                <h6 class="card-title mb-0">{{ cat.name }}</h6>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Featured Products -->
+<h2 id="featured" class="mb-3">Featured Products</h2>
+<div class="row g-4">
+    {% for product in featured %}
+    <div class="col-6 col-md-4 col-lg-3">
+        {% include "components/product_card.html" %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+# Local evaluation override — adds host port mappings so v2/v3/dispatcher are
+# reachable without nginx/TLS. Use with:
+#   docker compose -f docker-compose.yml -f docker-compose.local.yml up v2 v3 dispatcher --build
+
+services:
+  v2:
+    environment:
+      LEGAL_BASE_URL: "http://localhost:8004"
+      ADMIN_LOGIN_URL: "http://localhost:8004/admin/login"
+    ports:
+      - "8002:8000"
+
+  v3:
+    environment:
+      LEGAL_BASE_URL: "http://localhost:8004"
+      ADMIN_LOGIN_URL: "http://localhost:8004/admin/login"
+    ports:
+      - "8003:8000"
+
+  dispatcher:
+    environment:
+      V2_BASE_URL: "http://localhost:8002"
+      V3_BASE_URL: "http://localhost:8003"
+      ADMIN_COOKIE_DOMAIN: ""
+      ADMIN_COOKIE_SECURE: "false"
+    ports:
+      - "8004:8000"

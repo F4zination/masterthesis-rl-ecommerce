@@ -1,0 +1,9 @@
+# Dependencies for the Experiments/ analysis and audit scripts.
+#   pip install -r Experiments/requirements.txt
+#
+# anthropic + pydantic are needed only by audit_persona_prompt_quality.py
+# (LLM-as-a-judge scoring of the Clickworker scenario wording). Its
+# --verify-lock mode needs neither, only jinja2.
+anthropic>=0.116
+pydantic>=2.0
+jinja2>=3.1

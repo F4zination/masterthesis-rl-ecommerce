@@ -1,0 +1,1275 @@
+{
+  "artifacts": {
+    "archetype_config": {
+      "exists": true,
+      "path": "CustomerSimulation/config/archetypes.yaml",
+      "sha256": "704f52cf32c73ae6695e0a56cbf715205b656e9351cb5f8dd5ec007c97edf0bf",
+      "size_bytes": 13903
+    },
+    "baseline_csv": {
+      "exists": true,
+      "path": "Experiments/study_policy_baselines/clickworker_pre_recruitment_20260721/policy_archetype_baseline.csv",
+      "sha256": "781359ab8af696999753192936752046e473dd982447ace3450b6a4c368f397f",
+      "size_bytes": 7885
+    },
+    "baseline_json": {
+      "exists": true,
+      "path": "Experiments/study_policy_baselines/clickworker_pre_recruitment_20260721/policy_archetype_baseline.json",
+      "sha256": "77c2af292d3a5e2c231e44a036940dfe06fe1839382185d2b652056172a9f896",
+      "size_bytes": 294712
+    },
+    "dispatcher_db": {
+      "exists": true,
+      "path": "StudyDispatcher/data/dispatcher.db",
+      "sha256": "cf40d9d1fc455a2989c5b543f724ba292ad1e6b50c36a33ef9615479aef9f247",
+      "size_bytes": 12288
+    },
+    "power_analysis": {
+      "exists": true,
+      "path": "Experiments/study_policy_baselines/clickworker_pre_recruitment_20260721/power_analysis.json",
+      "sha256": "4f14d70a55d67ee68ab849462a6cc127523e46b356913faa03786a3e769a0a91",
+      "size_bytes": 3995
+    },
+    "v2_db": {
+      "exists": true,
+      "path": "DemoSiteV2/data/demosite.db",
+      "sha256": "eda7bc145ff7f5cea139ec396fb45d50614e1a63e3088c5695bdfdd399997b8a",
+      "size_bytes": 561152
+    },
+    "v3_checkpoint": {
+      "exists": true,
+      "path": "OfflineTraining/outputs/ppo_policy.pt",
+      "sha256": "a1860fe14bfca03a91e5c0c6b13d47ab460a415266c651db28be778f5d6e00c6",
+      "size_bytes": 60983
+    },
+    "v3_product_db": {
+      "exists": true,
+      "path": "DemoSiteV3/data/demosite.db",
+      "sha256": "16f504ae4b1f4f8827f6b88085f554c49c564ff80d8c3c6080d9c026926e3682",
+      "size_bytes": 204800
+    }
+  },
+  "container_images": {
+    "images": {},
+    "required_labels": [
+      "v2",
+      "v3",
+      "dispatcher",
+      "nginx",
+      "certbot"
+    ]
+  },
+  "dependencies": {
+    "lock_files": [],
+    "manifests": [
+      {
+        "exists": true,
+        "path": "CustomerSimulation/requirements.txt",
+        "sha256": "1755339ece33394e1385250b8a5de489b03db9312507cb369dc047c49cbf1516",
+        "size_bytes": 33
+      },
+      {
+        "exists": true,
+        "path": "DemoSiteV2/requirements.txt",
+        "sha256": "1ed8bfd9244e81d323b3336422ac7ce4fb5904a57f79a9560906f6dfc2ddcedb",
+        "size_bytes": 124
+      },
+      {
+        "exists": true,
+        "path": "DemoSiteV3/requirements.txt",
+        "sha256": "ee045f22370366e3e5371428aaf96f68744e576fc817e437b4f0472d3eb9ca0d",
+        "size_bytes": 154
+      },
+      {
+        "exists": true,
+        "path": "StudyDispatcher/requirements.txt",
+        "sha256": "f6a6e24e2aa4cbee25b466681613e59b53a5580306bbf2ed4c7bda0b11af3bb5",
+        "size_bytes": 65
+      },
+      {
+        "exists": true,
+        "path": "SharedSchema/pyproject.toml",
+        "sha256": "1906c27310630123ced9162deb92ffe354196943ec2d7f31bfa9dace2ce4430c",
+        "size_bytes": 382
+      }
+    ]
+  },
+  "deployment": {
+    "checks": {
+      "v2.FREEZE_POLICY": true,
+      "v2.REQUIRE_BANDIT_POLICY": true,
+      "v3.FREEZE_POLICY": true,
+      "v3.LEARNER_ENABLED": true,
+      "v3.POLICY_MODE": true,
+      "v3.REQUIRE_PPO_CHECKPOINT": true,
+      "v3.TIMING_ENABLED": true
+    },
+    "compose": {
+      "exists": true,
+      "path": "docker-compose.yml",
+      "sha256": "06630c6a66080629a4c18be24949431db3c4256ab381ec0737fc06ca9a6fee81",
+      "size_bytes": 6361
+    },
+    "expected_environment": {
+      "v2": {
+        "FREEZE_POLICY": "true",
+        "REQUIRE_BANDIT_POLICY": "true"
+      },
+      "v3": {
+        "FREEZE_POLICY": "true",
+        "LEARNER_ENABLED": "false",
+        "POLICY_MODE": "ppo_only",
+        "REQUIRE_PPO_CHECKPOINT": "true",
+        "TIMING_ENABLED": "false"
+      }
+    },
+    "observed_environment": {
+      "v2": {
+        "ADMIN_COOKIE_NAME": "${ADMIN_COOKIE_NAME:-study_admin_session}",
+        "ADMIN_LOGIN_URL": "https://${DISPATCHER_DOMAIN}/admin/login",
+        "ADMIN_SESSION_SECRET": "${ADMIN_SESSION_SECRET:-}",
+        "ADMIN_TOKEN": "${ADMIN_TOKEN:-}",
+        "ADMIN_USERNAME": "${ADMIN_USERNAME:-admin}",
+        "FREEZE_POLICY": "true",
+        "LEGAL_BASE_URL": "https://${DISPATCHER_DOMAIN}",
+        "REQUIRE_BANDIT_POLICY": "true"
+      },
+      "v3": {
+        "ADMIN_COOKIE_NAME": "${ADMIN_COOKIE_NAME:-study_admin_session}",
+        "ADMIN_LOGIN_URL": "https://${DISPATCHER_DOMAIN}/admin/login",
+        "ADMIN_SESSION_SECRET": "${ADMIN_SESSION_SECRET:-}",
+        "ADMIN_TOKEN": "${ADMIN_TOKEN:-}",
+        "ADMIN_USERNAME": "${ADMIN_USERNAME:-admin}",
+        "FREEZE_POLICY": "true",
+        "LEARNER_ENABLED": "false",
+        "LEGAL_BASE_URL": "https://${DISPATCHER_DOMAIN}",
+        "POLICY_MODE": "ppo_only",
+        "REQUIRE_PPO_CHECKPOINT": "true",
+        "TIMING_ENABLED": "false"
+      }
+    },
+    "policy_updates_during_study": false,
+    "v3_runtime_fallback_allowed": false
+  },
+  "generated_at_utc": "2026-07-21T20:33:31.085286+00:00",
+  "policy_matched_simulator_reference": {
+    "code_hash_checks": [
+      {
+        "actual_sha256": "531c4313b10380e47e64b821cfe672e5b2d8ab56146a978f52000588fef0c2f5",
+        "expected_sha256": "531c4313b10380e47e64b821cfe672e5b2d8ab56146a978f52000588fef0c2f5",
+        "matches": true,
+        "path": "Experiments/evaluate_study_policy_baseline.py"
+      },
+      {
+        "actual_sha256": "559b80ee0e6394cfea944af0afa3799c4605a7a3978fe20e9d9c5eef1f9d30fc",
+        "expected_sha256": "559b80ee0e6394cfea944af0afa3799c4605a7a3978fe20e9d9c5eef1f9d30fc",
+        "matches": true,
+        "path": "CustomerSimulation/simulation/simulator.py"
+      },
+      {
+        "actual_sha256": "2ed09f3da198f3e718f1dc1cb7e46544107976f43911f4df3be3173634597f66",
+        "expected_sha256": "2ed09f3da198f3e718f1dc1cb7e46544107976f43911f4df3be3173634597f66",
+        "matches": true,
+        "path": "CustomerSimulation/simulation/state.py"
+      },
+      {
+        "actual_sha256": "022757744213bbbdc8a47a946caac7eba568c1abe3ec337d6ce9f40838eabd96",
+        "expected_sha256": "022757744213bbbdc8a47a946caac7eba568c1abe3ec337d6ce9f40838eabd96",
+        "matches": true,
+        "path": "SharedSchema/shared_schema/constants.py"
+      },
+      {
+        "actual_sha256": "11c70ac822352d77bdadc118a2e0d00bc4120342b3d792fa38c13a9975c14514",
+        "expected_sha256": "11c70ac822352d77bdadc118a2e0d00bc4120342b3d792fa38c13a9975c14514",
+        "matches": true,
+        "path": "SharedSchema/shared_schema/features.py"
+      }
+    ],
+    "context_standardization": {
+      "complete": true,
+      "duplicate_strata_cells": 0,
+      "enabled": true,
+      "expected_strata_cells": 160,
+      "independent_seeds_across_strata_cells": true,
+      "insufficient_session_strata_cells": 0,
+      "missing_strata": [],
+      "n_strata_cells": 160,
+      "rule": "Primary fidelity standardizes simulator cell means to the recorded joint device/traffic distribution within each policy-persona cell.",
+      "sessions_per_stratum": 500,
+      "unexpected_strata": []
+    },
+    "file": {
+      "exists": true,
+      "path": "Experiments/study_policy_baselines/clickworker_pre_recruitment_20260721/policy_archetype_baseline.json",
+      "sha256": "77c2af292d3a5e2c231e44a036940dfe06fe1839382185d2b652056172a9f896",
+      "size_bytes": 294712
+    },
+    "git_head": "04001fbd815f4b3f7ca94f1c66cab92d2a325f71",
+    "git_head_matches_release": true,
+    "input_hash_matches": {
+      "archetype_config": true,
+      "v2_db": true,
+      "v3_checkpoint": true
+    },
+    "n_cells": 10,
+    "sessions_per_cell": 2000,
+    "study_id": "clickworker_pre_recruitment_20260721",
+    "v2_serving_diagnostics": {
+      "decisions": 147912,
+      "missing_feature_decisions": 0,
+      "partially_unseen_context_decisions": 637,
+      "selected_unseen_arm_decisions": 29507,
+      "unseen_context_decisions": 29495,
+      "unseen_context_rate": 0.19940910811834064
+    },
+    "v3_serving_diagnostics": {
+      "all_cells_serving_equivalent": true,
+      "decisions": 148448,
+      "decisions_with_oov_tokens": 50840,
+      "fallback_decisions": 0,
+      "oov_decision_rate": 0.34247682690234965
+    },
+    "valid_json": true
+  },
+  "policy_provenance": {
+    "v2_bandit": {
+      "embedded": false,
+      "error": "no embedded policy-build metadata table",
+      "metadata": {},
+      "missing_required_fields": [
+        "training_dataset_sha256",
+        "build_git_commit",
+        "build_git_dirty",
+        "build_script_sha256"
+      ]
+    },
+    "v3_ppo": {
+      "declared": {},
+      "inspectable": true,
+      "metadata_keys": [
+        "hidden_sizes"
+      ],
+      "missing_required_fields": [
+        "training_dataset_sha256",
+        "archetype_config_sha256",
+        "training_script_sha256",
+        "training_seed",
+        "training_git_commit",
+        "training_git_dirty",
+        "dynamics",
+        "t_max",
+        "iterations",
+        "rollout_sessions",
+        "mode",
+        "sequential"
+      ],
+      "provenance_block_present": false,
+      "serving_vocabulary": {
+        "missing_actions": [],
+        "missing_state_tokens": [
+          "device_type=unknown",
+          "item_count_bucket=3",
+          "primed_credit_bucket=1",
+          "primed_credit_bucket=2",
+          "primed_credit_bucket=3",
+          "steps_since_widget_bucket=3"
+        ],
+        "required_state_token_count": 46
+      }
+    }
+  },
+  "power_analysis_reference": {
+    "baseline_hash_matches": true,
+    "declared_baseline_sha256": "77c2af292d3a5e2c231e44a036940dfe06fe1839382185d2b652056172a9f896",
+    "file": {
+      "exists": true,
+      "path": "Experiments/study_policy_baselines/clickworker_pre_recruitment_20260721/power_analysis.json",
+      "sha256": "4f14d70a55d67ee68ab849462a6cc127523e46b356913faa03786a3e769a0a91",
+      "size_bytes": 3995
+    },
+    "method": "normal approximations for planning only",
+    "valid_json": true
+  },
+  "pre_recruitment_data": {
+    "clean_for_confirmatory_recruitment": false,
+    "dispatcher": {
+      "counts": {
+        "assignments": 2
+      },
+      "exists": true,
+      "path": "C:\\Users\\finnr\\development\\masterion\\MasterThesisProject\\StudyDispatcher\\data\\dispatcher.db",
+      "readable": true,
+      "total_rows": 2
+    },
+    "rule": "Archive pilot/test volumes and release empty event, order, decision, cart, discount, and assignment tables before confirmatory recruitment.",
+    "v2": {
+      "counts": {
+        "cart_items": 0,
+        "decision_logs": 9,
+        "events": 81,
+        "orders": 1,
+        "session_discounts": 0
+      },
+      "exists": true,
+      "path": "C:\\Users\\finnr\\development\\masterion\\MasterThesisProject\\DemoSiteV2\\data\\demosite.db",
+      "readable": true,
+      "total_rows": 91
+    },
+    "v3": {
+      "counts": {
+        "cart_items": 0,
+        "decision_logs": 0,
+        "events": 0,
+        "orders": 0,
+        "session_discounts": 0
+      },
+      "exists": true,
+      "path": "C:\\Users\\finnr\\development\\masterion\\MasterThesisProject\\DemoSiteV3\\data\\demosite.db",
+      "readable": true,
+      "total_rows": 0
+    }
+  },
+  "preregistration": {
+    "declared_commit_matches_head": false,
+    "declared_release_commit": "TO_BE_FILLED",
+    "exists": true,
+    "path": "Experiments/ClickworkerPreregistration.md",
+    "sha256": "71a0289de3ef50b5cb9a12b5e7732820dde7920284096f17f15ba673dadb6773",
+    "size_bytes": 14770,
+    "status": "draft; commit and timestamp before confirmatory recruitment",
+    "unfilled_fields": [
+      {
+        "line": 7,
+        "text": "**Study release commit**: `TO_BE_FILLED`"
+      },
+      {
+        "line": 9,
+        "text": "**Reference-data manifest**: `TO_BE_FILLED`"
+      },
+      {
+        "line": 11,
+        "text": "**Planned recruitment date**: `TO_BE_FILLED`"
+      },
+      {
+        "line": 33,
+        "text": "- Recruitment stops when all randomized-cell quotas are reached, subject only to a platform-wide end date recorded before launch: `TO_BE_FILLED`."
+      }
+    ]
+  },
+  "product_catalogue": {
+    "canonical_content_identical": true,
+    "seed_strategy": "deterministic static catalogues; no random catalogue seed",
+    "v2": {
+      "canonical_catalog_sha256": "4fb19a6c6d857c1f57e8791deb135a6b16d77c355ae80cfe5115a9eac50ae084",
+      "database": {
+        "exists": true,
+        "path": "DemoSiteV2/data/demosite.db",
+        "sha256": "eda7bc145ff7f5cea139ec396fb45d50614e1a63e3088c5695bdfdd399997b8a",
+        "size_bytes": 561152
+      },
+      "sqlite_quick_check": "ok",
+      "tables": {
+        "categories": {
+          "columns": [
+            "id",
+            "name",
+            "slug",
+            "description"
+          ],
+          "row_count": 5
+        },
+        "products": {
+          "columns": [
+            "id",
+            "name",
+            "slug",
+            "description",
+            "price",
+            "image_url",
+            "category_id",
+            "stock"
+          ],
+          "row_count": 249
+        }
+      },
+      "valid": true
+    },
+    "v2_seed_source": {
+      "exists": true,
+      "path": "DemoSiteV2/app/seed.py",
+      "sha256": "9eb0c51696f766e54fb4bd24bcc0402c1278c4c2575faed15246dcc49d309c10",
+      "size_bytes": 42601
+    },
+    "v3": {
+      "canonical_catalog_sha256": "4fb19a6c6d857c1f57e8791deb135a6b16d77c355ae80cfe5115a9eac50ae084",
+      "database": {
+        "exists": true,
+        "path": "DemoSiteV3/data/demosite.db",
+        "sha256": "16f504ae4b1f4f8827f6b88085f554c49c564ff80d8c3c6080d9c026926e3682",
+        "size_bytes": 204800
+      },
+      "sqlite_quick_check": "ok",
+      "tables": {
+        "categories": {
+          "columns": [
+            "id",
+            "name",
+            "slug",
+            "description"
+          ],
+          "row_count": 5
+        },
+        "products": {
+          "columns": [
+            "id",
+            "name",
+            "slug",
+            "description",
+            "price",
+            "image_url",
+            "category_id",
+            "stock"
+          ],
+          "row_count": 249
+        }
+      },
+      "valid": true
+    },
+    "v3_seed_source": {
+      "exists": true,
+      "path": "DemoSiteV3/app/seed.py",
+      "sha256": "9eb0c51696f766e54fb4bd24bcc0402c1278c4c2575faed15246dcc49d309c10",
+      "size_bytes": 42601
+    }
+  },
+  "readiness": {
+    "blocker_count": 11,
+    "blockers": [
+      {
+        "code": "dirty_worktree",
+        "detail": "Commit or stash every intended source change before recruitment."
+      },
+      {
+        "code": "preregistration_unfilled",
+        "detail": "Resolve every substantive TO_BE_FILLED field before recruitment."
+      },
+      {
+        "code": "preregistration_not_locked",
+        "detail": "Preregistration status is still draft."
+      },
+      {
+        "code": "dependency_lock_missing",
+        "detail": "No reproducible dependency lock file was found."
+      },
+      {
+        "code": "pre_recruitment_data_not_empty",
+        "detail": "Archive pilot/test data and deploy clean shop and dispatcher ledgers."
+      },
+      {
+        "code": "v2_policy_provenance_incomplete",
+        "detail": "Rebuild V2 with embedded dataset, code, and Git provenance."
+      },
+      {
+        "code": "v3_serving_vocabulary_incomplete",
+        "detail": "The checkpoint must encode the full finite production state-token and action domains."
+      },
+      {
+        "code": "v3_policy_provenance_incomplete",
+        "detail": "Retrain/export V3 with complete embedded training provenance."
+      },
+      {
+        "code": "v2_state_coverage_incomplete",
+        "detail": "The frozen bandit has no trained evidence for one or more visited production contexts/actions."
+      },
+      {
+        "code": "v3_state_coverage_incomplete",
+        "detail": "The PPO checkpoint vocabulary does not cover every serving-time state token."
+      },
+      {
+        "code": "image_identifiers_missing",
+        "detail": "v2, v3, dispatcher, nginx, certbot"
+      }
+    ],
+    "ready_for_recruitment": false,
+    "rule": "Ready only when every fail-closed check passes; draft manifests remain useful audit artifacts."
+  },
+  "release_id": "clickworker_draft_20260721",
+  "relevant_code_and_configuration": [
+    {
+      "exists": true,
+      "path": "docker-compose.yml",
+      "sha256": "06630c6a66080629a4c18be24949431db3c4256ab381ec0737fc06ca9a6fee81",
+      "size_bytes": 6361
+    },
+    {
+      "exists": true,
+      "path": "example.env",
+      "sha256": "6e4417a5dbe6d305051c281945eeb58383488816e7fbfc01ca629d495c132f4f",
+      "size_bytes": 2870
+    },
+    {
+      "exists": true,
+      "path": "CustomerSimulation/simulation/simulator.py",
+      "sha256": "559b80ee0e6394cfea944af0afa3799c4605a7a3978fe20e9d9c5eef1f9d30fc",
+      "size_bytes": 12880
+    },
+    {
+      "exists": true,
+      "path": "CustomerSimulation/simulation/state.py",
+      "sha256": "2ed09f3da198f3e718f1dc1cb7e46544107976f43911f4df3be3173634597f66",
+      "size_bytes": 3716
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/Dockerfile",
+      "sha256": "bce7846a41162d59d7bf3d630c4a1cd2e7e1a8462954c8ec9f761e99f1709af1",
+      "size_bytes": 2209
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/database.py",
+      "sha256": "1c00ecde0e88ba539d9be5e72a77ac2abc340373466349a57fd41b5153b83817",
+      "size_bytes": 1547
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/main.py",
+      "sha256": "4d29cd76dabdc1b42357c5b9fbf4a005ce899446fd35ae6ae506e9d9ba48dad6",
+      "size_bytes": 5301
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/models.py",
+      "sha256": "062b0de450827945026564f55fd43568dec789cf7ec8d133edb94e137fa6b06c",
+      "size_bytes": 10802
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/routers/api.py",
+      "sha256": "3f54f1a4a630efb90dda0a0d083b8ada577064fd311c1fe5c0fb5a77296599eb",
+      "size_bytes": 6723
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/routers/decision.py",
+      "sha256": "a5883f55892d0deb640e64f26d9d6d43a826cef710e5e0fa79fd031261c15f4a",
+      "size_bytes": 1936
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/routers/events.py",
+      "sha256": "3b8b56c52d9f0e7dbff4f7bca7cc9f55a009666f576ecc47bf2ea99c519db0eb",
+      "size_bytes": 2091
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/routers/shop.py",
+      "sha256": "26e7502ea1e5d300ec72c0dd7d2f0505bfb55304f4f1dd665d570b9e7c44bfc3",
+      "size_bytes": 20152
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/services/cart.py",
+      "sha256": "4697e474cabe41d5d633d85446500b798adaa4640095ceaf1e1b3950830bff2b",
+      "size_bytes": 6424
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/services/decision.py",
+      "sha256": "18a987a2f6a178a43b74526fe1851d7e403a6899006ae2a95643b108dbf4b6d8",
+      "size_bytes": 9756
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/services/tracking.py",
+      "sha256": "41eb95c3de8fcb9c58c02e59bb2c2998083ac13b007744db7855b66dc8f46cb9",
+      "size_bytes": 1758
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/seed.py",
+      "sha256": "9eb0c51696f766e54fb4bd24bcc0402c1278c4c2575faed15246dcc49d309c10",
+      "size_bytes": 42601
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/static/js/cart.js",
+      "sha256": "688b8f6ff17c00e3c66e02689e0ac03a671e2ef13042f2f2ca6211ab1339010d",
+      "size_bytes": 4593
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/static/js/decision.js",
+      "sha256": "a67efc44ffdc315546dcca1a91037dce20c5fd81b1703f224be20bf6d1014259",
+      "size_bytes": 23666
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/static/js/tracking.js",
+      "sha256": "25570d2f66e70429c70d7c1ac204f50771ce0a03aa3683e2a862250fec17de96",
+      "size_bytes": 4255
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/templates/attention.html",
+      "sha256": "e76ff55f7771d7a3e7caec394a9c16900bc7ac5bc8d1db46d03dce609cecd5dc",
+      "size_bytes": 1612
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/templates/base.html",
+      "sha256": "7c65a3f3a25919f82c0b894dba20b51c760de166a5698ee25eec4e5f2f3b322a",
+      "size_bytes": 4893
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/templates/checkout.html",
+      "sha256": "e1a83e15eedc676f0b9a48c784a9cf552081f9d816bfefa7282c80458a8256e1",
+      "size_bytes": 4822
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/templates/confirmation.html",
+      "sha256": "bb3bd586ca644e6a84d5a1400550e6e1403e21e4601511b9e7950b56272ca872",
+      "size_bytes": 1906
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/templates/end_session.html",
+      "sha256": "8bb85dd8a906e3b330d265afa7e22d82234e4176cbb67c9839c8df01f83cc3b6",
+      "size_bytes": 598
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/templates/home.html",
+      "sha256": "c20aaae889183597e319bdb18673dd30ca0e110748e36ec5a74807115d53880a",
+      "size_bytes": 4461
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/Dockerfile",
+      "sha256": "6ae5ffe2aca19a94edf9ea7c78a76a6e6fd2ec249ee899297ef05d6c80151696",
+      "size_bytes": 2808
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/config.py",
+      "sha256": "35003707b0bbb2dac9400e130ebdeb7287119ed01554c3be9dc6e188ea6f47bd",
+      "size_bytes": 4439
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/database.py",
+      "sha256": "1c00ecde0e88ba539d9be5e72a77ac2abc340373466349a57fd41b5153b83817",
+      "size_bytes": 1547
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/main.py",
+      "sha256": "60a0b432c105609317c4a06f4b05064be507767b369b17f0c58ebb48b958af98",
+      "size_bytes": 6943
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/models.py",
+      "sha256": "062b0de450827945026564f55fd43568dec789cf7ec8d133edb94e137fa6b06c",
+      "size_bytes": 10802
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/routers/api.py",
+      "sha256": "3f54f1a4a630efb90dda0a0d083b8ada577064fd311c1fe5c0fb5a77296599eb",
+      "size_bytes": 6723
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/routers/decision.py",
+      "sha256": "03aac778472ae5b83ee2c9263d5acaa027734d53845a2dea6a09e62e00280758",
+      "size_bytes": 2230
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/routers/events.py",
+      "sha256": "3b8b56c52d9f0e7dbff4f7bca7cc9f55a009666f576ecc47bf2ea99c519db0eb",
+      "size_bytes": 2091
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/routers/shop.py",
+      "sha256": "8612f92ac4f16f294914738a4429b9466703f105688404a74bd4770d1b020fb6",
+      "size_bytes": 19998
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/seed.py",
+      "sha256": "9eb0c51696f766e54fb4bd24bcc0402c1278c4c2575faed15246dcc49d309c10",
+      "size_bytes": 42601
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/services/cart.py",
+      "sha256": "4697e474cabe41d5d633d85446500b798adaa4640095ceaf1e1b3950830bff2b",
+      "size_bytes": 6424
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/services/decision.py",
+      "sha256": "2da252aaaf840a56cbc8dcc687eb4b4bcd3d1160903799aacc5f4644dc46b57f",
+      "size_bytes": 19947
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/services/ppo.py",
+      "sha256": "aba3b1681edaa18db7dd20756e3b681d7626e19746b2c8ce0a10211f0c915745",
+      "size_bytes": 6491
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/services/tracking.py",
+      "sha256": "41eb95c3de8fcb9c58c02e59bb2c2998083ac13b007744db7855b66dc8f46cb9",
+      "size_bytes": 1758
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/static/js/cart.js",
+      "sha256": "688b8f6ff17c00e3c66e02689e0ac03a671e2ef13042f2f2ca6211ab1339010d",
+      "size_bytes": 4593
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/static/js/decision.js",
+      "sha256": "9f6deea750124e8fc84cf9473440b0545d3748d3fd9cb2d5d8eefd47f708fc6e",
+      "size_bytes": 27573
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/static/js/tracking.js",
+      "sha256": "25570d2f66e70429c70d7c1ac204f50771ce0a03aa3683e2a862250fec17de96",
+      "size_bytes": 4255
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/templates/attention.html",
+      "sha256": "dd2dc7d6364429213b6e78db0bd053627a8392d80672839a4c2b05fc475634ec",
+      "size_bytes": 1608
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/templates/base.html",
+      "sha256": "7c65a3f3a25919f82c0b894dba20b51c760de166a5698ee25eec4e5f2f3b322a",
+      "size_bytes": 4893
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/templates/checkout.html",
+      "sha256": "e1a83e15eedc676f0b9a48c784a9cf552081f9d816bfefa7282c80458a8256e1",
+      "size_bytes": 4822
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/templates/confirmation.html",
+      "sha256": "bb3bd586ca644e6a84d5a1400550e6e1403e21e4601511b9e7950b56272ca872",
+      "size_bytes": 1906
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/templates/end_session.html",
+      "sha256": "8bb85dd8a906e3b330d265afa7e22d82234e4176cbb67c9839c8df01f83cc3b6",
+      "size_bytes": 598
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/templates/home.html",
+      "sha256": "56725ad731f3d7eb5144d67645dcf973173d5dd4143e0218d06ecb35cca9c669",
+      "size_bytes": 4459
+    },
+    {
+      "exists": true,
+      "path": "StudyDispatcher/Dockerfile",
+      "sha256": "dede57c106a144c4c48ba1a0ad81495bdd7f4fbe558809aa314f6dfe9538567a",
+      "size_bytes": 870
+    },
+    {
+      "exists": true,
+      "path": "StudyDispatcher/app/admin.py",
+      "sha256": "29c38a128da9b16022a12ffce6420839576ca32ebafaac126fd3c544e2626d3b",
+      "size_bytes": 21312
+    },
+    {
+      "exists": true,
+      "path": "StudyDispatcher/app/config.py",
+      "sha256": "6dc72612c5fd38e3bd7524f996f3d16c837c03fe111d024fd3d6637db3f12339",
+      "size_bytes": 5755
+    },
+    {
+      "exists": true,
+      "path": "StudyDispatcher/app/legal.py",
+      "sha256": "da0a19ce2978aed5ebc1a143f897df1ef0dd8b0e83c7957a3c994a2a83e87ee2",
+      "size_bytes": 12189
+    },
+    {
+      "exists": true,
+      "path": "StudyDispatcher/app/main.py",
+      "sha256": "c36966c115676404e234d2151db9134a70ae735d22b6b4ce4f3d074dec58a9d7",
+      "size_bytes": 11706
+    },
+    {
+      "exists": true,
+      "path": "StudyDispatcher/app/store.py",
+      "sha256": "ff52244d90ebcdfe69a24b59845f86d03809d1d4d7b54544ae7a74e6d2b7b486",
+      "size_bytes": 6262
+    },
+    {
+      "exists": true,
+      "path": "deploy/nginx/templates/default.conf.template",
+      "sha256": "451e5fc1a71fc9e5bd7b357a09046b5a9f699639e96496ac7ee721b7b2182b95",
+      "size_bytes": 5417
+    },
+    {
+      "exists": true,
+      "path": "deploy/init-letsencrypt.sh",
+      "sha256": "77cb66f46e476b7251f9d2647e572d3998e0c889f6b6b9f3e2dd8b5c544f9822",
+      "size_bytes": 4385
+    },
+    {
+      "exists": true,
+      "path": "SharedSchema/shared_schema/constants.py",
+      "sha256": "022757744213bbbdc8a47a946caac7eba568c1abe3ec337d6ce9f40838eabd96",
+      "size_bytes": 1889
+    },
+    {
+      "exists": true,
+      "path": "SharedSchema/shared_schema/features.py",
+      "sha256": "11c70ac822352d77bdadc118a2e0d00bc4120342b3d792fa38c13a9975c14514",
+      "size_bytes": 13672
+    },
+    {
+      "exists": true,
+      "path": "OfflineTraining/build_bandit_policy.py",
+      "sha256": "d40e60fa26064183c44b3e6bdb7b6d1338cfc303d05ec5c325b04eb121eb8276",
+      "size_bytes": 9151
+    },
+    {
+      "exists": true,
+      "path": "OfflineTraining/train_ppo_policy.py",
+      "sha256": "00c73acc0d57cf6882cb78746ec6dc57606d23aa0fcaf150d1865ec5b7f0ad5c",
+      "size_bytes": 29913
+    },
+    {
+      "exists": true,
+      "path": "Experiments/evaluate_study_policy_baseline.py",
+      "sha256": "531c4313b10380e47e64b821cfe672e5b2d8ab56146a978f52000588fef0c2f5",
+      "size_bytes": 34685
+    },
+    {
+      "exists": true,
+      "path": "Experiments/calculate_clickworker_power.py",
+      "sha256": "86303d89cb14f5b60e335bae9343be92f9e5ce392874349efadd9d78e974bbb5",
+      "size_bytes": 6052
+    },
+    {
+      "exists": true,
+      "path": "Experiments/analyze_clickworker_study.py",
+      "sha256": "7a9e1af908e2b00cb7a0d91784194d7a739c8d14000d2c4fea06f2008638dd8e",
+      "size_bytes": 49576
+    },
+    {
+      "exists": true,
+      "path": "Experiments/verify_completion_codes.py",
+      "sha256": "b543ae90f312126173cdd70096b152bb8c4217a2fb8846edb2b12f9f1e32cd7d",
+      "size_bytes": 11778
+    },
+    {
+      "exists": true,
+      "path": "Experiments/build_study_release_manifest.py",
+      "sha256": "b296b73be38eadc19e632a91b74b7c341bd7ddd5cbc2b21a153b32942a797813",
+      "size_bytes": 52308
+    }
+  ],
+  "reward_and_feature_schema": {
+    "canonical_reward_schema_sha256": "12601801b9baa54f348945ae2db423e46cae439b9857f9884f3fa322e8901d68",
+    "note": "Order-total purchase bonus logic is additionally pinned by the features.py source hash.",
+    "source": {
+      "exists": true,
+      "path": "SharedSchema/shared_schema/constants.py",
+      "sha256": "022757744213bbbdc8a47a946caac7eba568c1abe3ec337d6ce9f40838eabd96",
+      "size_bytes": 1889
+    },
+    "valid": true,
+    "values": {
+      "action_cost": {
+        "discount_banner": 0.1,
+        "frequently_bought_together": 0.04,
+        "help_popup": 0.02,
+        "no-op": 0.0,
+        "trending_carousel": 0.05,
+        "trust_badge": 0.03
+      },
+      "context_schema_version": 2,
+      "event_reward": {
+        "add_to_cart": 1.5,
+        "checkout_submit": 2.0,
+        "exit_intent": -0.6,
+        "help_popup_click": 1.0,
+        "purchase": 8.0,
+        "remove_from_cart": -0.5,
+        "widget_click": 1.2,
+        "widget_dismiss": -0.8
+      },
+      "history_primed_credit_decay": 0.9,
+      "history_priming_actions": [
+        "help_popup",
+        "trust_badge"
+      ],
+      "history_priming_amount": 1.0
+    }
+  },
+  "runtime": {
+    "docker_client": null,
+    "docker_client_error": "WARNING: Error loading config file: open C:\\Users\\finnr\\.docker\\config.json: Access is denied.\nerror during connect: in the default daemon configuration on Windows, the docker client must be run with elevated privileges to connect: Get \"http://%2F%2F.%2Fpipe%2Fdocker_engine/v1.50/version\": open //./pipe/docker_engine: The system cannot find the file specified.",
+    "executable": "C:\\Python314\\python.exe",
+    "git_client": "git version 2.45.1.windows.1",
+    "packages": {
+      "PyYAML": "6.0.3",
+      "SQLAlchemy": "2.0.49",
+      "fastapi": "0.135.3",
+      "jinja2": "3.1.6",
+      "torch": "2.12.0",
+      "uvicorn": "0.44.0"
+    },
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.14.2",
+    "python_implementation": "CPython"
+  },
+  "schema_version": 1,
+  "status": "DRAFT_NOT_READY",
+  "training_inputs": {
+    "v2_sequential_transitions": {
+      "exists": true,
+      "path": "OfflineTraining/data/seq/offline_transitions.jsonl",
+      "sha256": "f1c6b2561b1689dddbb56ebcfefafec6703b2b2dc415ad94f5add07561e6ed22",
+      "size_bytes": 63733390
+    },
+    "v3_sequential_transitions": {
+      "exists": true,
+      "path": "OfflineTraining/data/seq/offline_transitions.jsonl",
+      "sha256": "f1c6b2561b1689dddbb56ebcfefafec6703b2b2dc415ad94f5add07561e6ed22",
+      "size_bytes": 63733390
+    }
+  },
+  "version_control": {
+    "commit": "04001fbd815f4b3f7ca94f1c66cab92d2a325f71",
+    "dirty": true,
+    "dirty_entries": [
+      "M CustomerSimulation/README.md",
+      " M CustomerSimulation/simulation/writer.py",
+      " M DemoSiteV2/README.md",
+      " M DemoSiteV2/app/config.py",
+      " M DemoSiteV2/app/main.py",
+      " M DemoSiteV2/app/routers/shop.py",
+      " M DemoSiteV2/app/services/decision.py",
+      " M DemoSiteV2/app/static/js/decision.js",
+      " M DemoSiteV2/app/templates/base.html",
+      " M DemoSiteV2/app/templates/home.html",
+      " M DemoSiteV2/tests/test_study_linkage.py",
+      " M DemoSiteV3/README.md",
+      " M DemoSiteV3/app/config.py",
+      " M DemoSiteV3/app/main.py",
+      " M DemoSiteV3/app/routers/shop.py",
+      " M DemoSiteV3/app/services/decision.py",
+      " M DemoSiteV3/app/static/js/decision.js",
+      " M DemoSiteV3/app/templates/base.html",
+      " M DemoSiteV3/app/templates/home.html",
+      " M DemoSiteV3/tests/test_study_linkage.py",
+      " M Experiments/ClickworkerExperiment.md",
+      " M Experiments/ExperimentImplementationPlan.md",
+      " M Experiments/SimulationExecutiveSummary.md",
+      " M Experiments/preregistration_v2.md",
+      " M Experiments/run_sequentiality_sweep.py",
+      " D Experiments/sweep_results_confirmatory/_tmp/bandit_transition_coupling_strength_3.0_5_37488d.db",
+      " D Experiments/sweep_results_confirmatory/_tmp/ppo_transition_coupling_strength_3.0_5_37488d.pt",
+      " M Experiments/sweep_results_confirmatory/delta_vs_delayed_reward_strength.svg",
+      " M Experiments/sweep_results_confirmatory/delta_vs_fatigue_rate.svg",
+      " M Experiments/sweep_results_confirmatory/gap_vs_delayed_reward_strength.svg",
+      " M Experiments/sweep_results_confirmatory/gap_vs_fatigue_rate.svg",
+      " M Experiments/verify_completion_codes.py",
+      " M Makefile",
+      " M OfflineTraining/README.md",
+      " M OfflineTraining/build_bandit_policy.py",
+      " M OfflineTraining/train_ppo_policy.py",
+      " M StudyDispatcher/README.md",
+      " M StudyDispatcher/app/store.py",
+      " M StudyDispatcher/tests/test_entry_flow.py",
+      " M docker-compose.yml",
+      "?? CustomerSimulation/tests/__init__.py",
+      "?? CustomerSimulation/tests/test_writer.py",
+      "?? DemoSiteV2/tests/test_policy_requirements.py",
+      "?? DemoSiteV3/tests/test_policy_requirements.py",
+      "?? Experiments/ClickworkerPreregistration.md",
+      "?? Experiments/SequentialitySweepRunbook.md",
+      "?? Experiments/SupervisorMeetingBrief.md",
+      "?? Experiments/analyze_clickworker_study.py",
+      "?? Experiments/archetype_face_validity_20260721.csv",
+      "?? Experiments/archetype_face_validity_20260721.json",
+      "?? Experiments/audit_archetype_face_validity.py",
+      "?? Experiments/build_study_release_manifest.py",
+      "?? Experiments/calculate_clickworker_power.py",
+      "?? Experiments/evaluate_study_policy_baseline.py",
+      "?? Experiments/study_policy_baselines/README.md",
+      "?? Experiments/study_policy_baselines/clickworker_pre_recruitment_20260721/policy_archetype_baseline.csv",
+      "?? Experiments/study_policy_baselines/clickworker_pre_recruitment_20260721/policy_archetype_baseline.json",
+      "?? Experiments/study_policy_baselines/clickworker_pre_recruitment_20260721/power_analysis.json",
+      "?? Experiments/study_releases/README.md",
+      "?? Experiments/sweep_results_confirmatory/README.md",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_00355a5b8263d6b2.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_023cda14ce3f65b6.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_02c0cd05c303935b.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_0336d4081a868759.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_052369ead8a28bc9.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_069bf58b922d4215.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_0d06f7918179f6d1.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_11d02415530f899a.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_1417f922b8666cc4.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_1a1c93a518032631.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_1f19eefd6bb71590.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_1f6974bbfebe3ed9.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_214fe204e6d0077f.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_221657b409e6a34f.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_225d2eb0d604f185.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_260cfab8a9c3fe50.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_271f010df38286ab.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_27483859ed899261.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_2930e67cdd57b634.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_2ca3b16af41acc84.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_2e9b5355bf28b3db.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_308187b1fec48980.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_32567695c9644e12.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_35be3a90921da773.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_35fd6cd008d2a1b5.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_3b8fc09abf7d0a65.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_3e74272b5c1fd31f.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_3f38f4b6f728dbf4.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_40800ad2c86d691d.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_418d305135f96b86.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_46c675f52cb72ad7.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_49fb457088ae1ec6.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_504718d7bb611eca.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_5195c7be1dbcfab0.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_54fbcb282e18743e.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_55569162ff55bfe8.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_59135fa4d5a64504.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_5c3387b9097ce14f.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_62f0f2da15c9e0a1.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_6aedfbb2ab73fea5.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_713580f40a5f2d0b.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_774ce5d0f8fad575.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_7797922a7e03bce0.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_78fea56b8395483a.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_7933dc5e4e715231.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_7d2ebeb479972278.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_7ee354466162e20d.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_7f8be708d0f83806.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_8114052f4d49cb58.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_83c027b6a22a5c70.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_84157c4e0d845256.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_853d61a79ebc18ed.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_86562679080a1a49.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_907e00fe0f27c2f3.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_92e13b7fc480cf31.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_977054ce3b52639b.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_9ef01f5368651072.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_a2d04a6474631616.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_a8bf405f05b96949.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_aa13a84173e70eb4.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_acd940e914caab4b.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_b153add1c0046569.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_b225e664f1311cb2.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_b5a265c4941d4b32.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_b8981f22634f95c8.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_b97f179ce2754418.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_c112966a31c06685.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_c34cfb9e40ad6075.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_c3f6bd38b1c7d836.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_c605adfabf6e6952.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_c6ddb142fb7337ac.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_c88d6235ac280a95.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_c938b899186800d3.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_cad6215004fe6ac2.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_cc4e3c8b5b95ecb3.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_cd38318bdc763bce.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_cea796bc688b4492.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_d050ca37a81f4583.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_d1ec91eb330bfa21.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_d413bffd11992443.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_d4ae4d2b4ac8b6fe.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_d69cbb14df89f0a6.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_da0d9e09ecf611a7.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_de215250dca5533d.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_e0fd25ea54cf55d0.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_e12b8720afda3175.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_e3c88646afc38936.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_e447ded21e487301.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_e5652d9b77933cc5.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_e5b0d1b11bfdeeb9.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_e8ee37b67066ecb7.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_eb98cc29a91a5a05.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_ed3d1530d9469e78.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_f362e38309187b0a.json",
+      "?? Experiments/sweep_results_confirmatory/cells/cell_fe4bcadd7b983f5a.json",
+      "?? Experiments/sweep_results_confirmatory/delta_vs_t_max.svg",
+      "?? Experiments/sweep_results_confirmatory/delta_vs_transition_coupling_strength.svg",
+      "?? Experiments/sweep_results_confirmatory/deltas.csv",
+      "?? Experiments/sweep_results_confirmatory/deltas.partial.csv",
+      "?? Experiments/sweep_results_confirmatory/gap_vs_t_max.svg",
+      "?? Experiments/sweep_results_confirmatory/gap_vs_transition_coupling_strength.svg",
+      "?? Experiments/sweep_results_confirmatory/gaps.csv",
+      "?? Experiments/sweep_results_confirmatory/gaps.partial.csv",
+      "?? Experiments/sweep_results_confirmatory/long_results.csv",
+      "?? Experiments/sweep_results_confirmatory/long_results.partial.csv",
+      "?? Experiments/sweep_results_confirmatory/run_manifest.json",
+      "?? Experiments/sweep_results_confirmatory/run_status.json",
+      "?? Experiments/sweep_results_confirmatory/summary.json",
+      "?? Experiments/sweep_results_expose_history/README.md",
+      "?? Experiments/sweep_results_expose_history/cells/cell_023cda14ce3f65b6.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_1f19eefd6bb71590.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_271f010df38286ab.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_2930e67cdd57b634.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_504718d7bb611eca.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_59135fa4d5a64504.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_62f0f2da15c9e0a1.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_78fea56b8395483a.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_7d2ebeb479972278.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_7ee354466162e20d.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_907e00fe0f27c2f3.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_977054ce3b52639b.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_b153add1c0046569.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_b5a265c4941d4b32.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_c34cfb9e40ad6075.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_c6ddb142fb7337ac.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_c938b899186800d3.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_cc4e3c8b5b95ecb3.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_d050ca37a81f4583.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_d1ec91eb330bfa21.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_d4ae4d2b4ac8b6fe.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_da0d9e09ecf611a7.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_e5b0d1b11bfdeeb9.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_e8ee37b67066ecb7.json",
+      "?? Experiments/sweep_results_expose_history/cells/cell_fe4bcadd7b983f5a.json",
+      "?? Experiments/sweep_results_expose_history/delta_vs_fatigue_rate.svg",
+      "?? Experiments/sweep_results_expose_history/deltas.csv",
+      "?? Experiments/sweep_results_expose_history/deltas.partial.csv",
+      "?? Experiments/sweep_results_expose_history/gap_vs_fatigue_rate.svg",
+      "?? Experiments/sweep_results_expose_history/gaps.csv",
+      "?? Experiments/sweep_results_expose_history/gaps.partial.csv",
+      "?? Experiments/sweep_results_expose_history/long_results.csv",
+      "?? Experiments/sweep_results_expose_history/long_results.partial.csv",
+      "?? Experiments/sweep_results_expose_history/run_manifest.json",
+      "?? Experiments/sweep_results_expose_history/run_status.json",
+      "?? Experiments/sweep_results_expose_history/summary.json",
+      "?? Experiments/sweep_results_offline_ppo/README.md",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_00355a5b8263d6b2.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_023cda14ce3f65b6.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_02c0cd05c303935b.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_0336d4081a868759.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_052369ead8a28bc9.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_069bf58b922d4215.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_0d06f7918179f6d1.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_11d02415530f899a.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_1417f922b8666cc4.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_1a1c93a518032631.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_1f19eefd6bb71590.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_221657b409e6a34f.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_271f010df38286ab.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_27483859ed899261.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_2930e67cdd57b634.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_2ca3b16af41acc84.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_2e9b5355bf28b3db.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_32567695c9644e12.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_35fd6cd008d2a1b5.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_3e74272b5c1fd31f.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_418d305135f96b86.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_46c675f52cb72ad7.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_49fb457088ae1ec6.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_504718d7bb611eca.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_5195c7be1dbcfab0.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_54fbcb282e18743e.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_59135fa4d5a64504.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_5c3387b9097ce14f.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_62f0f2da15c9e0a1.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_6aedfbb2ab73fea5.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_713580f40a5f2d0b.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_774ce5d0f8fad575.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_78fea56b8395483a.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_7933dc5e4e715231.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_7d2ebeb479972278.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_7ee354466162e20d.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_7f8be708d0f83806.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_8114052f4d49cb58.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_83c027b6a22a5c70.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_84157c4e0d845256.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_853d61a79ebc18ed.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_86562679080a1a49.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_907e00fe0f27c2f3.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_977054ce3b52639b.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_9ef01f5368651072.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_a8bf405f05b96949.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_aa13a84173e70eb4.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_acd940e914caab4b.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_b153add1c0046569.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_b225e664f1311cb2.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_b5a265c4941d4b32.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_b8981f22634f95c8.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_b97f179ce2754418.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_c112966a31c06685.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_c34cfb9e40ad6075.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_c3f6bd38b1c7d836.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_c605adfabf6e6952.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_c6ddb142fb7337ac.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_c938b899186800d3.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_cad6215004fe6ac2.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_cc4e3c8b5b95ecb3.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_cea796bc688b4492.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_d050ca37a81f4583.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_d1ec91eb330bfa21.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_d4ae4d2b4ac8b6fe.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_da0d9e09ecf611a7.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_de215250dca5533d.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_e12b8720afda3175.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_e3c88646afc38936.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_e447ded21e487301.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_e5652d9b77933cc5.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_e5b0d1b11bfdeeb9.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_e8ee37b67066ecb7.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_ed3d1530d9469e78.json",
+      "?? Experiments/sweep_results_offline_ppo/cells/cell_fe4bcadd7b983f5a.json",
+      "?? Experiments/sweep_results_offline_ppo/delta_vs_delayed_reward_strength.svg",
+      "?? Experiments/sweep_results_offline_ppo/delta_vs_fatigue_rate.svg",
+      "?? Experiments/sweep_results_offline_ppo/delta_vs_transition_coupling_strength.svg",
+      "?? Experiments/sweep_results_offline_ppo/deltas.csv",
+      "?? Experiments/sweep_results_offline_ppo/deltas.partial.csv",
+      "?? Experiments/sweep_results_offline_ppo/gap_vs_delayed_reward_strength.svg",
+      "?? Experiments/sweep_results_offline_ppo/gap_vs_fatigue_rate.svg",
+      "?? Experiments/sweep_results_offline_ppo/gap_vs_transition_coupling_strength.svg",
+      "?? Experiments/sweep_results_offline_ppo/gaps.csv",
+      "?? Experiments/sweep_results_offline_ppo/gaps.partial.csv",
+      "?? Experiments/sweep_results_offline_ppo/long_results.csv",
+      "?? Experiments/sweep_results_offline_ppo/long_results.partial.csv",
+      "?? Experiments/sweep_results_offline_ppo/run_manifest.json",
+      "?? Experiments/sweep_results_offline_ppo/run_status.json",
+      "?? Experiments/sweep_results_offline_ppo/summary.json",
+      "?? Experiments/tests/__init__.py",
+      "?? Experiments/tests/test_analyze_clickworker_study.py",
+      "?? Experiments/tests/test_audit_archetype_face_validity.py",
+      "?? Experiments/tests/test_build_study_release_manifest.py",
+      "?? Experiments/tests/test_calculate_clickworker_power.py",
+      "?? Experiments/tests/test_evaluate_study_policy_baseline.py",
+      "?? Experiments/tests/test_run_sequentiality_sweep.py",
+      "?? Experiments/tests/test_study_prompt_parity.py",
+      "?? Experiments/tests/test_verify_completion_codes.py",
+      "?? OfflineTraining/tests/__init__.py",
+      "?? OfflineTraining/tests/test_artifact_provenance.py"
+    ],
+    "head_error": null,
+    "status_error": null
+  }
+}

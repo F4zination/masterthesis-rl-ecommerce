@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shared_schema"
+version = "0.1.0"
+description = "Shared RL schema: constants, feature definitions and pure helpers for DemoSite and CustomerSimulation"
+requires-python = ">=3.10"
+
+[project.scripts]
+shared-schema-migrate = "shared_schema.migrations.cli:main"

@@ -1,0 +1,254 @@
+{
+  "config": {
+    "archetypes": "C:\\Users\\finnr\\development\\masterion\\MasterThesisProject\\CustomerSimulation\\config\\archetypes.yaml",
+    "out_dir": "Experiments/sweep_results_thesis",
+    "axes": [
+      "fatigue_rate",
+      "delayed_reward_strength",
+      "transition_coupling_strength",
+      "t_max"
+    ],
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "dataset_sessions": 6000,
+    "eval_sessions": 5000,
+    "eval_seed_base": 10000,
+    "t_max": 20,
+    "ppo_mode": "online",
+    "ppo_iterations": 40,
+    "ppo_rollout_sessions": 256,
+    "ppo_epochs": 4,
+    "ppo_minibatch": 256,
+    "hidden_sizes": "128,64",
+    "gamma": 0.95,
+    "gae_lambda": 0.95,
+    "lr": 0.0003,
+    "fqi_iters": 30,
+    "fqi_penalty": 0.15,
+    "smoke": false
+  },
+  "axes": {
+    "fatigue_rate": [
+      {
+        "value": 0.0,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.04810432719923123,
+        "ppo_minus_bandit_ci95": 0.09069790270429982,
+        "fqi_minus_bandit_mean": -0.12210756310313364,
+        "fqi_minus_bandit_ci95": 0.04118647741995325,
+        "bandit_mean": 1.1871171332979462,
+        "ppo_mean": 1.2352214604971772,
+        "fqi_mean": 1.0650095701948126
+      },
+      {
+        "value": 0.1,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.01302532243884975,
+        "ppo_minus_bandit_ci95": 0.04586073729685778,
+        "fqi_minus_bandit_mean": 0.0037104210767344046,
+        "fqi_minus_bandit_ci95": 0.04655337507669913,
+        "bandit_mean": 0.9533173240761084,
+        "ppo_mean": 0.966342646514958,
+        "fqi_mean": 0.9570277451528428
+      },
+      {
+        "value": 0.2,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.10020387881873032,
+        "ppo_minus_bandit_ci95": 0.05271862227906061,
+        "fqi_minus_bandit_mean": 0.07058255767745625,
+        "fqi_minus_bandit_ci95": 0.10421465236612804,
+        "bandit_mean": 0.8484799937687232,
+        "ppo_mean": 0.9486838725874535,
+        "fqi_mean": 0.9190625514461794
+      },
+      {
+        "value": 0.4,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.14376933189400817,
+        "ppo_minus_bandit_ci95": 0.0779436087027832,
+        "fqi_minus_bandit_mean": 0.030084879936431563,
+        "fqi_minus_bandit_ci95": 0.05636226246852576,
+        "bandit_mean": 0.8040699094760144,
+        "ppo_mean": 0.9478392413700227,
+        "fqi_mean": 0.834154789412446
+      },
+      {
+        "value": 0.6,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.11765347396361965,
+        "ppo_minus_bandit_ci95": 0.061957168071717666,
+        "fqi_minus_bandit_mean": -0.04124218559748523,
+        "fqi_minus_bandit_ci95": 0.05850553821670412,
+        "bandit_mean": 0.8369417346075002,
+        "ppo_mean": 0.9545952085711198,
+        "fqi_mean": 0.7956995490100149
+      }
+    ],
+    "delayed_reward_strength": [
+      {
+        "value": 0.0,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.12360992719923129,
+        "ppo_minus_bandit_ci95": 0.054906215069485356,
+        "fqi_minus_bandit_mean": -0.12210756310313364,
+        "fqi_minus_bandit_ci95": 0.04118647741995325,
+        "bandit_mean": 1.1871171332979462,
+        "ppo_mean": 1.3107270604971775,
+        "fqi_mean": 1.0650095701948126
+      },
+      {
+        "value": 0.25,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.49330990675207936,
+        "ppo_minus_bandit_ci95": 0.04102356252164305,
+        "fqi_minus_bandit_mean": -0.04167482588216194,
+        "fqi_minus_bandit_ci95": 0.04775679815107754,
+        "bandit_mean": 1.456748830535862,
+        "ppo_mean": 1.9500587372879417,
+        "fqi_mean": 1.4150740046537
+      },
+      {
+        "value": 0.5,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.35760611167470235,
+        "ppo_minus_bandit_ci95": 0.033632483591828445,
+        "fqi_minus_bandit_mean": -0.037227983785124194,
+        "fqi_minus_bandit_ci95": 0.0441471560974931,
+        "bandit_mean": 1.617271575160101,
+        "ppo_mean": 1.974877686834803,
+        "fqi_mean": 1.5800435913749769
+      },
+      {
+        "value": 1.0,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.2908840508504765,
+        "ppo_minus_bandit_ci95": 0.06377647398937927,
+        "fqi_minus_bandit_mean": -0.02510553868942216,
+        "fqi_minus_bandit_ci95": 0.06635952637813203,
+        "bandit_mean": 1.6519904359843267,
+        "ppo_mean": 1.9428744868348033,
+        "fqi_mean": 1.6268848972949044
+      },
+      {
+        "value": 2.0,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.30867895194050315,
+        "ppo_minus_bandit_ci95": 0.03866066320616325,
+        "fqi_minus_bandit_mean": -0.02510439603572543,
+        "fqi_minus_bandit_ci95": 0.06734539355954801,
+        "bandit_mean": 1.6534119348943002,
+        "ppo_mean": 1.9620908868348033,
+        "fqi_mean": 1.6283075388585746
+      }
+    ],
+    "transition_coupling_strength": [
+      {
+        "value": 0.0,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.07688072719923134,
+        "ppo_minus_bandit_ci95": 0.08455413158342094,
+        "fqi_minus_bandit_mean": -0.12210756310313364,
+        "fqi_minus_bandit_ci95": 0.04118647741995325,
+        "bandit_mean": 1.1871171332979462,
+        "ppo_mean": 1.2639978604971773,
+        "fqi_mean": 1.0650095701948126
+      },
+      {
+        "value": 0.5,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.39465392047003167,
+        "ppo_minus_bandit_ci95": 0.2347846165344346,
+        "fqi_minus_bandit_mean": -0.3631695009172241,
+        "fqi_minus_bandit_ci95": 0.07944771746867323,
+        "bandit_mean": 1.9755469562383496,
+        "ppo_mean": 2.3702008767083815,
+        "fqi_mean": 1.6123774553211256
+      },
+      {
+        "value": 1.0,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.6171758525305772,
+        "ppo_minus_bandit_ci95": 0.10796476579613652,
+        "fqi_minus_bandit_mean": -0.3516483209668452,
+        "fqi_minus_bandit_ci95": 0.06797129991562463,
+        "bandit_mean": 2.9767092702079503,
+        "ppo_mean": 3.593885122738527,
+        "fqi_mean": 2.6250609492411052
+      },
+      {
+        "value": 2.0,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.7189594066972478,
+        "ppo_minus_bandit_ci95": 0.0897099321367775,
+        "fqi_minus_bandit_mean": -0.21438532986928155,
+        "fqi_minus_bandit_ci95": 0.12280830072965516,
+        "bandit_mean": 3.898220856925208,
+        "ppo_mean": 4.617180263622456,
+        "fqi_mean": 3.683835527055926
+      },
+      {
+        "value": 3.0,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.5032626094013553,
+        "ppo_minus_bandit_ci95": 0.20843832828779776,
+        "fqi_minus_bandit_mean": -0.27022842337428604,
+        "fqi_minus_bandit_ci95": 0.16025809672535454,
+        "bandit_mean": 4.132362097793401,
+        "ppo_mean": 4.635624707194756,
+        "fqi_mean": 3.862133674419115
+      }
+    ],
+    "t_max": [
+      {
+        "value": 20,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.09162472719923134,
+        "ppo_minus_bandit_ci95": 0.04647315797633081,
+        "fqi_minus_bandit_mean": -0.12210756310313364,
+        "fqi_minus_bandit_ci95": 0.04118647741995325,
+        "bandit_mean": 1.1871171332979462,
+        "ppo_mean": 1.2787418604971772,
+        "fqi_mean": 1.0650095701948126
+      },
+      {
+        "value": 30,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.10223730228996324,
+        "ppo_minus_bandit_ci95": 0.05135297809089093,
+        "fqi_minus_bandit_mean": -0.12406336149723737,
+        "fqi_minus_bandit_ci95": 0.04887453991284843,
+        "bandit_mean": 1.1976280889656992,
+        "ppo_mean": 1.2998653912556626,
+        "fqi_mean": 1.0735647274684619
+      },
+      {
+        "value": 40,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.07401890228996329,
+        "ppo_minus_bandit_ci95": 0.07285285962265542,
+        "fqi_minus_bandit_mean": -0.12406336149723737,
+        "fqi_minus_bandit_ci95": 0.04887453991284843,
+        "bandit_mean": 1.1976280889656992,
+        "ppo_mean": 1.2716469912556625,
+        "fqi_mean": 1.0735647274684619
+      },
+      {
+        "value": 60,
+        "n_seeds": 5,
+        "ppo_minus_bandit_mean": 0.03189450228996331,
+        "ppo_minus_bandit_ci95": 0.12845832664925494,
+        "fqi_minus_bandit_mean": -0.12406336149723737,
+        "fqi_minus_bandit_ci95": 0.04887453991284843,
+        "bandit_mean": 1.1976280889656992,
+        "ppo_mean": 1.2295225912556624,
+        "fqi_mean": 1.0735647274684619
+      }
+    ]
+  }
+}

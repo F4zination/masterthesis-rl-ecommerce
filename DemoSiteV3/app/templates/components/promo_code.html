@@ -1,0 +1,86 @@
+{# Promo-code redemption box (cart + checkout).
+
+   Participants shown the discount_banner widget are told the code SAVE10 but
+   previously had nowhere to type it, which left them hunting for a promo field.
+   This box is the redemption surface only: it accepts nothing but the code the
+   widget advertises, so a session that never saw that arm cannot self-serve the
+   discount, and the arm's measured value is unchanged.
+
+   Manual redemption emits `discount_code_entered`, which carries no reward — the
+   discount arm must only be credited for its own widget interaction. #}
+<div class="card mb-3" id="promo-code-card">
+    <div class="card-body">
+        <label for="promo-code-input" class="form-label fw-semibold mb-2">
+            <i class="bi bi-tag me-1"></i>Promo code
+        </label>
+        <div class="input-group">
+            <input type="text" class="form-control" id="promo-code-input" autocomplete="off"
+                placeholder="Enter code" aria-describedby="promo-code-feedback">
+            <button class="btn btn-outline-primary" type="button" id="promo-code-apply">Apply</button>
+        </div>
+        <div id="promo-code-feedback" class="small mt-2 d-none"></div>
+    </div>
+</div>
+<script>
+    (function () {
+        const input = document.getElementById('promo-code-input');
+        const button = document.getElementById('promo-code-apply');
+        const feedback = document.getElementById('promo-code-feedback');
+
+        const show = (message, ok) => {
+            feedback.textContent = message;
+            feedback.classList.remove('d-none', 'text-success', 'text-danger');
+            feedback.classList.add(ok ? 'text-success' : 'text-danger');
+        };
+
+        const apply = async () => {
+            const code = input.value.trim();
+            if (!code) {
+                show('Please enter a promo code.', false);
+                return;
+            }
+            button.disabled = true;
+            try {
+                const res = await fetch('/api/cart/discount', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code: code }),
+                });
+                const data = await res.json();
+
+                fetch('/api/events', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        session_id: window.SESSION_ID,
+                        event_type: 'discount_code_entered',
+                        page: window.location.pathname,
+                        element: 'promo-code',
+                        metadata: { status: data.status },
+                    }),
+                    keepalive: true,
+                }).catch(() => { });
+
+                if (data.status === 'ok') {
+                    show(data.message || 'Discount applied.', true);
+                    // Let the server recompute the authoritative totals.
+                    setTimeout(() => window.location.reload(), 700);
+                    return;
+                }
+                show(data.message || 'This code could not be applied.', false);
+                button.disabled = false;
+            } catch (_) {
+                show('Something went wrong. Please try again.', false);
+                button.disabled = false;
+            }
+        };
+
+        button.addEventListener('click', apply);
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                apply();
+            }
+        });
+    })();
+</script>

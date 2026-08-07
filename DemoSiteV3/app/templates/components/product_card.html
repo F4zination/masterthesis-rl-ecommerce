@@ -1,0 +1,15 @@
+<div class="card product-card h-100">
+    <a href="/product/{{ product.slug }}">
+        <img src="{{ product.image_url | thumb }}" class="card-img-top" alt="{{ product.name }}" loading="lazy"
+            decoding="async" width="420" height="420">
+    </a>
+    <div class="card-body d-flex flex-column">
+        <h6 class="card-title">
+            <a href="/product/{{ product.slug }}" class="text-decoration-none text-dark">{{ product.name }}</a>
+        </h6>
+        <p class="text-primary fw-bold mt-auto mb-2">&euro;{{ "%.2f"|format(product.price) }}</p>
+        <button class="btn btn-sm btn-outline-primary add-to-cart-btn" data-product-id="{{ product.id }}">
+            <i class="bi bi-cart-plus"></i> Add to Cart
+        </button>
+    </div>
+</div>

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V3 Analytics - DemoShop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f0f2f5;
+        }
+
+        .kpi-card {
+            border-left: 4px solid;
+            border-radius: 6px;
+        }
+
+        .kpi-card.c-primary {
+            border-color: #0d6efd;
+        }
+
+        .kpi-card.c-info {
+            border-color: #0dcaf0;
+        }
+
+        .kpi-card.c-success {
+            border-color: #198754;
+        }
+
+        .kpi-card.c-warning {
+            border-color: #ffc107;
+        }
+
+        .kpi-card.c-purple {
+            border-color: #6f42c1;
+        }
+
+        .kpi-card.c-danger {
+            border-color: #dc3545;
+        }
+
+        .kpi-value {
+            font-size: 1.9rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .chart-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .09);
+        }
+
+        .section-title {
+            font-size: .75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: #6c757d;
+        }
+
+        .action-dot {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            margin-right: 4px;
+            flex-shrink: 0;
+        }
+
+        .best-row td {
+            background: #d1fae5 !important;
+        }
+
+        #live-badge {
+            transition: background .3s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark sticky-top">
+        <div class="container-fluid px-3">
+            <span class="navbar-brand fw-bold mb-0">
+                <i class="bi bi-graph-up-arrow me-2"></i>DemoShop V3 Analytics
+            </span>
+            <div class="d-flex align-items-center gap-3">
+                <small id="last-updated" class="text-secondary"></small>
+                <span id="live-badge" class="badge bg-success">Live</span>
+                <a href="/" class="btn btn-sm btn-outline-light">
+                    <i class="bi bi-shop me-1"></i>Shop
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid py-4 px-3 px-md-4">
+
+        <div class="row g-3 mb-4" id="kpi-row">
+            <div class="col text-muted small py-4 text-center">Loading current V3 metrics…</div>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-lg-5">
+                <div class="chart-card p-3 h-100">
+                    <div class="section-title mb-1">
+                        <i class="bi bi-people me-1"></i>Visitor flow
+                    </div>
+                    <div class="text-muted mb-3" style="font-size:.75rem;">
+                        Session-based visitor proxy from live events, decisions, and orders.
+                    </div>
+                    <canvas id="chart-funnel" height="180"></canvas>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="chart-card p-3 h-100">
+                    <div class="section-title mb-1">
+                        <i class="bi bi-diagram-3 me-1"></i>Decision distribution
+                    </div>
+                    <div class="text-muted mb-3" style="font-size:.75rem;" id="decision-distribution-detail">
+                        Loading decision source mix…
+                    </div>
+                    <canvas id="chart-decision-mix" height="180"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-lg-8">
+                <div class="chart-card p-3 h-100">
+                    <div class="section-title">
+                        <i class="bi bi-clock-history me-1"></i>Decisions over <span id="timeline-window-label">the
+                            recent window</span>
+                    </div>
+                    <div class="text-muted mb-3" style="font-size:.75rem;" id="timeline-window-detail">Loading current
+                        activity window…</div>
+                    <canvas id="chart-timeline" height="130"></canvas>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="chart-card p-3 h-100">
+                    <div class="section-title mb-1">
+                        <i class="bi bi-shield-check me-1"></i>Confidence scores
+                    </div>
+                    <div class="text-muted mb-3" style="font-size:.75rem;" id="confidence-summary-text">
+                        Loading propensity summary…
+                    </div>
+                    <canvas id="chart-confidence" height="180"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-lg-5">
+                <div class="chart-card p-3 h-100">
+                    <div class="section-title mb-1">
+                        <i class="bi bi-hourglass-split me-1"></i>Opportunity lifecycle
+                    </div>
+                    <div class="text-muted mb-3" style="font-size:.75rem;">
+                        Checked, skipped, and served opportunities from the timing-aware V3 loop.
+                    </div>
+                    <div class="row g-2 mb-3" id="timing-kpis"></div>
+                    <canvas id="chart-timing-lifecycle" height="180"></canvas>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="chart-card p-3 h-100">
+                    <div class="section-title mb-1">
+                        <i class="bi bi-person-workspace me-1"></i>Decision confidence by point
+                    </div>
+                    <div class="text-muted mb-3" style="font-size:.75rem;">
+                        Average chosen-action propensity and low-confidence share by decision point.
+                    </div>
+                    <div id="confidence-point-table" class="small text-muted">Loading point-level confidence…</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-lg-6">
+                <div class="chart-card p-3 h-100">
+                    <div class="section-title mb-1">
+                        <i class="bi bi-layers me-1"></i>Policy source and model usage
+                    </div>
+                    <div class="text-muted mb-3" style="font-size:.75rem;">
+                        How live decisions are split between PPO, offline tabular policy, and bandit fallback.
+                    </div>
+                    <div class="small text-muted mb-2" id="policy-total"></div>
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Source</th>
+                                    <th>Count</th>
+                                    <th>Share</th>
+                                </tr>
+                            </thead>
+                            <tbody id="policy-source-tbody">
+                                <tr>
+                                    <td colspan="3" class="text-muted">Loading…</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="section-title mb-2">Model versions</div>
+                    <div id="policy-model-badges" class="d-flex flex-wrap gap-2"></div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="chart-card p-3 h-100">
+                    <div class="section-title mb-1">
+                        <i class="bi bi-sign-turn-right me-1"></i>Timing gate reasons
+                    </div>
+                    <div class="text-muted mb-3" style="font-size:.75rem;">
+                        Why the timing layer allowed or blocked decisions during the current run.
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="section-title mb-2">Skip reasons</div>
+                            <div class="table-responsive">
+                                <table class="table table-sm align-middle mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Reason</th>
+                                            <th>Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="timing-skip-tbody">
+                                        <tr>
+                                            <td colspan="2" class="text-muted">Loading…</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="section-title mb-2">Gate reasons</div>
+                            <div class="table-responsive">
+                                <table class="table table-sm align-middle mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Reason</th>
+                                            <th>Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="timing-gate-tbody">
+                                        <tr>
+                                            <td colspan="2" class="text-muted">Loading…</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-12">
+                <div class="chart-card p-3">
+                    <div class="section-title mb-1">
+                        <i class="bi bi-grid-1x2 me-1"></i>Top learned contexts
+                    </div>
+                    <div class="text-muted mb-3" style="font-size:.75rem;">
+                        Highest-volume context buckets per decision point, with the strongest currently estimated
+                        action.
+                    </div>
+                    <div id="context-insights" class="text-muted small">Loading context-level learning detail…</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-lg-4">
+                <div class="chart-card p-3 h-100">
+                    <div class="section-title mb-1">
+                        <i class="bi bi-cpu me-1"></i>Learner and policy health
+                    </div>
+                    <div class="text-muted mb-3" style="font-size:.75rem;">
+                        Current learner state, last run metadata, and active policy version.
+                    </div>
+                    <div id="learner-status" class="text-muted small">Loading…</div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="chart-card p-3 h-100">
+                    <div class="section-title mb-1">
+                        <i class="bi bi-list-ul me-1"></i>Recent decisions
+                        <span class="badge bg-secondary ms-1 fw-normal" id="recent-count"></span>
+                    </div>
+                    <div class="text-muted mb-3" style="font-size:.75rem;">
+                        Compact operational detail for the latest decisions, including source and chosen-action
+                        propensity.
+                    </div>
+                    <div style="max-height:460px; overflow-y:auto;">
+                        <table class="table table-sm table-hover mb-0 align-middle">
+                            <thead class="table-dark" style="position:sticky;top:0;">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Session</th>
+                                    <th>Point</th>
+                                    <th>Action</th>
+                                    <th>Source</th>
+                                    <th>Propensity</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script>
+        const REFRESH_MS = 12000;
+        const charts = {};
+        const POINT_COLORS = {
+            'landing': '#0d6efd',
+            'pdp': '#6f42c1',
+            'cart': '#fd7e14',
+            'checkout': '#dc3545',
+            'scroll_engagement': '#20c997',
+        };
+        const SOURCE_COLORS = {
+            'ppo_policy': '#d63384',
+            'offline_policy': '#198754',
+            'offline_policy_noop': '#495057',
+            'contextual_bandit': '#0d6efd',
+            'timing_gate': '#6f42c1',
+            'unknown': '#6c757d',
+        };
+        const TIMING_COLORS = {
+            'opportunity_checked': '#0d6efd',
+            'opportunity_skipped': '#fd7e14',
+            'opportunity_served': '#198754',
+        };
+        const CONFIDENCE_COLORS = ['#dc3545', '#fd7e14', '#ffc107', '#20c997', '#0d6efd'];
+        const FUNNEL_COLORS = ['#0d6efd', '#3d8bfd', '#5c9ffc', '#80b4ff', '#a6c8ff'];
+        const POINT_LABELS = {
+            'landing': 'Landing',
+            'pdp': 'Product Detail Page',
+            'cart': 'Cart',
+            'checkout': 'Checkout',
+            'scroll_engagement': 'Scroll Engagement',
+        };
+
+        function pl(point) { return POINT_LABELS[point] || point; }
+        function pc(point) { return POINT_COLORS[point] || '#adb5bd'; }
+        function sc(source) { return SOURCE_COLORS[source] || '#adb5bd'; }
+        function fmtPct(value, digits = 1) { return `${Number(value || 0).toFixed(digits)}%`; }
+        function fmtBucket(bucket, granularity) {
+            if (!bucket) return 'n/a';
+            const d = new Date();
+            const pad = n => String(n).padStart(2, '0');
+            const today = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+            if (granularity === 'day') return bucket.slice(5);
+            const timePart = bucket.slice(11, 16);
+            const datePart = bucket.slice(0, 10);
+            return datePart === today ? timePart : bucket.slice(5, 10) + ' ' + timePart;
+        }
+        function localIsoMinute(date) {
+            const pad = n => String(n).padStart(2, '0');
+            return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+        }
+        function truncateMinute(date) { return localIsoMinute(date).slice(0, 16); }
+        function truncateHour(date) { return localIsoMinute(date).slice(0, 13) + ':00'; }
+        function fillSlots(minIso, maxIso, stepMs, truncate) {
+            const slots = [];
+            let cur = new Date(minIso);
+            const end = new Date(maxIso);
+            while (cur <= end) {
+                slots.push(truncate(new Date(cur)));
+                cur = new Date(cur.getTime() + stepMs);
+            }
+            return [...new Set(slots)];
+        }
+        async function fetchJson(url) {
+            const response = await fetch(url, { cache: 'no-store' });
+            if (!response.ok) {
+                throw new Error(`${url} failed with ${response.status}`);
+            }
+            return response.json();
+        }
+
+        function initCharts() {
+            charts.funnel = new Chart(document.getElementById('chart-funnel'), {
+                type: 'bar',
+                data: { labels: [], datasets: [] },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    animation: false,
+                    plugins: { legend: { display: false } },
+                    scales: { x: { beginAtZero: true } },
+                },
+            });
+
+            charts.decisionMix = new Chart(document.getElementById('chart-decision-mix'), {
+                type: 'bar',
+                data: { labels: [], datasets: [] },
+                options: {
+                    responsive: true,
+                    animation: false,
+                    plugins: { legend: { position: 'top' } },
+                    scales: { x: { stacked: true }, y: { beginAtZero: true, stacked: true } },
+                },
+            });
+
+            charts.timeline = new Chart(document.getElementById('chart-timeline'), {
+                type: 'line',
+                data: { labels: [], datasets: [] },
+                options: {
+                    responsive: true,
+                    animation: false,
+                    plugins: { legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 } } } },
+                    scales: {
+                        x: { ticks: { maxTicksLimit: 14, font: { size: 11 } } },
+                        y: { beginAtZero: true, title: { display: true, text: 'Decisions' } },
+                    },
+                },
+            });
+
+            charts.confidence = new Chart(document.getElementById('chart-confidence'), {
+                type: 'bar',
+                data: { labels: [], datasets: [] },
+                options: {
+                    responsive: true,
+                    animation: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true } },
+                },
+            });
+
+            charts.timingLifecycle = new Chart(document.getElementById('chart-timing-lifecycle'), {
+                type: 'doughnut',
+                data: { labels: [], datasets: [] },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'bottom' } },
+                },
+            });
+        }
+
+        function renderKpis(overview, confidence, learnerStatus) {
+            const defs = [
+                { label: 'Visitors', value: overview.visitors, icon: 'bi-people', color: 'c-primary' },
+                { label: 'Decisioned sessions', value: overview.decisioned_sessions, icon: 'bi-diagram-3', color: 'c-info' },
+                { label: 'Conversion rate', value: fmtPct(overview.conversion_rate), icon: 'bi-bullseye', color: 'c-success' },
+                { label: 'Avg decisions / visitor', value: Number(overview.avg_decisions_per_visitor || 0).toFixed(1), icon: 'bi-graph-up', color: 'c-warning' },
+                { label: 'Low-confidence share', value: fmtPct(confidence.low_confidence_share), icon: 'bi-shield-exclamation', color: 'c-purple' },
+                { label: 'Active policy', value: learnerStatus.active_version || 'n/a', icon: 'bi-cpu', color: 'c-danger' },
+            ];
+            document.getElementById('kpi-row').innerHTML = defs.map(def => `
+                <div class="col-6 col-md-4 col-xl-2">
+                    <div class="card kpi-card ${def.color} h-100">
+                        <div class="card-body py-3">
+                            <div class="d-flex align-items-center gap-2 mb-1 text-muted" style="font-size:.72rem;">
+                                <i class="bi ${def.icon}"></i>${def.label}
+                            </div>
+                            <div class="kpi-value">${def.value}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateFunnel(data) {
+            const funnel = data.funnel || [];
+            charts.funnel.data.labels = funnel.map(item => item.stage);
+            charts.funnel.data.datasets = [{
+                label: 'Sessions',
+                data: funnel.map(item => item.count),
+                backgroundColor: FUNNEL_COLORS,
+                borderRadius: 6,
+            }];
+            charts.funnel.update('none');
+        }
+
+        function updateDecisionMix(data) {
+            const labels = (data.by_point || []).map(row => pl(row.decision_point));
+            const points = (data.by_point || []).map(row => row.decision_point);
+            const sources = [...new Set((data.by_point_and_source || []).map(row => row.policy_source))];
+            charts.decisionMix.data.labels = labels;
+            charts.decisionMix.data.datasets = sources.map(source => ({
+                label: source,
+                data: points.map(point => {
+                    const hit = (data.by_point_and_source || []).find(row => row.decision_point === point && row.policy_source === source);
+                    return hit ? hit.count : 0;
+                }),
+                backgroundColor: sc(source),
+            }));
+            charts.decisionMix.update('none');
+
+            const topAction = [...(data.by_action || [])].sort((left, right) => right.count - left.count)[0];
+            document.getElementById('decision-distribution-detail').textContent = topAction
+                ? `Total decisions: ${data.total_decisions}. Most common action: ${topAction.action} (${topAction.count}).`
+                : 'No decision data available yet.';
+        }
+
+        function updateTimeline(payload) {
+            const rows = payload.rows || [];
+            const granularity = payload.granularity || 'hour';
+            const lookbackHours = Number(payload.lookback_hours || 24);
+            const label = lookbackHours === 1 ? 'the last hour' : `the last ${lookbackHours} hours`;
+            document.getElementById('timeline-window-label').textContent = label;
+            document.getElementById('timeline-window-detail').textContent =
+                `Showing ${granularity}-level activity from ${fmtBucket(payload.min, granularity)} to ${fmtBucket(payload.max, granularity)}.`;
+
+            if (!rows.length) {
+                charts.timeline.data.labels = [];
+                charts.timeline.data.datasets = [];
+                charts.timeline.update('none');
+                return;
+            }
+
+            const stepMs = granularity === 'minute' ? 60000 : 3600000;
+            const truncate = granularity === 'minute' ? truncateMinute : truncateHour;
+            const allSlots = fillSlots(payload.min, payload.max, stepMs, truncate);
+            const maxTicks = allSlots.length <= 30 ? allSlots.length : (allSlots.length <= 120 ? 20 : 14);
+            charts.timeline.options.scales.x.ticks.maxTicksLimit = maxTicks;
+
+            const points = [...new Set(rows.map(row => row.decision_point))];
+            const lookup = {};
+            rows.forEach(row => {
+                lookup[`${row.bucket}|${row.decision_point}`] = row.count;
+            });
+
+            charts.timeline.data.labels = allSlots.map(slot => fmtBucket(slot, granularity));
+            charts.timeline.data.datasets = points.map(point => ({
+                label: pl(point),
+                data: allSlots.map(slot => lookup[`${slot}|${point}`] || 0),
+                borderColor: pc(point),
+                backgroundColor: pc(point),
+                fill: false,
+                tension: 0.3,
+                pointRadius: allSlots.length > 60 ? 0 : 3,
+            }));
+            charts.timeline.update('none');
+        }
+
+        function updateConfidence(data) {
+            charts.confidence.data.labels = (data.bucket_counts || []).map(item => item.bucket);
+            charts.confidence.data.datasets = [{
+                label: 'Decisions',
+                data: (data.bucket_counts || []).map(item => item.count),
+                backgroundColor: CONFIDENCE_COLORS,
+                borderRadius: 6,
+            }];
+            charts.confidence.update('none');
+
+            document.getElementById('confidence-summary-text').textContent =
+                `Average chosen-action propensity: ${Number(data.average_propensity || 0).toFixed(3)}. Low-confidence decisions (<0.25): ${fmtPct(data.low_confidence_share)}.`;
+
+            const rows = data.by_decision_point || [];
+            document.getElementById('confidence-point-table').innerHTML = rows.length ? rows.map(row => `
+                <div class="border rounded p-2 mb-2 bg-light">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div class="fw-semibold"><span class="badge" style="background:${pc(row.decision_point)}">${pl(row.decision_point)}</span></div>
+                        <div class="text-muted">${row.decisions} decisions</div>
+                    </div>
+                    <div class="d-flex justify-content-between small mb-1">
+                        <span>Average propensity</span>
+                        <span>${Number(row.average_propensity || 0).toFixed(3)}</span>
+                    </div>
+                    <div class="progress" style="height:.5rem;" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar bg-primary" style="width:${Math.min(Number(row.average_propensity || 0) * 100, 100)}%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between small text-muted mt-2">
+                        <span>Low-confidence share</span>
+                        <span>${fmtPct(row.low_confidence_share)}</span>
+                    </div>
+                </div>
+            `).join('') : '<div class="text-muted">No confidence data available.</div>';
+        }
+
+        function updatePolicyBreakdown(data) {
+            const total = Number(data.total_decisions || 0);
+            document.getElementById('policy-total').textContent = `Total logged decisions: ${total}`;
+
+            const bySource = data.by_source || [];
+            document.getElementById('policy-source-tbody').innerHTML = bySource.length ? bySource.map(row => {
+                const count = Number(row.count || 0);
+                const share = total > 0 ? ((count / total) * 100).toFixed(1) + '%' : '0.0%';
+                return `
+                    <tr>
+                        <td><span class="badge" style="background:${sc(row.policy_source)}">${row.policy_source}</span></td>
+                        <td>${count}</td>
+                        <td>${share}</td>
+                    </tr>`;
+            }).join('') : '<tr><td colspan="3" class="text-muted">No data</td></tr>';
+
+            const byModel = data.by_model || [];
+            document.getElementById('policy-model-badges').innerHTML = byModel.length ? byModel.map(model =>
+                `<span class="badge text-bg-light border">${model.model}: ${model.count}</span>`
+            ).join('') : '<span class="text-muted small">No model data</span>';
+        }
+
+        function updateTimingOutcomes(data) {
+            const eventCounts = {};
+            (data.opportunity_event_counts || []).forEach(row => {
+                eventCounts[row.event_type] = Number(row.count || 0);
+            });
+
+            const checked = eventCounts.opportunity_checked || 0;
+            const skipped = eventCounts.opportunity_skipped || 0;
+            const served = eventCounts.opportunity_served || 0;
+            const avgDefer = Number(data.avg_next_check_after_ms || 0);
+
+            document.getElementById('timing-kpis').innerHTML = [
+                { label: 'Checked', value: checked, cls: 'text-bg-primary' },
+                { label: 'Skipped', value: skipped, cls: 'text-bg-warning' },
+                { label: 'Served', value: served, cls: 'text-bg-success' },
+                { label: 'Avg defer (ms)', value: avgDefer.toFixed(0), cls: 'text-bg-secondary' },
+            ].map(item => `
+                <div class="col-6">
+                    <div class="p-2 rounded ${item.cls}">
+                        <div class="small">${item.label}</div>
+                        <div class="fw-bold">${item.value}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            charts.timingLifecycle.data.labels = ['Checked', 'Skipped', 'Served'];
+            charts.timingLifecycle.data.datasets = [{
+                data: [checked, skipped, served],
+                backgroundColor: [TIMING_COLORS.opportunity_checked, TIMING_COLORS.opportunity_skipped, TIMING_COLORS.opportunity_served],
+                borderWidth: 2,
+            }];
+            charts.timingLifecycle.update('none');
+
+            const skipReasons = data.opportunity_skip_reasons || [];
+            document.getElementById('timing-skip-tbody').innerHTML = skipReasons.length ? skipReasons.map(row => `
+                <tr>
+                    <td><span class="badge bg-warning text-dark">${row.reason_code}</span></td>
+                    <td>${row.count}</td>
+                </tr>`).join('') : '<tr><td colspan="2" class="text-muted">No skip reasons yet</td></tr>';
+
+            const gateReasons = data.decision_timing_gate_reasons || [];
+            document.getElementById('timing-gate-tbody').innerHTML = gateReasons.length ? gateReasons.map(row => `
+                <tr>
+                    <td><span class="badge bg-light text-dark border">${row.reason}</span></td>
+                    <td>${row.count}</td>
+                </tr>`).join('') : '<tr><td colspan="2" class="text-muted">No gate reasons yet</td></tr>';
+        }
+
+        function updateLearnerStatus(data) {
+            const statusCls = data.last_status === 'succeeded'
+                ? 'bg-success'
+                : data.last_status === 'failed'
+                    ? 'bg-danger'
+                    : data.last_status === 'running'
+                        ? 'bg-primary'
+                        : 'bg-secondary';
+
+            const ppo = data.ppo || {};
+            const ppoAvailable = ppo.available === true;
+            const ppoValid = ppo.valid === true;
+            const ppoCls = ppoAvailable && ppoValid ? 'bg-success' : ppoAvailable ? 'bg-warning text-dark' : 'bg-secondary';
+            const ppoLabel = ppoAvailable && ppoValid ? 'loaded' : ppoAvailable ? 'invalid' : 'unavailable';
+            const ppoSummary = ppo.summary || {};
+            const ppoVocab = ppoSummary.state_vocab_size ? `${ppoSummary.state_vocab_size} → ${ppoSummary.action_vocab_size}` : 'n/a';
+            const ppoPath = (ppo.path || 'n/a').split(/[\\/]/).slice(-1)[0];
+
+            document.getElementById('learner-status').innerHTML = `
+                <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+                    <span class="badge ${statusCls}">${data.last_status || 'unknown'}</span>
+                    <span class="badge text-bg-light border">enabled: ${data.enabled ? 'yes' : 'no'}</span>
+                    <span class="badge text-bg-light border">running: ${data.running ? 'yes' : 'no'}</span>
+                    <span class="badge text-bg-light border">active version: ${data.active_version || 'n/a'}</span>
+                </div>
+                <div class="row g-2 mb-3">
+                    <div class="col-6"><div class="border rounded p-2 bg-light"><div class="small text-muted">Last trained rows</div><div class="fw-semibold">${data.last_trained_rows || 0}</div></div></div>
+                    <div class="col-6"><div class="border rounded p-2 bg-light"><div class="small text-muted">Duration</div><div class="fw-semibold">${data.last_duration_seconds || 'n/a'}s</div></div></div>
+                </div>
+                <div class="small mb-3">
+                    <div><strong>Last started:</strong> ${data.last_started_at || 'n/a'}</div>
+                    <div><strong>Last finished:</strong> ${data.last_finished_at || 'n/a'}</div>
+                    <div><strong>Last error:</strong> ${data.last_error || 'none'}</div>
+                </div>
+                <div class="border rounded p-2 bg-light">
+                    <div class="section-title mb-2"><i class="bi bi-cpu me-1"></i>PPO Checkpoint</div>
+                    <div class="d-flex flex-wrap gap-2 align-items-center mb-2">
+                        <span class="badge ${ppoCls}">${ppoLabel}</span>
+                        <span class="badge text-bg-light border" title="${ppo.path || ''}">file: ${ppoPath}</span>
+                        ${ppoVocab !== 'n/a' ? `<span class="badge text-bg-light border">dims: ${ppoVocab}</span>` : ''}
+                    </div>
+                    ${ppoSummary.algorithm ? `<div class="small text-muted">algo: ${ppoSummary.algorithm} &bull; γ: ${ppoSummary.gamma ?? 'n/a'} &bull; clipε: ${ppoSummary.clip_eps ?? 'n/a'}</div>` : ''}
+                </div>`;
+        }
+
+        function updateContextInsights(data) {
+            const points = data.points || [];
+            document.getElementById('context-insights').innerHTML = points.length ? points.map(point => `
+                <div class="mb-3">
+                    <div class="section-title mb-2"><span class="badge" style="background:${pc(point.decision_point)}">${pl(point.decision_point)}</span></div>
+                    <div class="table-responsive">
+                        <table class="table table-sm align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Context bucket</th>
+                                    <th>Impressions</th>
+                                    <th>Best action</th>
+                                    <th>Mean estimate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${point.contexts.map(context => `
+                                    <tr>
+                                        <td>
+                                            <div>${context.context_label}</div>
+                                            <div class="text-muted" style="font-size:.72rem;">schema v${context.schema_version}</div>
+                                        </td>
+                                        <td>${context.total_impressions}</td>
+                                        <td>${context.best_action}</td>
+                                        <td>${Number(context.best_mean_estimate || 0).toFixed(3)}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `).join('') : '<div class="text-muted">No context-level arm data available yet.</div>';
+        }
+
+        function updateRecent(rows) {
+            document.getElementById('recent-count').textContent = rows.length;
+            document.getElementById('recent-tbody').innerHTML = rows.slice(0, 60).map(row => {
+                const timestamp = row.timestamp ? row.timestamp.replace('T', ' ').slice(5, 19) : '';
+                const source = String(row.policy_source || 'unknown');
+                const estTip = row.estimates
+                    ? Object.entries(row.estimates).map(([action, value]) => `${action}: ${(+value).toFixed(3)}`).join(' | ')
+                    : '';
+                return `
+                    <tr title="${estTip}">
+                        <td class="text-muted small">${row.id}</td>
+                        <td style="font-family:Consolas, Monaco, monospace;font-size:.82rem;">${row.session_id}</td>
+                        <td><span class="badge" style="background:${pc(row.decision_point)}">${pl(row.decision_point)}</span></td>
+                        <td>${row.action}</td>
+                        <td><span class="badge" style="background:${sc(source)}">${source}</span></td>
+                        <td><span class="badge ${row.propensity < 0.25 ? 'bg-warning text-dark' : 'bg-secondary'}">${row.propensity}</span></td>
+                        <td class="text-muted small">${timestamp}</td>
+                    </tr>`;
+            }).join('');
+        }
+
+        async function refreshAll() {
+            try {
+                const [overview, decisionDistribution, timeline, confidence, policyBreakdown, timingOutcomes, contextInsights, learnerStatus, recent] = await Promise.all([
+                    fetchJson('/api/analytics/visitor_overview'),
+                    fetchJson('/api/analytics/decision_distribution'),
+                    fetchJson('/api/analytics/timeline'),
+                    fetchJson('/api/analytics/confidence_summary'),
+                    fetchJson('/api/analytics/policy_breakdown'),
+                    fetchJson('/api/analytics/timing_outcomes'),
+                    fetchJson('/api/analytics/context_insights'),
+                    fetchJson('/api/analytics/learner_status'),
+                    fetchJson('/api/analytics/recent'),
+                ]);
+
+                renderKpis(overview, confidence, learnerStatus);
+                updateFunnel(overview);
+                updateDecisionMix(decisionDistribution);
+                updateTimeline(timeline);
+                updateConfidence(confidence);
+                updatePolicyBreakdown(policyBreakdown);
+                updateTimingOutcomes(timingOutcomes);
+                updateContextInsights(contextInsights);
+                updateLearnerStatus(learnerStatus);
+                updateRecent(recent);
+
+                document.getElementById('last-updated').textContent = 'Updated ' + new Date().toLocaleTimeString();
+                document.getElementById('live-badge').className = 'badge bg-success';
+                document.getElementById('live-badge').textContent = 'Live';
+            } catch (err) {
+                document.getElementById('live-badge').className = 'badge bg-danger';
+                document.getElementById('live-badge').textContent = 'Error';
+                console.error(err);
+            }
+        }
+
+        initCharts();
+        refreshAll();
+        setInterval(refreshAll, REFRESH_MS);
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-1">DemoShop V3 - Hybrid RL Agent</p>
+            <small class="text-muted">Part of the RL E-Commerce Pipeline &bull; Master Thesis Project</small>
+        </div>
+    </footer>
+</body>
+
+</html>

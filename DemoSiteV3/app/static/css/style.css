@@ -1,0 +1,136 @@
+/* DemoShop – Custom styles on top of Bootstrap 5 */
+
+/* Hero banner */
+.hero-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Category cards */
+.category-card {
+    transition: transform 0.15s, box-shadow 0.15s;
+    border: 1px solid #dee2e6;
+}
+
+.category-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.category-card .card-title {
+    color: #333;
+}
+
+/* Product cards */
+.product-card {
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.product-card .card-img-top {
+    height: 220px;
+    object-fit: cover;
+}
+
+/* Widget slots */
+.widget-slot:empty {
+    display: none;
+}
+
+.widget-slot.widget-active {
+    display: block;
+}
+
+/* Cart quantity input */
+.cart-qty-input {
+    max-width: 50px;
+}
+
+/* ── Floating bottom-right lane ──────────────────────────────────────────────
+   The study-end card, the scroll-triggered widget overlay and the help FAB all
+   anchor to the bottom-right corner. They share one vertical lane whose base
+   offset is published as --floating-lane-offset (measured from the study card
+   in base.html) so a served widget is never hidden behind the study controls.
+   A covered widget would still be logged as an impression, which would poison
+   the reward signal for that arm. */
+:root {
+    --floating-lane-gap: 0.75rem;
+    --floating-lane-offset: 1rem;
+}
+
+.floating-widget {
+    position: fixed;
+    right: 1rem;
+    bottom: var(--floating-lane-offset);
+    width: 340px;
+    max-width: calc(100vw - 2rem);
+    z-index: 1050;
+}
+
+.floating-fab {
+    position: fixed;
+    right: 1rem;
+    bottom: var(--floating-lane-offset);
+    width: 52px;
+    height: 52px;
+    font-size: 1.5rem;
+    z-index: 1050;
+}
+
+.floating-fab-panel {
+    position: fixed;
+    right: 1rem;
+    bottom: calc(var(--floating-lane-offset) + 52px + var(--floating-lane-gap));
+    width: 270px;
+    max-width: calc(100vw - 2rem);
+    z-index: 1051;
+}
+
+/* Clickworker study: floating session-end card */
+.study-end-card {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 1080;
+    width: 280px;
+    max-width: calc(100vw - 2rem);
+    background: #fff;
+    border: 1px solid #e5e7eb;
+}
+
+.study-end-card__header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.study-end-card #study-end-btn:disabled {
+    opacity: 1;
+    background-color: #adb5bd;
+    border-color: #adb5bd;
+}
+
+@media (max-width: 575.98px) {
+    .study-end-card {
+        left: 1rem;
+        right: 1rem;
+        width: auto;
+    }
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}
+
+/* Make body flex column so footer sticks to bottom */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}

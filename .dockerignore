@@ -1,0 +1,49 @@
+# Build context root for the DemoSiteV2 / DemoSiteV3 images.
+# Only SharedSchema, OfflineTraining/outputs and the DemoSite app dirs are
+# COPYed in the Dockerfiles; everything heavy or irrelevant is excluded so the
+# daemon doesn't receive the whole repo as build context.
+
+# Virtualenvs / VCS / editor
+.venv/
+venv/
+.git/
+.gitignore
+.gitattributes
+.vscode/
+
+# Python caches
+**/__pycache__/
+**/*.py[cod]
+**/*.pyo
+**/*.egg-info/
+
+# Local SQLite databases (seeded on startup or mounted as a volume at runtime)
+**/*.db
+**/*.db-shm
+**/*.db-wal
+
+# Local env files
+**/.env
+
+# Directories not needed by any image
+DemoSiteV1/
+CustomerSimulation/
+MouseTracking/
+Concept/
+Experiments/
+
+# Heavy / regenerable OfflineTraining content (only outputs/ is copied)
+OfflineTraining/data/
+OfflineTraining/outputs/split/
+OfflineTraining/outputs/*.html
+
+# Source product imagery (~470 MB per site). These 1254x1254 PNGs are the
+# design source, never served: the shops render only the pre-built WebP
+# derivatives under static/images/{thumb,full}/, which are committed and
+# regenerated with `make images`. Excluding the originals keeps each image
+# ~40 MB instead of ~500 MB.
+DemoSiteV2/app/static/images/products/
+DemoSiteV3/app/static/images/products/
+
+# Docs
+**/*.md

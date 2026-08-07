@@ -1,0 +1,457 @@
+# ---------------------------------------------------------------------------
+# Archetype configuration for CustomerSimulation
+#
+# To add a new archetype: add a block under `archetypes:` with the same
+# structure and add its name + weight to `mixture_prior`.
+# All probabilities must be >= 0. Stage transition weights are normalised
+# automatically so they do not need to sum to exactly 1.0.
+# ---------------------------------------------------------------------------
+
+mixture_prior:
+  Explorer: 0.30
+  FastBuyer: 0.20
+  DetailedComparator: 0.20
+  DiscountHunter: 0.15
+  WindowShopper: 0.15
+
+archetypes:
+
+  Explorer:
+    # Probability of transitioning to each next decision_point (or "done").
+    # Weights are normalised at runtime — they do not need to sum to 1.
+    stage_transitions:
+      landing:
+        pdp: 0.70
+        scroll_engagement: 0.10
+        done: 0.20
+      scroll_engagement:
+        pdp: 0.70
+        done: 0.30
+      pdp:
+        pdp: 0.45
+        cart: 0.12
+        scroll_engagement: 0.10
+        done: 0.33
+      cart:
+        checkout: 0.38
+        pdp: 0.30
+        done: 0.32
+      checkout:
+        done: 1.00
+
+    # Base event probabilities at each decision_point when action is no-op.
+    # Events are sampled independently (Bernoulli per event type).
+    base_events:
+      landing:
+        exit_intent: 0.12
+        scroll_depth: 0.10
+        dwell_time: 0.15
+      scroll_engagement:
+        scroll_depth: 0.30
+        dwell_time: 0.20
+        exit_intent: 0.10
+      pdp:
+        add_to_cart: 0.06
+        exit_intent: 0.18
+        scroll_depth: 0.15
+        dwell_time: 0.25
+      cart:
+        exit_intent: 0.15
+      checkout:
+        checkout_submit: 0.40
+        purchase: 0.35
+        exit_intent: 0.22
+
+    # Widget interaction probabilities when the specified action is served.
+    # Exactly one of widget_click or widget_dismiss fires (or neither).
+    widget_events:
+      trending_carousel:
+        widget_click: 0.25
+        widget_dismiss: 0.10
+      discount_banner:
+        widget_click: 0.05
+        widget_dismiss: 0.15
+      frequently_bought_together:
+        widget_click: 0.22
+        widget_dismiss: 0.08
+      trust_badge:
+        widget_click: 0.10
+        widget_dismiss: 0.05
+      help_popup:
+        widget_click: 0.08
+        widget_dismiss: 0.10
+
+    # Additive lift applied to base_events when a specific action is served.
+    # Negative values reduce the probability (e.g. help_popup lowers exit_intent).
+    action_event_lifts:
+      discount_banner:
+        add_to_cart: 0.02
+        checkout_submit: 0.03
+      frequently_bought_together:
+        add_to_cart: 0.06
+      trust_badge:
+        checkout_submit: 0.04
+      help_popup:
+        exit_intent: -0.04
+
+    # Mechanism 3 (action-dependent transitions): additive lift on the
+    # next-stage sampling weights when this action is served.  Inert unless the
+    # global `dynamics.transition_coupling_strength` knob is > 0.  Lifts target
+    # next-stage keys present in stage_transitions for the current point.
+    action_stage_lifts:
+      frequently_bought_together: { cart: 0.50, done: -0.20 }
+      discount_banner:            { cart: 0.30, checkout: 0.30, done: -0.20 }
+      trust_badge:                { checkout: 0.40, done: -0.15 }
+      help_popup:                 { pdp: 0.20, done: -0.30 }
+      trending_carousel:          { pdp: 0.30, done: -0.10 }
+
+    # Uniform range for order total when a purchase event fires.
+    order_total_range: [30, 120]
+
+  # ---------------------------------------------------------------------------
+  FastBuyer:
+    stage_transitions:
+      landing:
+        pdp: 0.85
+        done: 0.15
+      scroll_engagement:
+        pdp: 0.90
+        done: 0.10
+      pdp:
+        cart: 0.55
+        pdp: 0.08
+        done: 0.37
+      cart:
+        checkout: 0.70
+        pdp: 0.10
+        done: 0.20
+      checkout:
+        done: 1.00
+
+    base_events:
+      landing:
+        exit_intent: 0.08
+        scroll_depth: 0.05
+        dwell_time: 0.08
+      scroll_engagement:
+        scroll_depth: 0.20
+        dwell_time: 0.10
+        exit_intent: 0.06
+      pdp:
+        add_to_cart: 0.18
+        exit_intent: 0.14
+        scroll_depth: 0.08
+        dwell_time: 0.10
+      cart:
+        exit_intent: 0.10
+      checkout:
+        checkout_submit: 0.65
+        purchase: 0.60
+        exit_intent: 0.12
+
+    widget_events:
+      trending_carousel:
+        widget_click: 0.12
+        widget_dismiss: 0.20
+      discount_banner:
+        widget_click: 0.10
+        widget_dismiss: 0.12
+      frequently_bought_together:
+        widget_click: 0.14
+        widget_dismiss: 0.12
+      trust_badge:
+        widget_click: 0.08
+        widget_dismiss: 0.04
+      help_popup:
+        widget_click: 0.04
+        widget_dismiss: 0.25
+
+    action_event_lifts:
+      discount_banner:
+        add_to_cart: 0.03
+        checkout_submit: 0.05
+      trust_badge:
+        checkout_submit: 0.05
+      help_popup:
+        exit_intent: 0.06
+
+    action_stage_lifts:
+      frequently_bought_together: { cart: 0.55, done: -0.20 }
+      discount_banner:            { cart: 0.30, checkout: 0.35, done: -0.20 }
+      trust_badge:                { checkout: 0.45, done: -0.15 }
+      help_popup:                 { pdp: 0.10, done: -0.15 }
+      trending_carousel:          { pdp: 0.20, done: -0.10 }
+
+    order_total_range: [40, 160]
+
+  # ---------------------------------------------------------------------------
+  DetailedComparator:
+    stage_transitions:
+      landing:
+        pdp: 0.75
+        scroll_engagement: 0.12
+        done: 0.13
+      scroll_engagement:
+        pdp: 0.80
+        done: 0.20
+      pdp:
+        pdp: 0.45
+        cart: 0.18
+        scroll_engagement: 0.15
+        done: 0.22
+      cart:
+        checkout: 0.50
+        pdp: 0.25
+        done: 0.25
+      checkout:
+        done: 1.00
+
+    base_events:
+      landing:
+        exit_intent: 0.08
+        scroll_depth: 0.12
+        dwell_time: 0.20
+      scroll_engagement:
+        scroll_depth: 0.35
+        dwell_time: 0.30
+        exit_intent: 0.06
+      pdp:
+        add_to_cart: 0.10
+        exit_intent: 0.14
+        scroll_depth: 0.22
+        dwell_time: 0.35
+      cart:
+        exit_intent: 0.12
+      checkout:
+        checkout_submit: 0.52
+        purchase: 0.48
+        exit_intent: 0.18
+
+    widget_events:
+      trending_carousel:
+        widget_click: 0.14
+        widget_dismiss: 0.10
+      discount_banner:
+        widget_click: 0.18
+        widget_dismiss: 0.12
+      frequently_bought_together:
+        widget_click: 0.18
+        widget_dismiss: 0.08
+      trust_badge:
+        widget_click: 0.22
+        widget_dismiss: 0.04
+      help_popup:
+        widget_click: 0.12
+        widget_dismiss: 0.08
+
+    action_event_lifts:
+      trust_badge:
+        add_to_cart: 0.05
+        checkout_submit: 0.08
+      frequently_bought_together:
+        add_to_cart: 0.06
+      discount_banner:
+        checkout_submit: 0.02
+
+    action_stage_lifts:
+      frequently_bought_together: { cart: 0.50, done: -0.25 }
+      discount_banner:            { cart: 0.25, checkout: 0.25, done: -0.15 }
+      trust_badge:                { checkout: 0.50, cart: 0.20, done: -0.25 }
+      help_popup:                 { pdp: 0.30, done: -0.35 }
+      trending_carousel:          { pdp: 0.35, done: -0.15 }
+
+    order_total_range: [50, 200]
+
+  # ---------------------------------------------------------------------------
+  DiscountHunter:
+    stage_transitions:
+      landing:
+        pdp: 0.68
+        scroll_engagement: 0.05
+        done: 0.27
+      scroll_engagement:
+        pdp: 0.75
+        done: 0.25
+      pdp:
+        cart: 0.30
+        pdp: 0.22
+        done: 0.48
+      cart:
+        checkout: 0.48
+        pdp: 0.18
+        done: 0.34
+      checkout:
+        done: 1.00
+
+    base_events:
+      landing:
+        exit_intent: 0.18
+        scroll_depth: 0.08
+        dwell_time: 0.10
+      scroll_engagement:
+        scroll_depth: 0.20
+        dwell_time: 0.12
+        exit_intent: 0.14
+      pdp:
+        add_to_cart: 0.08
+        exit_intent: 0.25
+        scroll_depth: 0.10
+        dwell_time: 0.12
+      cart:
+        exit_intent: 0.22
+      checkout:
+        checkout_submit: 0.35
+        purchase: 0.30
+        exit_intent: 0.32
+
+    widget_events:
+      trending_carousel:
+        widget_click: 0.10
+        widget_dismiss: 0.14
+      discount_banner:
+        widget_click: 0.42
+        widget_dismiss: 0.06
+      frequently_bought_together:
+        widget_click: 0.12
+        widget_dismiss: 0.10
+      trust_badge:
+        widget_click: 0.08
+        widget_dismiss: 0.08
+      help_popup:
+        widget_click: 0.06
+        widget_dismiss: 0.12
+
+    action_event_lifts:
+      discount_banner:
+        add_to_cart: 0.12
+        checkout_submit: 0.15
+        exit_intent: -0.10
+      frequently_bought_together:
+        add_to_cart: 0.04
+      trust_badge:
+        checkout_submit: 0.02
+
+    action_stage_lifts:
+      discount_banner:            { cart: 0.55, checkout: 0.50, done: -0.35 }
+      frequently_bought_together: { cart: 0.40, done: -0.15 }
+      trust_badge:                { checkout: 0.30, done: -0.10 }
+      help_popup:                 { pdp: 0.15, done: -0.20 }
+      trending_carousel:          { pdp: 0.20, done: -0.10 }
+
+    order_total_range: [20, 90]
+
+  # ---------------------------------------------------------------------------
+  WindowShopper:
+    stage_transitions:
+      landing:
+        pdp: 0.48
+        scroll_engagement: 0.10
+        done: 0.42
+      scroll_engagement:
+        pdp: 0.48
+        done: 0.52
+      pdp:
+        pdp: 0.22
+        cart: 0.06
+        scroll_engagement: 0.08
+        done: 0.64
+      cart:
+        checkout: 0.28
+        pdp: 0.18
+        done: 0.54
+      checkout:
+        done: 1.00
+
+    base_events:
+      landing:
+        exit_intent: 0.28
+        scroll_depth: 0.06
+        dwell_time: 0.08
+      scroll_engagement:
+        scroll_depth: 0.15
+        dwell_time: 0.08
+        exit_intent: 0.20
+      pdp:
+        add_to_cart: 0.03
+        exit_intent: 0.30
+        scroll_depth: 0.06
+        dwell_time: 0.08
+      cart:
+        exit_intent: 0.30
+      checkout:
+        checkout_submit: 0.22
+        purchase: 0.18
+        exit_intent: 0.38
+
+    widget_events:
+      trending_carousel:
+        widget_click: 0.10
+        widget_dismiss: 0.18
+      discount_banner:
+        widget_click: 0.15
+        widget_dismiss: 0.14
+      frequently_bought_together:
+        widget_click: 0.08
+        widget_dismiss: 0.16
+      trust_badge:
+        widget_click: 0.06
+        widget_dismiss: 0.10
+      help_popup:
+        widget_click: 0.04
+        widget_dismiss: 0.20
+
+    action_event_lifts:
+      discount_banner:
+        add_to_cart: 0.04
+        checkout_submit: 0.05
+        exit_intent: -0.06
+
+    action_stage_lifts:
+      frequently_bought_together: { cart: 0.45, done: -0.25 }
+      discount_banner:            { cart: 0.40, checkout: 0.30, done: -0.25 }
+      trust_badge:                { checkout: 0.35, done: -0.15 }
+      help_popup:                 { pdp: 0.35, done: -0.45 }
+      trending_carousel:          { pdp: 0.40, done: -0.20 }
+
+    order_total_range: [15, 70]
+
+# ---------------------------------------------------------------------------
+behavior_policy:
+  # Global epsilon for the uniform-random behavior policy.
+  # Per-archetype overrides are supported; all others use the global value.
+  epsilon: 0.2
+  per_archetype_epsilon:
+    WindowShopper: 0.35
+
+# ---------------------------------------------------------------------------
+# Sequential-dynamics knobs (V3_sequential_environment_plan.md §4).
+# EVERY knob defaults to off so the baseline reproduces today's near-tie (H0).
+# When off, a knob must add no behaviour and consume no extra RNG draws, so
+# legacy runs stay byte-for-byte reproducible.  The sweep driver overrides
+# these per grid point.
+dynamics:
+  # Mechanism 1 — intervention fatigue (cumulative over-exposure suppresses response)
+  fatigue_rate: 0.0          # 0 = off; widget response scales by exp(-rate * k)
+  fatigue_window: 0          # 0 = cumulative k; N = exponential window of last ~N steps
+  p_dismiss_max: 0.6         # dismiss probability rises toward this ceiling as response decays
+
+  # Mechanism 2 — delayed / assist reward (credit assignment across steps)
+  delayed_reward_strength: 0.0   # 0 = off; purchase prob at cash-out += strength * primed_credit
+  delayed_reward_decay: 0.9      # per-step decay of latent primed credit, in (0, 1]
+  priming_actions: [help_popup, trust_badge]   # actions that accrue assist credit when served
+  priming_amount: 1.0            # credit accrued per priming action served
+  cash_out_point: checkout       # decision point where accrued credit lifts purchase probability
+
+  # Mechanism 3 — action-dependent transitions (actions steer the funnel)
+  transition_coupling_strength: 0.0  # 0 = off → identical to action-independent transitions
+
+  # Robustness check (§7): also expose interventions_shown_bucket to the bandit.
+  # Implemented via the SEQUENTIAL_EXPOSE_HISTORY_TO_BANDIT env var read in
+  # shared_schema.features; this flag is documentary (the sweep sets the env var).
+  expose_history_to_bandit: false
+
+# ---------------------------------------------------------------------------
+simulation:
+  # Unified with the eval scripts' default --t-max (was 30; the eval scripts
+  # default 20).  Treated as a sweep axis by the sequentiality experiment.
+  t_max: 20

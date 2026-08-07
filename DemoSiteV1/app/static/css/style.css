@@ -1,0 +1,66 @@
+/* DemoShop – Custom styles on top of Bootstrap 5 */
+
+/* Hero banner */
+.hero-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Category cards */
+.category-card {
+    transition: transform 0.15s, box-shadow 0.15s;
+    border: 1px solid #dee2e6;
+}
+
+.category-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.category-card .card-title {
+    color: #333;
+}
+
+/* Product cards */
+.product-card {
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.product-card .card-img-top {
+    height: 220px;
+    object-fit: cover;
+}
+
+/* Widget slots */
+.widget-slot:empty {
+    display: none;
+}
+
+.widget-slot.widget-active {
+    display: block;
+}
+
+/* Cart quantity input */
+.cart-qty-input {
+    max-width: 50px;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}
+
+/* Make body flex column so footer sticks to bottom */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}

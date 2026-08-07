@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %}Checkout – DemoShop{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Checkout</h1>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Shipping Information</h5>
+                <div class="alert alert-warning small" role="alert">
+                    This is a simulated checkout. Do not enter real personal data.
+                    Please use fictional names, email, and address details only.
+                </div>
+                <form action="/checkout" method="post" id="checkout-form">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" name="first_name" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" name="last_name" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address" name="address" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control" id="city" name="city" required>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="zip" class="form-label">ZIP Code</label>
+                            <input type="text" class="form-control" id="zip" name="zip" required>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="country" class="form-label">Country</label>
+                            <input type="text" class="form-control" id="country" name="country" value="Germany"
+                                required>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+
+                    <h5 class="mb-3">Payment</h5>
+                    <div class="alert alert-secondary small d-flex gap-2" role="alert">
+                        <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+                        <div>
+                            <strong>No payment is taken.</strong> This is a simulated shop for a
+                            research study &mdash; nothing is charged, no card details are requested,
+                            and no real order is placed.
+                        </div>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="payment_method"
+                            id="paymentInvoice" value="invoice" checked>
+                        <label class="form-check-label" for="paymentInvoice">
+                            <i class="bi bi-receipt me-1"></i>Pay on invoice
+                            <span class="text-muted small">(simulated)</span>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="payment_method"
+                            id="paymentTransfer" value="transfer">
+                        <label class="form-check-label" for="paymentTransfer">
+                            <i class="bi bi-bank me-1"></i>Bank transfer
+                            <span class="text-muted small">(simulated)</span>
+                        </label>
+                    </div>
+
+                    <hr class="my-4">
+                    <button type="submit" class="btn btn-primary btn-lg w-100">Place Order &mdash; &euro;{{
+                        "%.2f"|format(total) }}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Your Items</h5>
+                <ul class="list-group list-group-flush">
+                    {% for item in items %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                        <div>
+                            <span>{{ item.product.name }}</span>
+                            <small class="text-muted d-block">&times; {{ item.quantity }}</small>
+                        </div>
+                        <strong>&euro;{{ "%.2f"|format(item.product.price * item.quantity) }}</strong>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <hr>
+                {% if discount_pct > 0 %}
+                <div class="d-flex justify-content-between text-muted mb-1">
+                    <span>Subtotal</span>
+                    <span>&euro;{{ "%.2f"|format(subtotal) }}</span>
+                </div>
+                <div class="d-flex justify-content-between text-success mb-2">
+                    <span><i class="bi bi-tag-fill me-1"></i>Discount ({{ discount_pct|int }}% SAVE10)</span>
+                    <span>&minus;&euro;{{ "%.2f"|format(discount_amount) }}</span>
+                </div>
+                {% endif %}
+                <div class="d-flex justify-content-between">
+                    <strong>Total</strong>
+                    <strong class="fs-5">&euro;{{ "%.2f"|format(total) }}</strong>
+                </div>
+            </div>
+        </div>
+
+        {% if discount_pct == 0 %}
+        <div class="mt-3">
+            {% include "components/promo_code.html" %}
+        </div>
+        {% endif %}
+
+        <!-- Decision Point: Checkout -->
+        <div class="widget-slot mt-3" data-decision-point="checkout"
+            data-context='{"cart_total": {{ total }}, "item_count": {{ item_count }}}'></div>
+    </div>
+</div>
+{% endblock %}

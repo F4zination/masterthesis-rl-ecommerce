@@ -1,0 +1,89 @@
+{
+  "config": {
+    "archetypes": "C:\\Users\\finnr\\development\\masterion\\MasterThesisProject\\CustomerSimulation\\config\\archetypes.yaml",
+    "out_dir": "C:\\Users\\finnr\\development\\masterion\\MasterThesisProject\\Experiments\\sweep_results",
+    "axes": [
+      "transition_coupling_strength"
+    ],
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "dataset_sessions": 4000,
+    "eval_sessions": 3000,
+    "eval_seed_base": 10000,
+    "t_max": 20,
+    "ppo_mode": "online",
+    "ppo_iterations": 25,
+    "ppo_rollout_sessions": 128,
+    "ppo_epochs": 4,
+    "ppo_minibatch": 256,
+    "hidden_sizes": "128,64",
+    "gamma": 0.95,
+    "gae_lambda": 0.95,
+    "lr": 0.0003,
+    "fqi_iters": 25,
+    "fqi_penalty": 0.15,
+    "smoke": false
+  },
+  "axes": {
+    "transition_coupling_strength": [
+      {
+        "value": 0.0,
+        "n_seeds": 3,
+        "ppo_minus_bandit_mean": 0.04695939004849429,
+        "ppo_minus_bandit_ci95": 0.14615519812533917,
+        "fqi_minus_bandit_mean": -0.08201911007761072,
+        "fqi_minus_bandit_ci95": 0.029090035933033817,
+        "bandit_mean": 1.1328811146976108,
+        "ppo_mean": 1.1798405047461051,
+        "fqi_mean": 1.0508620046200001
+      },
+      {
+        "value": 0.5,
+        "n_seeds": 3,
+        "ppo_minus_bandit_mean": 0.05222009154312701,
+        "ppo_minus_bandit_ci95": 0.054242333333599686,
+        "fqi_minus_bandit_mean": -0.2322189549751871,
+        "fqi_minus_bandit_ci95": 0.07680204929032154,
+        "bandit_mean": 1.9355285590584501,
+        "ppo_mean": 1.9877486506015771,
+        "fqi_mean": 1.7033096040832632
+      },
+      {
+        "value": 1.0,
+        "n_seeds": 3,
+        "ppo_minus_bandit_mean": 0.3241375540038085,
+        "ppo_minus_bandit_ci95": 0.29766064721108715,
+        "fqi_minus_bandit_mean": -0.29237019756620813,
+        "fqi_minus_bandit_ci95": 0.11216590943298621,
+        "bandit_mean": 2.8561495534207615,
+        "ppo_mean": 3.18028710742457,
+        "fqi_mean": 2.563779355854553
+      },
+      {
+        "value": 2.0,
+        "n_seeds": 3,
+        "ppo_minus_bandit_mean": 0.5843206198377864,
+        "ppo_minus_bandit_ci95": 0.3398199035343417,
+        "fqi_minus_bandit_mean": -0.35555026189551536,
+        "fqi_minus_bandit_ci95": 0.23749504817718148,
+        "bandit_mean": 3.8624856851600597,
+        "ppo_mean": 4.446806304997846,
+        "fqi_mean": 3.5069354232645438
+      },
+      {
+        "value": 3.0,
+        "n_seeds": 3,
+        "ppo_minus_bandit_mean": 0.2729784009705914,
+        "ppo_minus_bandit_ci95": 0.19759202330752856,
+        "fqi_minus_bandit_mean": -0.25927068830583516,
+        "fqi_minus_bandit_ci95": 0.21004747104820046,
+        "bandit_mean": 3.974285654250666,
+        "ppo_mean": 4.247264055221257,
+        "fqi_mean": 3.7150149659448313
+      }
+    ]
+  }
+}

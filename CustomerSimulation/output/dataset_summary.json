@@ -1,0 +1,17 @@
+{
+  "n_transitions": 62066,
+  "n_sessions": 20000,
+  "reward_mean": 0.40466684906816347,
+  "reward_min": -1.5,
+  "reward_max": 14.111153758992861,
+  "conversion_rate": 0.0823,
+  "avg_session_length": 3.1033,
+  "archetype_distribution": {
+    "Explorer": 5933,
+    "FastBuyer": 4017,
+    "DetailedComparator": 4140,
+    "DiscountHunter": 3014,
+    "WindowShopper": 2896
+  },
+  "generated_at": "2026-06-20T11:21:07.823180"
+}

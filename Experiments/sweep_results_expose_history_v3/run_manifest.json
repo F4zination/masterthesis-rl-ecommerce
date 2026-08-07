@@ -1,0 +1,64 @@
+{
+  "cache_schema_version": 1,
+  "fingerprint": "6d7aabe536f51bf69206da22c786293aab16fa30ccc25644142a4eaea0c8cf12",
+  "spec": {
+    "archetypes_path": "C:\\Users\\finnr\\development\\masterion\\MasterThesisProject\\CustomerSimulation\\config\\archetypes.yaml",
+    "archetypes_sha256": "704f52cf32c73ae6695e0a56cbf715205b656e9351cb5f8dd5ec007c97edf0bf",
+    "axes_grid": {
+      "fatigue_rate": [
+        0.0,
+        0.1,
+        0.2,
+        0.4,
+        0.6
+      ]
+    },
+    "bandit_history_exposed": true,
+    "cache_schema_version": 1,
+    "effective_config": {
+      "archetypes": "C:\\Users\\finnr\\development\\masterion\\MasterThesisProject\\CustomerSimulation\\config\\archetypes.yaml",
+      "axes": [
+        "fatigue_rate"
+      ],
+      "dataset_sessions": 6000,
+      "eval_seed_base": 10000,
+      "eval_sessions": 5000,
+      "fqi_iters": 30,
+      "fqi_penalty": 0.15,
+      "gae_lambda": 0.95,
+      "gamma": 0.95,
+      "hidden_sizes": "128,64",
+      "lr": 0.0003,
+      "ppo_epochs": 4,
+      "ppo_iterations": 40,
+      "ppo_minibatch": 256,
+      "ppo_mode": "online",
+      "ppo_rollout_sessions": 256,
+      "seeds": [
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "t_max": 20
+    },
+    "implementation_sha256": {
+      "CustomerSimulation/simulation/archetype.py": "49de65693eed7b5ae98f3b546ee0bb6bd0f88d18857b9760a20b282a83396629",
+      "CustomerSimulation/simulation/behavior_policy.py": "05e1485a2403c84e84f4c08b98b77a846ba1b688d22e4b4f520873095bfd36fe",
+      "CustomerSimulation/simulation/simulator.py": "ea76df48f1c1e4f1ec6efebe5b58341dbbd1a96a4f397b4bbeacf89af5285559",
+      "CustomerSimulation/simulation/state.py": "53498aceee222f30f3af3eeafdd4d9b10cae68b813c36070338c52a1a6cf8914",
+      "Experiments/run_sequentiality_sweep.py": "e20c0eefe38430fb43285bf0b0ba683ea2b48cd9d4bee07fb3d827489cec07bb",
+      "OfflineTraining/eval_all_policies_sim.py": "99c05d25fa753224f00551c7bdb6ba942bdfe4cb10b043ff0d33b1b7724579c1",
+      "OfflineTraining/eval_policy_sim.py": "c153d25602f7e169aa72901a9b338e7adb5bfb33c273956cade8022b8a9a13d8",
+      "OfflineTraining/train_offline_policy.py": "3cc1f842deb20b7edfd9f26546658d2928fc86681d971548fc6d766aca640371",
+      "OfflineTraining/train_ppo_policy.py": "47c8b4c685ca829f09c2a5cf1f15a2894c6b10497f42f8ac9e78532045aabf59",
+      "SharedSchema/shared_schema/constants.py": "84d218e92fa11b4848ebe65c2dff59332c1d55149a0ddedf00edc5fd258b4284",
+      "SharedSchema/shared_schema/features.py": "463e00782b31cbd79045af2cea843398c7dc9137a2e8070107d1553efd0db2eb"
+    },
+    "runtime": {
+      "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+      "torch": "2.12.0+cpu"
+    }
+  }
+}

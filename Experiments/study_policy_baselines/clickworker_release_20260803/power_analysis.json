@@ -1,0 +1,114 @@
+{
+  "method": "normal approximations for planning only",
+  "alpha_two_sided": 0.05,
+  "target_power": 0.8,
+  "baseline": {
+    "path": "Experiments\\study_policy_baselines\\clickworker_release_20260803\\policy_archetype_baseline.json",
+    "sha256": "13d72e26afd15b47045fae9330c145a309392cd908c399c48554f7fe0f13969e",
+    "reference_scope": "ten aggregate policy-by-persona cells",
+    "context_strata_present": true
+  },
+  "proportion_examples": [
+    {
+      "from": 0.08,
+      "to": 0.18,
+      "required_per_policy_unrounded": 176.35811393953315,
+      "required_per_policy_ceiling": 177
+    },
+    {
+      "from": 0.08,
+      "to": 0.13,
+      "required_per_policy_unrounded": 588.8984657139861,
+      "required_per_policy_ceiling": 589
+    },
+    {
+      "from": 0.08,
+      "to": 0.1,
+      "required_per_policy_unrounded": 3212.9370624961075,
+      "required_per_policy_ceiling": 3213
+    },
+    {
+      "from": 0.25,
+      "to": 0.35,
+      "required_per_policy_unrounded": 328.4715426347164,
+      "required_per_policy_ceiling": 329
+    }
+  ],
+  "ab_mde": [
+    {
+      "n_per_policy": 150,
+      "conversion_from": 0.08,
+      "conversion_to": 0.19013701694389615,
+      "reward_sd": 3.0,
+      "reward_mde": 0.9704975879011191
+    },
+    {
+      "n_per_policy": 200,
+      "conversion_from": 0.08,
+      "conversion_to": 0.17282663650086913,
+      "reward_sd": 3.0,
+      "reward_mde": 0.8404755654338903
+    }
+  ],
+  "primary_equivalence": {
+    "30": {
+      "conversion": {
+        "n_per_cell": 30,
+        "assumed_true_gap": 0.0,
+        "assumed_human_sd": "equal_to_simulator_cell_sd",
+        "standard_error": 0.014636956175256233,
+        "expected_ci90_half_width": 0.02407565045239995,
+        "margin": 0.05,
+        "approximate_endpoint_power": 0.9234654269658182
+      },
+      "session_length_steps": {
+        "n_per_cell": 30,
+        "assumed_true_gap": 0.0,
+        "assumed_human_sd": "equal_to_simulator_cell_sd",
+        "standard_error": 0.109819293097729,
+        "expected_ci90_half_width": 0.18063666256104627,
+        "margin": 0.5,
+        "approximate_endpoint_power": 0.9963634520866456
+      },
+      "funnel_depth": {
+        "n_per_cell": 30,
+        "assumed_true_gap": 0.0,
+        "assumed_human_sd": "equal_to_simulator_cell_sd",
+        "standard_error": 0.061554188121423915,
+        "expected_ci90_half_width": 0.10124762958557731,
+        "margin": 0.5,
+        "approximate_endpoint_power": 0.999999999907097
+      }
+    },
+    "40": {
+      "conversion": {
+        "n_per_cell": 40,
+        "assumed_true_gap": 0.0,
+        "assumed_human_sd": "equal_to_simulator_cell_sd",
+        "standard_error": 0.012707159141473101,
+        "expected_ci90_half_width": 0.02090141680210158,
+        "margin": 0.05,
+        "approximate_endpoint_power": 0.9779749822688353
+      },
+      "session_length_steps": {
+        "n_per_cell": 40,
+        "assumed_true_gap": 0.0,
+        "assumed_human_sd": "equal_to_simulator_cell_sd",
+        "standard_error": 0.09534026183367264,
+        "expected_ci90_half_width": 0.1568207754716194,
+        "margin": 0.5,
+        "approximate_endpoint_power": 0.9996811954679035
+      },
+      "funnel_depth": {
+        "n_per_cell": 40,
+        "assumed_true_gap": 0.0,
+        "assumed_human_sd": "equal_to_simulator_cell_sd",
+        "standard_error": 0.05343862855894723,
+        "expected_ci90_half_width": 0.08789872200449685,
+        "margin": 0.5,
+        "approximate_endpoint_power": 0.9999999999999876
+      }
+    }
+  },
+  "interpretation": "Equivalence power assumes zero human-simulator bias and human cell variances equal to the simulator reference. It is endpointwise; joint power depends on unknown cross-endpoint dependence. It uses the aggregate-cell SDs as a pre-context approximation for the locked context-standardized analysis. Margins require substantive approval."
+}

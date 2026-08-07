@@ -1,0 +1,35 @@
+# VPS override for co-hosting behind the nginx from the MaglioSite stack.
+#
+# Usage:
+#   docker network create study-gateway   # once
+#   docker compose -f docker-compose.yml -f docker-compose.vps.yml up -d
+#
+# The study nginx is put behind an opt-in profile because MaglioSite already
+# owns host ports 80/443. The certbot renewal service remains enabled.
+
+services:
+  v2:
+    networks:
+      studynet:
+      gateway:
+        aliases: [study-v2]
+
+  v3:
+    networks:
+      studynet:
+      gateway:
+        aliases: [study-v3]
+
+  dispatcher:
+    networks:
+      studynet:
+      gateway:
+        aliases: [study-dispatcher]
+
+  nginx:
+    profiles: [standalone]
+
+networks:
+  gateway:
+    name: study-gateway
+    external: true

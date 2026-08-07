@@ -1,0 +1,44 @@
+<svg width="680" viewBox="0 0 680 330" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Customer journey graph of the simulator (Explorer archetype)</title>
+<desc>Directed graph over the decision points landing, scroll_engagement, pdp, cart, checkout and done with the Explorer stage-transition probabilities.</desc>
+<style>text{font-family:Arial,Helvetica,"Segoe UI",sans-serif}</style>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<g fill="none" stroke-linecap="round" marker-end="url(#arrow)">
+<path d="M140 95 L236 95" stroke="#0d9488" stroke-width="1.8"/>
+<path d="M302 95 L396 95" stroke="#0d9488" stroke-width="1.8"/>
+<path d="M462 95 L526 95" stroke="#0d9488" stroke-width="1.8"/>
+<path d="M92 119 L138 164" stroke="#0d9488" stroke-width="1.8"/>
+<path d="M240 168 C 258 140, 268 130, 276 119" stroke="#0d9488" stroke-width="1.8"/>
+<path d="M580 119 L580 228" stroke="#0d9488" stroke-width="1.8"/>
+<path d="M258 73 C 250 44, 292 44, 284 73" stroke="#d97706" stroke-width="1.8"/>
+<path d="M405 119 C 392 148, 305 148, 296 121" stroke="#d97706" stroke-width="1.8"/>
+<path d="M252 119 C 232 142, 210 152, 194 166" stroke="#d97706" stroke-width="1.8"/>
+<path d="M72 119 L72 228" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/>
+<path d="M175 214 L175 228" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/>
+<path d="M286 121 L286 228" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/>
+<path d="M430 119 L430 228" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/>
+</g>
+<g font-size="12" fill="#566169" text-anchor="middle">
+<text x="188" y="87">0.70</text><text x="349" y="87">0.12</text><text x="494" y="87">0.38</text>
+<text x="99" y="148">0.10</text><text x="278" y="150">0.70</text><text x="592" y="180">1.0</text>
+<text x="271" y="42">0.45</text><text x="352" y="160">0.30</text><text x="214" y="150">0.10</text>
+<text x="63" y="180">0.20</text><text x="166" y="226">0.30</text><text x="297" y="180">0.33</text><text x="441" y="180">0.32</text>
+</g>
+<g>
+<rect x="52" y="73" width="88" height="44" rx="8" fill="#ffffff" stroke="#c3cccd" stroke-width="1.5"/><text x="96" y="100" text-anchor="middle" font-size="14" font-weight="500" fill="#182226">landing</text>
+<rect x="240" y="73" width="62" height="44" rx="8" fill="#ffffff" stroke="#c3cccd" stroke-width="1.5"/><text x="271" y="100" text-anchor="middle" font-size="14" font-weight="500" fill="#182226">pdp</text>
+<rect x="400" y="73" width="62" height="44" rx="8" fill="#ffffff" stroke="#c3cccd" stroke-width="1.5"/><text x="431" y="100" text-anchor="middle" font-size="14" font-weight="500" fill="#182226">cart</text>
+<rect x="526" y="73" width="104" height="44" rx="8" fill="#ffffff" stroke="#c3cccd" stroke-width="1.5"/><text x="578" y="100" text-anchor="middle" font-size="14" font-weight="500" fill="#182226">checkout</text>
+<rect x="95" y="164" width="160" height="44" rx="8" fill="#ffffff" stroke="#c3cccd" stroke-width="1.5"/><text x="175" y="191" text-anchor="middle" font-size="14" font-weight="500" fill="#182226">scroll_engagement</text>
+<rect x="52" y="230" width="578" height="42" rx="8" fill="#e7ecec" stroke="#c3cccd" stroke-width="1.5"/><text x="341" y="256" text-anchor="middle" font-size="14" font-weight="500" fill="#182226">done — session ends</text>
+</g>
+<g fill="none" stroke-linecap="round">
+<line x1="52" y1="298" x2="78" y2="298" stroke="#0d9488" stroke-width="2"/>
+<line x1="214" y1="298" x2="240" y2="298" stroke="#d97706" stroke-width="2"/>
+<line x1="372" y1="298" x2="398" y2="298" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 4"/>
+</g>
+<g font-size="12" fill="#566169">
+<text x="84" y="302">advance (funnel)</text><text x="246" y="302">browse / return</text><text x="404" y="302">exit → done</text>
+<text x="52" y="322">Edges = transitions P(s′|s); weights: Explorer archetype. Events (reward) are drawn separately per node.</text>
+</g>
+</svg>

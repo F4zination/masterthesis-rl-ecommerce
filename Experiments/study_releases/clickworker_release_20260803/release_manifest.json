@@ -1,0 +1,1062 @@
+{
+  "artifacts": {
+    "archetype_config": {
+      "exists": true,
+      "path": "CustomerSimulation/config/archetypes.yaml",
+      "sha256": "704f52cf32c73ae6695e0a56cbf715205b656e9351cb5f8dd5ec007c97edf0bf",
+      "size_bytes": 13903
+    },
+    "baseline_csv": {
+      "exists": true,
+      "path": "Experiments/study_policy_baselines/clickworker_release_20260803/policy_archetype_baseline.csv",
+      "sha256": "c563f423075d0ffad1f5e64755c0e74459e418a9b9c26c56cb35c5822cf7bdd2",
+      "size_bytes": 8910
+    },
+    "baseline_json": {
+      "exists": true,
+      "path": "Experiments/study_policy_baselines/clickworker_release_20260803/policy_archetype_baseline.json",
+      "sha256": "13d72e26afd15b47045fae9330c145a309392cd908c399c48554f7fe0f13969e",
+      "size_bytes": 414779
+    },
+    "dispatcher_db": {
+      "exists": true,
+      "path": "StudyDispatcher/data/dispatcher.db",
+      "sha256": "cf40d9d1fc455a2989c5b543f724ba292ad1e6b50c36a33ef9615479aef9f247",
+      "size_bytes": 12288
+    },
+    "power_analysis": {
+      "exists": true,
+      "path": "Experiments/study_policy_baselines/clickworker_release_20260803/power_analysis.json",
+      "sha256": "1e7e96c53db549f5cdaf1947f6e7b99ca14c017bd522905a82674d6e670d1326",
+      "size_bytes": 3986
+    },
+    "v2_db": {
+      "exists": true,
+      "path": "DemoSiteV2/data/demosite.db",
+      "sha256": "3fd34b5e173024933a7de0b43d2f410cd2d4a0f63d3f4529af5c087a4981d6c3",
+      "size_bytes": 1925120
+    },
+    "v3_checkpoint": {
+      "exists": true,
+      "path": "OfflineTraining/outputs/ppo_policy.pt",
+      "sha256": "249ae69b1dfd720f478592dcb4ab739c52474a850fabc904a5fe04d78c6bcdc2",
+      "size_bytes": 67309
+    },
+    "v3_policy": {
+      "exists": true,
+      "path": "OfflineTraining/outputs/trained_policy.json",
+      "sha256": "2ee5e02cf17c2ede4a21541d6ac8adc7cc20f54d69d7e2e9de0c266f4a2b1354",
+      "size_bytes": 1544650
+    },
+    "v3_product_db": {
+      "exists": true,
+      "path": "DemoSiteV3/data/demosite.db",
+      "sha256": "d8f8dfff291eb6cbac9d4f418996fff62635186260663fc7827c2984fe3fec87",
+      "size_bytes": 204800
+    }
+  },
+  "container_images": {
+    "images": {},
+    "required_labels": [
+      "v2",
+      "v3",
+      "dispatcher",
+      "nginx",
+      "certbot"
+    ]
+  },
+  "dependencies": {
+    "lock_files": [],
+    "manifests": [
+      {
+        "exists": true,
+        "path": "CustomerSimulation/requirements.txt",
+        "sha256": "1755339ece33394e1385250b8a5de489b03db9312507cb369dc047c49cbf1516",
+        "size_bytes": 33
+      },
+      {
+        "exists": true,
+        "path": "DemoSiteV2/requirements.txt",
+        "sha256": "1ed8bfd9244e81d323b3336422ac7ce4fb5904a57f79a9560906f6dfc2ddcedb",
+        "size_bytes": 124
+      },
+      {
+        "exists": true,
+        "path": "DemoSiteV3/requirements.txt",
+        "sha256": "ee045f22370366e3e5371428aaf96f68744e576fc817e437b4f0472d3eb9ca0d",
+        "size_bytes": 154
+      },
+      {
+        "exists": true,
+        "path": "StudyDispatcher/requirements.txt",
+        "sha256": "f6a6e24e2aa4cbee25b466681613e59b53a5580306bbf2ed4c7bda0b11af3bb5",
+        "size_bytes": 65
+      },
+      {
+        "exists": true,
+        "path": "SharedSchema/pyproject.toml",
+        "sha256": "1906c27310630123ced9162deb92ffe354196943ec2d7f31bfa9dace2ce4430c",
+        "size_bytes": 382
+      }
+    ]
+  },
+  "deployment": {
+    "checks": {
+      "v2.FREEZE_POLICY": true,
+      "v2.REQUIRE_BANDIT_POLICY": true,
+      "v3.FREEZE_POLICY": true,
+      "v3.LEARNER_ENABLED": true,
+      "v3.POLICY_MODE": true,
+      "v3.REQUIRE_PPO_CHECKPOINT": true,
+      "v3.TIMING_ENABLED": true
+    },
+    "compose": {
+      "exists": true,
+      "path": "docker-compose.yml",
+      "sha256": "2f13d5719a3c42c6b748276265cf1405a5cb09b61e923b96f38d5e0815ffd24f",
+      "size_bytes": 7172
+    },
+    "expected_environment": {
+      "v2": {
+        "FREEZE_POLICY": "true",
+        "REQUIRE_BANDIT_POLICY": "true"
+      },
+      "v3": {
+        "FREEZE_POLICY": "true",
+        "LEARNER_ENABLED": "false",
+        "POLICY_MODE": "ppo_only",
+        "REQUIRE_PPO_CHECKPOINT": "true",
+        "TIMING_ENABLED": "false"
+      }
+    },
+    "observed_environment": {
+      "v2": {
+        "ADMIN_COOKIE_NAME": "${ADMIN_COOKIE_NAME:-study_admin_session}",
+        "ADMIN_LOGIN_URL": "https://${DISPATCHER_DOMAIN}/admin/login",
+        "ADMIN_SESSION_SECRET": "${ADMIN_SESSION_SECRET:-}",
+        "ADMIN_TOKEN": "${ADMIN_TOKEN:-}",
+        "ADMIN_USERNAME": "${ADMIN_USERNAME:-admin}",
+        "FREEZE_POLICY": "true",
+        "LEGAL_BASE_URL": "",
+        "REQUIRE_BANDIT_POLICY": "true"
+      },
+      "v3": {
+        "ADMIN_COOKIE_NAME": "${ADMIN_COOKIE_NAME:-study_admin_session}",
+        "ADMIN_LOGIN_URL": "https://${DISPATCHER_DOMAIN}/admin/login",
+        "ADMIN_SESSION_SECRET": "${ADMIN_SESSION_SECRET:-}",
+        "ADMIN_TOKEN": "${ADMIN_TOKEN:-}",
+        "ADMIN_USERNAME": "${ADMIN_USERNAME:-admin}",
+        "FREEZE_POLICY": "true",
+        "LEARNER_ENABLED": "false",
+        "LEGAL_BASE_URL": "",
+        "POLICY_MODE": "ppo_only",
+        "REQUIRE_PPO_CHECKPOINT": "true",
+        "TIMING_ENABLED": "false"
+      }
+    },
+    "policy_updates_during_study": false,
+    "v3_runtime_fallback_allowed": false
+  },
+  "generated_at_utc": "2026-08-02T10:35:17.381427+00:00",
+  "policy_matched_simulator_reference": {
+    "code_hash_checks": [
+      {
+        "actual_sha256": "98aaeb782a2e5fbd3d82d7107c1247e2f94fe0321dc8cb2bd9129dc401dff7f7",
+        "expected_sha256": "98aaeb782a2e5fbd3d82d7107c1247e2f94fe0321dc8cb2bd9129dc401dff7f7",
+        "matches": true,
+        "path": "Experiments/evaluate_study_policy_baseline.py"
+      },
+      {
+        "actual_sha256": "ea76df48f1c1e4f1ec6efebe5b58341dbbd1a96a4f397b4bbeacf89af5285559",
+        "expected_sha256": "ea76df48f1c1e4f1ec6efebe5b58341dbbd1a96a4f397b4bbeacf89af5285559",
+        "matches": true,
+        "path": "CustomerSimulation/simulation/simulator.py"
+      },
+      {
+        "actual_sha256": "53498aceee222f30f3af3eeafdd4d9b10cae68b813c36070338c52a1a6cf8914",
+        "expected_sha256": "53498aceee222f30f3af3eeafdd4d9b10cae68b813c36070338c52a1a6cf8914",
+        "matches": true,
+        "path": "CustomerSimulation/simulation/state.py"
+      },
+      {
+        "actual_sha256": "84d218e92fa11b4848ebe65c2dff59332c1d55149a0ddedf00edc5fd258b4284",
+        "expected_sha256": "84d218e92fa11b4848ebe65c2dff59332c1d55149a0ddedf00edc5fd258b4284",
+        "matches": true,
+        "path": "SharedSchema/shared_schema/constants.py"
+      },
+      {
+        "actual_sha256": "463e00782b31cbd79045af2cea843398c7dc9137a2e8070107d1553efd0db2eb",
+        "expected_sha256": "463e00782b31cbd79045af2cea843398c7dc9137a2e8070107d1553efd0db2eb",
+        "matches": true,
+        "path": "SharedSchema/shared_schema/features.py"
+      }
+    ],
+    "context_standardization": {
+      "complete": true,
+      "duplicate_strata_cells": 0,
+      "enabled": true,
+      "expected_strata_cells": 160,
+      "independent_seeds_across_strata_cells": true,
+      "insufficient_session_strata_cells": 0,
+      "missing_strata": [],
+      "n_strata_cells": 160,
+      "rule": "Primary fidelity standardizes simulator cell means to the recorded joint device/traffic distribution within each policy-persona cell.",
+      "sessions_per_stratum": 500,
+      "unexpected_strata": []
+    },
+    "file": {
+      "exists": true,
+      "path": "Experiments/study_policy_baselines/clickworker_release_20260803/policy_archetype_baseline.json",
+      "sha256": "13d72e26afd15b47045fae9330c145a309392cd908c399c48554f7fe0f13969e",
+      "size_bytes": 414779
+    },
+    "git_head": "2d672c36dc8a5e50756b0885b4f483629737ec00",
+    "git_head_matches_release": false,
+    "input_hash_matches": {
+      "archetype_config": true,
+      "v2_db": true,
+      "v3_checkpoint": true
+    },
+    "n_cells": 10,
+    "sessions_per_cell": 2000,
+    "study_id": "clickworker_release_20260803",
+    "v2_serving_diagnostics": {
+      "decisions": 148486,
+      "missing_feature_decisions": 0,
+      "partially_unseen_context_decisions": 0,
+      "selected_unseen_arm_decisions": 0,
+      "unseen_context_decisions": 0,
+      "unseen_context_rate": 0.0
+    },
+    "v3_serving_diagnostics": {
+      "all_cells_serving_equivalent": true,
+      "decisions": 148730,
+      "decisions_with_oov_tokens": 0,
+      "fallback_decisions": 0,
+      "oov_decision_rate": 0.0
+    },
+    "valid_json": true
+  },
+  "policy_provenance": {
+    "v2_bandit": {
+      "declared": {
+        "build_git_commit": "2d672c36dc8a5e50756b0885b4f483629737ec00",
+        "build_git_dirty": false,
+        "build_script_sha256": "6399df37ad93fbf3d5e28f65dd922f9633ac740e9c2119b1bf8f143275a10c82",
+        "training_dataset_sha256": "eb014df9ff9194a85c5a89f99198f38eb559f44f046daf7a4c8c462711057f29"
+      },
+      "embedded": true,
+      "metadata": {
+        "arm_support": "{\"backoff_method\":\"decision_point_action_empirical_mean\",\"coverage_scope\":\"complete_finite_POINT_FEATURES_serving_grid\",\"coverage_validation_passed\":true,\"decision_point_action_pseudocount_arm_rows\":2928,\"device_augmented_without_exact_empirical_arm_rows\":65,\"device_domain\":[\"unknown\",\"mobile\",\"tablet\",\"desktop\"],\"device_feature\":\"device_type\",\"device_pool_added_effective_impressions\":186105,\"device_pooled_empirical_arm_rows\":2160,\"device_pooling_assumption\":\"device_type is exogenous and behaviorally irrelevant in the simulator\",\"feature_domains\":{\"cart_total_bucket\":[\"0\",\"1\",\"2\",\"3\"],\"device_type\":[\"unknown\",\"mobile\",\"tablet\",\"desktop\"],\"item_count_bucket\":[\"0\",\"1\",\"2\",\"3\"],\"page_depth_bucket\":[\"0\",\"1\",\"2\",\"3\"],\"price_bucket\":[\"0\",\"1\",\"2\",\"3\"],\"traffic_source\":[\"direct\",\"search\",\"social\",\"referral\"]},\"materialized_empirical_effective_impressions\":248140,\"materialized_pseudocount_effective_impressions\":2928,\"materialized_serving_arm_rows\":5088,\"materialized_total_effective_impressions\":251068,\"observed_device_values\":[\"unknown\",\"mobile\",\"tablet\",\"desktop\"],\"per_arm_support_table\":\"policy_arm_support\",\"pooled_empirical_base_arm_rows\":540,\"pseudocount_impressions_per_backoff_arm\":1,\"raw_empirical_arm_rows\":2095,\"raw_empirical_transition_impressions\":62035,\"required_serving_arm_rows\":5088,\"required_serving_contexts\":848,\"support_accounting_schema_version\":1}",
+        "build_git_commit": "\"2d672c36dc8a5e50756b0885b4f483629737ec00\"",
+        "build_git_dirty": "false",
+        "build_script_path": "\"C:\\\\Users\\\\finnr\\\\development\\\\masterion\\\\MasterThesisProject\\\\OfflineTraining\\\\build_bandit_policy.py\"",
+        "build_script_sha256": "\"6399df37ad93fbf3d5e28f65dd922f9633ac740e9c2119b1bf8f143275a10c82\"",
+        "built_at_utc": "\"2026-08-02T10:27:42.564891+00:00\"",
+        "context_schema_version": "2",
+        "dataset_path": "\"C:\\\\Users\\\\finnr\\\\development\\\\masterion\\\\MasterThesisProject\\\\OfflineTraining\\\\data\\\\deployment-sequential\\\\offline_transitions.jsonl\"",
+        "dataset_sha256": "\"eb014df9ff9194a85c5a89f99198f38eb559f44f046daf7a4c8c462711057f29\"",
+        "n_transitions_skipped": "0",
+        "n_transitions_used": "62035",
+        "product_catalog_seeded": "true",
+        "provenance_schema_version": "2"
+      },
+      "missing_required_fields": [],
+      "table": "policy_build_metadata",
+      "verification": {
+        "build_git_commit_matches_release": false,
+        "build_script_hash_matches_release": true,
+        "policy_was_built_from_clean_worktree": true,
+        "training_dataset_hash_matches_selected_input": true
+      }
+    },
+    "v3_ppo": {
+      "declared": {
+        "archetype_config_sha256": "704f52cf32c73ae6695e0a56cbf715205b656e9351cb5f8dd5ec007c97edf0bf",
+        "dynamics": {
+          "cash_out_point": "checkout",
+          "delayed_reward_decay": 0.9,
+          "delayed_reward_strength": 0.0,
+          "expose_history_to_bandit": false,
+          "fatigue_rate": 0.0,
+          "fatigue_window": 0,
+          "p_dismiss_max": 0.6,
+          "priming_actions": [
+            "help_popup",
+            "trust_badge"
+          ],
+          "priming_amount": 1.0,
+          "transition_coupling_strength": 0.0
+        },
+        "iterations": 40,
+        "mode": "online",
+        "rollout_sessions": 256,
+        "sequential": true,
+        "t_max": 20,
+        "training_dataset_sha256": "eb014df9ff9194a85c5a89f99198f38eb559f44f046daf7a4c8c462711057f29",
+        "training_git_commit": "2d672c36dc8a5e50756b0885b4f483629737ec00",
+        "training_git_dirty": false,
+        "training_script_sha256": "47c8b4c685ca829f09c2a5cf1f15a2894c6b10497f42f8ac9e78532045aabf59",
+        "training_seed": 42
+      },
+      "inspectable": true,
+      "metadata_keys": [
+        "action_vocab_sha256",
+        "algorithm",
+        "archetypes_path",
+        "archetypes_sha256",
+        "clip_eps",
+        "dataset_path",
+        "dataset_sha256",
+        "dynamics",
+        "entropy_coef",
+        "epochs",
+        "export_id",
+        "gae_lambda",
+        "gamma",
+        "git_commit",
+        "git_dirty",
+        "hidden_sizes",
+        "iterations",
+        "lr",
+        "minibatch_size",
+        "mode",
+        "model_state_sha256",
+        "provenance",
+        "rollout_sessions",
+        "schema_version",
+        "seed",
+        "sequential",
+        "state_vocab_domain_version",
+        "state_vocab_sha256",
+        "summary",
+        "t_max",
+        "timing_mode",
+        "training_script_path",
+        "training_script_sha256",
+        "unobserved_token_initialization",
+        "value_coef",
+        "vocabulary_coverage"
+      ],
+      "missing_required_fields": [],
+      "provenance_block_present": true,
+      "serving_vocabulary": {
+        "missing_actions": [],
+        "missing_state_tokens": [],
+        "required_state_token_count": 46
+      },
+      "verification": {
+        "archetype_config_hash_matches_release": true,
+        "policy_was_trained_from_clean_worktree": true,
+        "training_dataset_hash_matches_selected_input": true,
+        "training_git_commit_matches_release": false,
+        "training_script_hash_matches_release": true
+      }
+    }
+  },
+  "policy_serving_contracts": {
+    "v2_bandit": {
+      "context_schema_version": 2,
+      "quick_check": "ok",
+      "serving_arm_count": 5088,
+      "serving_context_count": 848,
+      "support_counts": {
+        "decision_point_action_pseudocount": 2928,
+        "device_pooled_empirical": 2160
+      },
+      "valid": true
+    },
+    "v3_ppo_artifact_pair": {
+      "action_vocab_size": 6,
+      "checkpoint_sha256": "249ae69b1dfd720f478592dcb4ab739c52474a850fabc904a5fe04d78c6bcdc2",
+      "export_id": "0d17b50d1a98c8f8b0a6dd003522e6464f518977f43f52dbf1b3e9441d9560c4",
+      "model_state_sha256": "69d30a27c7cbc1ca190e83c7796759000b4238e572503eea706355b88a4f91c7",
+      "state_vocab_size": 46,
+      "valid": true
+    }
+  },
+  "power_analysis_reference": {
+    "baseline_hash_matches": true,
+    "declared_baseline_sha256": "13d72e26afd15b47045fae9330c145a309392cd908c399c48554f7fe0f13969e",
+    "file": {
+      "exists": true,
+      "path": "Experiments/study_policy_baselines/clickworker_release_20260803/power_analysis.json",
+      "sha256": "1e7e96c53db549f5cdaf1947f6e7b99ca14c017bd522905a82674d6e670d1326",
+      "size_bytes": 3986
+    },
+    "method": "normal approximations for planning only",
+    "valid_json": true
+  },
+  "pre_recruitment_data": {
+    "clean_for_confirmatory_recruitment": false,
+    "dispatcher": {
+      "counts": {
+        "assignments": 2
+      },
+      "exists": true,
+      "path": "C:\\Users\\finnr\\development\\masterion\\MasterThesisProject\\StudyDispatcher\\data\\dispatcher.db",
+      "readable": true,
+      "total_rows": 2
+    },
+    "rule": "Archive pilot/test volumes and release empty event, order, decision, cart, discount, and assignment tables before confirmatory recruitment.",
+    "v2": {
+      "counts": {
+        "cart_items": 0,
+        "decision_logs": 0,
+        "events": 0,
+        "orders": 0,
+        "session_discounts": 0
+      },
+      "exists": true,
+      "path": "C:\\Users\\finnr\\development\\masterion\\MasterThesisProject\\DemoSiteV2\\data\\demosite.db",
+      "readable": true,
+      "total_rows": 0
+    },
+    "v3": {
+      "counts": {
+        "cart_items": 0,
+        "decision_logs": 1,
+        "events": 6,
+        "orders": 0,
+        "session_discounts": 0
+      },
+      "exists": true,
+      "path": "C:\\Users\\finnr\\development\\masterion\\MasterThesisProject\\DemoSiteV3\\data\\demosite.db",
+      "readable": true,
+      "total_rows": 7
+    }
+  },
+  "preregistration": {
+    "declared_commit_matches_head": false,
+    "declared_release_commit": "TO_BE_FILLED",
+    "exists": true,
+    "path": "Experiments/ClickworkerPreregistration.md",
+    "sha256": "dc1d17af8c78fe16f4ced1abd4dcbb180b30225ea6500bca227ecda844e92b18",
+    "size_bytes": 48085,
+    "status": "draft; commit and timestamp before confirmatory recruitment",
+    "unfilled_fields": [
+      {
+        "line": 9,
+        "text": "**Study release commit**: `TO_BE_FILLED`"
+      },
+      {
+        "line": 11,
+        "text": "**Reference-data manifest**: `TO_BE_FILLED`"
+      }
+    ]
+  },
+  "product_catalogue": {
+    "canonical_content_identical": true,
+    "seed_strategy": "deterministic static catalogues; no random catalogue seed",
+    "v2": {
+      "canonical_catalog_sha256": "168b99da22c8cc337e1fccca22981bcf43a66bfed2fa0e0c8711e2d9cbb79193",
+      "database": {
+        "exists": true,
+        "path": "DemoSiteV2/data/demosite.db",
+        "sha256": "3fd34b5e173024933a7de0b43d2f410cd2d4a0f63d3f4529af5c087a4981d6c3",
+        "size_bytes": 1925120
+      },
+      "sqlite_quick_check": "ok",
+      "tables": {
+        "categories": {
+          "columns": [
+            "id",
+            "name",
+            "slug",
+            "description"
+          ],
+          "row_count": 5
+        },
+        "products": {
+          "columns": [
+            "id",
+            "name",
+            "slug",
+            "description",
+            "price",
+            "image_url",
+            "category_id",
+            "stock"
+          ],
+          "row_count": 249
+        }
+      },
+      "valid": true
+    },
+    "v2_seed_source": {
+      "exists": true,
+      "path": "DemoSiteV2/app/seed.py",
+      "sha256": "ce5e895e7122c38009109dbbe41d4bec853f649355997705202c34e7d2fe7648",
+      "size_bytes": 43571
+    },
+    "v3": {
+      "canonical_catalog_sha256": "168b99da22c8cc337e1fccca22981bcf43a66bfed2fa0e0c8711e2d9cbb79193",
+      "database": {
+        "exists": true,
+        "path": "DemoSiteV3/data/demosite.db",
+        "sha256": "d8f8dfff291eb6cbac9d4f418996fff62635186260663fc7827c2984fe3fec87",
+        "size_bytes": 204800
+      },
+      "sqlite_quick_check": "ok",
+      "tables": {
+        "categories": {
+          "columns": [
+            "id",
+            "name",
+            "slug",
+            "description"
+          ],
+          "row_count": 5
+        },
+        "products": {
+          "columns": [
+            "id",
+            "name",
+            "slug",
+            "description",
+            "price",
+            "image_url",
+            "category_id",
+            "stock"
+          ],
+          "row_count": 249
+        }
+      },
+      "valid": true
+    },
+    "v3_seed_source": {
+      "exists": true,
+      "path": "DemoSiteV3/app/seed.py",
+      "sha256": "ce5e895e7122c38009109dbbe41d4bec853f649355997705202c34e7d2fe7648",
+      "size_bytes": 43571
+    }
+  },
+  "readiness": {
+    "blocker_count": 8,
+    "blockers": [
+      {
+        "code": "preregistration_unfilled",
+        "detail": "Resolve every substantive TO_BE_FILLED field before recruitment."
+      },
+      {
+        "code": "preregistration_not_locked",
+        "detail": "Preregistration status is still draft."
+      },
+      {
+        "code": "dependency_lock_missing",
+        "detail": "No reproducible dependency lock file was found."
+      },
+      {
+        "code": "pre_recruitment_data_not_empty",
+        "detail": "Archive pilot/test data and deploy clean shop and dispatcher ledgers."
+      },
+      {
+        "code": "v2_policy_provenance_mismatch",
+        "detail": "Embedded V2 provenance does not match selected release inputs."
+      },
+      {
+        "code": "v3_policy_provenance_mismatch",
+        "detail": "Embedded V3 provenance does not match selected release inputs."
+      },
+      {
+        "code": "baseline_commit_mismatch",
+        "detail": "Baseline Git revision differs from the release revision."
+      },
+      {
+        "code": "image_identifiers_missing",
+        "detail": "v2, v3, dispatcher, nginx, certbot"
+      }
+    ],
+    "ready_for_recruitment": false,
+    "rule": "Ready only when every fail-closed check passes; draft manifests remain useful audit artifacts."
+  },
+  "release_id": "clickworker_release_20260803",
+  "relevant_code_and_configuration": [
+    {
+      "exists": true,
+      "path": "docker-compose.yml",
+      "sha256": "2f13d5719a3c42c6b748276265cf1405a5cb09b61e923b96f38d5e0815ffd24f",
+      "size_bytes": 7172
+    },
+    {
+      "exists": true,
+      "path": "example.env",
+      "sha256": "c271680539a907a97f96c15e9e4c89629a0c6ed42f6bbc91a8b9dd66ba7e5f7a",
+      "size_bytes": 3160
+    },
+    {
+      "exists": true,
+      "path": "CustomerSimulation/simulation/simulator.py",
+      "sha256": "ea76df48f1c1e4f1ec6efebe5b58341dbbd1a96a4f397b4bbeacf89af5285559",
+      "size_bytes": 14771
+    },
+    {
+      "exists": true,
+      "path": "CustomerSimulation/simulation/state.py",
+      "sha256": "53498aceee222f30f3af3eeafdd4d9b10cae68b813c36070338c52a1a6cf8914",
+      "size_bytes": 4545
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/Dockerfile",
+      "sha256": "bce7846a41162d59d7bf3d630c4a1cd2e7e1a8462954c8ec9f761e99f1709af1",
+      "size_bytes": 2209
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/database.py",
+      "sha256": "1c00ecde0e88ba539d9be5e72a77ac2abc340373466349a57fd41b5153b83817",
+      "size_bytes": 1547
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/main.py",
+      "sha256": "5b89b33780e790cfd8c68e7ae3ce64775c3c1747412f8b50f48935a250ce413c",
+      "size_bytes": 5163
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/models.py",
+      "sha256": "062b0de450827945026564f55fd43568dec789cf7ec8d133edb94e137fa6b06c",
+      "size_bytes": 10802
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/routers/api.py",
+      "sha256": "742368b43f49376e772aeb8f9cebe8cd96c51c84d23bb35dad09a73da2df30d5",
+      "size_bytes": 8096
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/routers/decision.py",
+      "sha256": "f18d03263c435cd86b631f744bd0246ab248f4995f86e0568dbf87146f85ffcc",
+      "size_bytes": 2000
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/routers/events.py",
+      "sha256": "3b8b56c52d9f0e7dbff4f7bca7cc9f55a009666f576ecc47bf2ea99c519db0eb",
+      "size_bytes": 2091
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/routers/shop.py",
+      "sha256": "829f096be24a00072cc84443b617a17f9191e0606773b51a09c839f079a2a301",
+      "size_bytes": 22207
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/services/cart.py",
+      "sha256": "4697e474cabe41d5d633d85446500b798adaa4640095ceaf1e1b3950830bff2b",
+      "size_bytes": 6424
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/services/decision.py",
+      "sha256": "765051f0ab72695cf74f0d7a50bda2b216b8e32298483cf41f7d997e5f399b93",
+      "size_bytes": 9893
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/services/tracking.py",
+      "sha256": "41eb95c3de8fcb9c58c02e59bb2c2998083ac13b007744db7855b66dc8f46cb9",
+      "size_bytes": 1758
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/seed.py",
+      "sha256": "ce5e895e7122c38009109dbbe41d4bec853f649355997705202c34e7d2fe7648",
+      "size_bytes": 43571
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/static/js/cart.js",
+      "sha256": "688b8f6ff17c00e3c66e02689e0ac03a671e2ef13042f2f2ca6211ab1339010d",
+      "size_bytes": 4593
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/static/js/decision.js",
+      "sha256": "65526fdee260f70660e7e2088da7fc5b4f3649aafb278270a72187dc7a99913b",
+      "size_bytes": 24584
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/static/js/tracking.js",
+      "sha256": "da0c7ab617f28a1d1a7b7ac313f9a5955a73183df81f425d939f85bb816b1718",
+      "size_bytes": 4349
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/templates/attention.html",
+      "sha256": "e76ff55f7771d7a3e7caec394a9c16900bc7ac5bc8d1db46d03dce609cecd5dc",
+      "size_bytes": 1612
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/templates/base.html",
+      "sha256": "d8850d94fafba780bfeedcfbac7c9eb9088934783c89fb3f3db3a5222e350b9b",
+      "size_bytes": 5856
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/templates/checkout.html",
+      "sha256": "c468880a85a3bd650edb7f13892937ba502316b0a2a0fc32456b30dab37f477e",
+      "size_bytes": 6621
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/templates/confirmation.html",
+      "sha256": "bb3bd586ca644e6a84d5a1400550e6e1403e21e4601511b9e7950b56272ca872",
+      "size_bytes": 1906
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/templates/end_session.html",
+      "sha256": "8bb85dd8a906e3b330d265afa7e22d82234e4176cbb67c9839c8df01f83cc3b6",
+      "size_bytes": 598
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV2/app/templates/home.html",
+      "sha256": "40b46c5c24cc1431f8fd6082475180c73a5dd3d76e7b8b2c9545ba24288dddb6",
+      "size_bytes": 5234
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/Dockerfile",
+      "sha256": "6ae5ffe2aca19a94edf9ea7c78a76a6e6fd2ec249ee899297ef05d6c80151696",
+      "size_bytes": 2808
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/config.py",
+      "sha256": "35003707b0bbb2dac9400e130ebdeb7287119ed01554c3be9dc6e188ea6f47bd",
+      "size_bytes": 4439
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/database.py",
+      "sha256": "1c00ecde0e88ba539d9be5e72a77ac2abc340373466349a57fd41b5153b83817",
+      "size_bytes": 1547
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/main.py",
+      "sha256": "9f4f28143f27167f5d9eac78246236319e600af3dee292e0e69758b864ff1a54",
+      "size_bytes": 7576
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/models.py",
+      "sha256": "062b0de450827945026564f55fd43568dec789cf7ec8d133edb94e137fa6b06c",
+      "size_bytes": 10802
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/routers/api.py",
+      "sha256": "742368b43f49376e772aeb8f9cebe8cd96c51c84d23bb35dad09a73da2df30d5",
+      "size_bytes": 8096
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/routers/decision.py",
+      "sha256": "6ffc6c15b2623a943b3008d40f26d26ac06c8327a5fac769806757fc36153312",
+      "size_bytes": 2294
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/routers/events.py",
+      "sha256": "3b8b56c52d9f0e7dbff4f7bca7cc9f55a009666f576ecc47bf2ea99c519db0eb",
+      "size_bytes": 2091
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/routers/shop.py",
+      "sha256": "d635a00dd87b6fd415c3eddfa113d8cc15557653a61bfc382e31cfd2dfeb794e",
+      "size_bytes": 22638
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/seed.py",
+      "sha256": "ce5e895e7122c38009109dbbe41d4bec853f649355997705202c34e7d2fe7648",
+      "size_bytes": 43571
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/services/cart.py",
+      "sha256": "4697e474cabe41d5d633d85446500b798adaa4640095ceaf1e1b3950830bff2b",
+      "size_bytes": 6424
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/services/decision.py",
+      "sha256": "eed7f56911fb91182deef19c504ed28c3e9803f8718838b42f1069b2a30745cc",
+      "size_bytes": 20299
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/services/ppo.py",
+      "sha256": "a7d6824dffc17ce2f7b0559bc80a3b99dca268ee896ba2017cc5a455ba936d43",
+      "size_bytes": 6844
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/services/tracking.py",
+      "sha256": "41eb95c3de8fcb9c58c02e59bb2c2998083ac13b007744db7855b66dc8f46cb9",
+      "size_bytes": 1758
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/static/js/cart.js",
+      "sha256": "688b8f6ff17c00e3c66e02689e0ac03a671e2ef13042f2f2ca6211ab1339010d",
+      "size_bytes": 4593
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/static/js/decision.js",
+      "sha256": "a3cdf6a8f3b95bb03b37a621badb0633f2f3689bf18903f863fdd1b093555efd",
+      "size_bytes": 28491
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/static/js/tracking.js",
+      "sha256": "da0c7ab617f28a1d1a7b7ac313f9a5955a73183df81f425d939f85bb816b1718",
+      "size_bytes": 4349
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/templates/attention.html",
+      "sha256": "2fefd96573d5834d35c23241a2e33d5ddf26411b6bf456f5398a6e6cfa5ae98b",
+      "size_bytes": 1575
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/templates/base.html",
+      "sha256": "d8850d94fafba780bfeedcfbac7c9eb9088934783c89fb3f3db3a5222e350b9b",
+      "size_bytes": 5856
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/templates/checkout.html",
+      "sha256": "c468880a85a3bd650edb7f13892937ba502316b0a2a0fc32456b30dab37f477e",
+      "size_bytes": 6621
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/templates/confirmation.html",
+      "sha256": "bb3bd586ca644e6a84d5a1400550e6e1403e21e4601511b9e7950b56272ca872",
+      "size_bytes": 1906
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/templates/end_session.html",
+      "sha256": "8bb85dd8a906e3b330d265afa7e22d82234e4176cbb67c9839c8df01f83cc3b6",
+      "size_bytes": 598
+    },
+    {
+      "exists": true,
+      "path": "DemoSiteV3/app/templates/home.html",
+      "sha256": "40b46c5c24cc1431f8fd6082475180c73a5dd3d76e7b8b2c9545ba24288dddb6",
+      "size_bytes": 5234
+    },
+    {
+      "exists": true,
+      "path": "StudyDispatcher/Dockerfile",
+      "sha256": "dede57c106a144c4c48ba1a0ad81495bdd7f4fbe558809aa314f6dfe9538567a",
+      "size_bytes": 870
+    },
+    {
+      "exists": true,
+      "path": "StudyDispatcher/app/admin.py",
+      "sha256": "29c38a128da9b16022a12ffce6420839576ca32ebafaac126fd3c544e2626d3b",
+      "size_bytes": 21312
+    },
+    {
+      "exists": true,
+      "path": "StudyDispatcher/app/config.py",
+      "sha256": "c925c578adc8d5c5ea21b99f1be5be15fa303654439bf0f45665ee04fcfa5f52",
+      "size_bytes": 7524
+    },
+    {
+      "exists": true,
+      "path": "StudyDispatcher/app/legal.py",
+      "sha256": "5f1665303f3e0923405127ff2c05f9ca64bdae963cfbbf14858095cfc8d8b76a",
+      "size_bytes": 13657
+    },
+    {
+      "exists": true,
+      "path": "StudyDispatcher/app/main.py",
+      "sha256": "db681d6d99c08cceaaf858486958fe4d4eab330ebddef9d347572aaeffb9f823",
+      "size_bytes": 11890
+    },
+    {
+      "exists": true,
+      "path": "StudyDispatcher/app/store.py",
+      "sha256": "ff52244d90ebcdfe69a24b59845f86d03809d1d4d7b54544ae7a74e6d2b7b486",
+      "size_bytes": 6262
+    },
+    {
+      "exists": true,
+      "path": "deploy/nginx/templates/default.conf.template",
+      "sha256": "54cd7344324a4759a2d1f799af80d97b936558cb46f5bc930e0183e0bc9befa5",
+      "size_bytes": 6608
+    },
+    {
+      "exists": true,
+      "path": "deploy/init-letsencrypt.sh",
+      "sha256": "77cb66f46e476b7251f9d2647e572d3998e0c889f6b6b9f3e2dd8b5c544f9822",
+      "size_bytes": 4385
+    },
+    {
+      "exists": true,
+      "path": "SharedSchema/shared_schema/constants.py",
+      "sha256": "84d218e92fa11b4848ebe65c2dff59332c1d55149a0ddedf00edc5fd258b4284",
+      "size_bytes": 3541
+    },
+    {
+      "exists": true,
+      "path": "SharedSchema/shared_schema/features.py",
+      "sha256": "463e00782b31cbd79045af2cea843398c7dc9137a2e8070107d1553efd0db2eb",
+      "size_bytes": 14211
+    },
+    {
+      "exists": true,
+      "path": "SharedSchema/shared_schema/policy_contract.py",
+      "sha256": "d63ddd1dc9a5691391072f1ac8bfa9bc32ad5e18c637e000108ccf8efcc445c5",
+      "size_bytes": 19324
+    },
+    {
+      "exists": true,
+      "path": "OfflineTraining/build_bandit_policy.py",
+      "sha256": "6399df37ad93fbf3d5e28f65dd922f9633ac740e9c2119b1bf8f143275a10c82",
+      "size_bytes": 40461
+    },
+    {
+      "exists": true,
+      "path": "OfflineTraining/train_ppo_policy.py",
+      "sha256": "47c8b4c685ca829f09c2a5cf1f15a2894c6b10497f42f8ac9e78532045aabf59",
+      "size_bytes": 48520
+    },
+    {
+      "exists": true,
+      "path": "OfflineTraining/validate_policy_artifacts.py",
+      "sha256": "3826b91a724a816fe2926b2d6ebfda1e97a844f52ff77453c3f373e54631a178",
+      "size_bytes": 10791
+    },
+    {
+      "exists": true,
+      "path": "deploy/prepare-study-artifacts.sh",
+      "sha256": "95a923dcb88216de789e51f6c27a87d1928fa607072b313168ce76a74ebba193",
+      "size_bytes": 5652
+    },
+    {
+      "exists": true,
+      "path": "Experiments/evaluate_study_policy_baseline.py",
+      "sha256": "98aaeb782a2e5fbd3d82d7107c1247e2f94fe0321dc8cb2bd9129dc401dff7f7",
+      "size_bytes": 37564
+    },
+    {
+      "exists": true,
+      "path": "Experiments/calculate_clickworker_power.py",
+      "sha256": "86303d89cb14f5b60e335bae9343be92f9e5ce392874349efadd9d78e974bbb5",
+      "size_bytes": 6052
+    },
+    {
+      "exists": true,
+      "path": "Experiments/analyze_clickworker_study.py",
+      "sha256": "4c16cb7aaddbda4e03288c246bd988529824b6033a3f4d758248678389cff884",
+      "size_bytes": 64612
+    },
+    {
+      "exists": true,
+      "path": "Experiments/verify_completion_codes.py",
+      "sha256": "b543ae90f312126173cdd70096b152bb8c4217a2fb8846edb2b12f9f1e32cd7d",
+      "size_bytes": 11778
+    },
+    {
+      "exists": true,
+      "path": "Experiments/build_study_release_manifest.py",
+      "sha256": "a6d9222e827b3df40d01e5b3f9d5670b84dd1cf8ac368216b6d522be18f7df8b",
+      "size_bytes": 54586
+    }
+  ],
+  "reward_and_feature_schema": {
+    "canonical_reward_schema_sha256": "12601801b9baa54f348945ae2db423e46cae439b9857f9884f3fa322e8901d68",
+    "note": "Order-total purchase bonus logic is additionally pinned by the features.py source hash.",
+    "source": {
+      "exists": true,
+      "path": "SharedSchema/shared_schema/constants.py",
+      "sha256": "84d218e92fa11b4848ebe65c2dff59332c1d55149a0ddedf00edc5fd258b4284",
+      "size_bytes": 3541
+    },
+    "valid": true,
+    "values": {
+      "action_cost": {
+        "discount_banner": 0.1,
+        "frequently_bought_together": 0.04,
+        "help_popup": 0.02,
+        "no-op": 0.0,
+        "trending_carousel": 0.05,
+        "trust_badge": 0.03
+      },
+      "context_schema_version": 2,
+      "event_reward": {
+        "add_to_cart": 1.5,
+        "checkout_submit": 2.0,
+        "exit_intent": -0.6,
+        "help_popup_click": 1.0,
+        "purchase": 8.0,
+        "remove_from_cart": -0.5,
+        "widget_click": 1.2,
+        "widget_dismiss": -0.8
+      },
+      "history_primed_credit_decay": 0.9,
+      "history_priming_actions": [
+        "help_popup",
+        "trust_badge"
+      ],
+      "history_priming_amount": 1.0
+    }
+  },
+  "runtime": {
+    "docker_client": null,
+    "docker_client_error": "error during connect: Get \"http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/v1.50/version\": open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.",
+    "executable": "C:\\Users\\finnr\\development\\masterion\\MasterThesisProject\\.venv\\Scripts\\python.exe",
+    "git_client": "git version 2.45.1.windows.1",
+    "packages": {
+      "PyYAML": "6.0.3",
+      "SQLAlchemy": "2.0.49",
+      "fastapi": "0.136.1",
+      "jinja2": "3.1.6",
+      "torch": "2.12.0",
+      "uvicorn": "0.46.0"
+    },
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.14.2",
+    "python_implementation": "CPython"
+  },
+  "schema_version": 1,
+  "status": "DRAFT_NOT_READY",
+  "training_inputs": {
+    "v2_sequential_transitions": {
+      "exists": true,
+      "path": "OfflineTraining/data/deployment-sequential/offline_transitions.jsonl",
+      "sha256": "eb014df9ff9194a85c5a89f99198f38eb559f44f046daf7a4c8c462711057f29",
+      "size_bytes": 65539958
+    },
+    "v3_sequential_transitions": {
+      "exists": true,
+      "path": "OfflineTraining/data/deployment-sequential/offline_transitions.jsonl",
+      "sha256": "eb014df9ff9194a85c5a89f99198f38eb559f44f046daf7a4c8c462711057f29",
+      "size_bytes": 65539958
+    }
+  },
+  "version_control": {
+    "commit": "5388e94ee6bc46ba76b99beea7f6ee8de2d205ed",
+    "dirty": false,
+    "dirty_entries": [],
+    "head_error": null,
+    "status_error": null
+  }
+}

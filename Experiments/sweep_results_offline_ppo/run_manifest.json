@@ -1,0 +1,80 @@
+{
+  "cache_schema_version": 1,
+  "fingerprint": "906380ce9d5ba93ae1ae62b563620ab5354d70d9993e871189fbf60b31613e43",
+  "spec": {
+    "archetypes_path": "C:\\Users\\finnr\\development\\masterion\\MasterThesisProject\\CustomerSimulation\\config\\archetypes.yaml",
+    "archetypes_sha256": "704f52cf32c73ae6695e0a56cbf715205b656e9351cb5f8dd5ec007c97edf0bf",
+    "axes_grid": {
+      "delayed_reward_strength": [
+        0.0,
+        0.25,
+        0.5,
+        1.0,
+        2.0
+      ],
+      "fatigue_rate": [
+        0.0,
+        0.1,
+        0.2,
+        0.4,
+        0.6
+      ],
+      "transition_coupling_strength": [
+        0.0,
+        0.5,
+        1.0,
+        2.0,
+        3.0
+      ]
+    },
+    "bandit_history_exposed": false,
+    "cache_schema_version": 1,
+    "effective_config": {
+      "archetypes": "C:\\Users\\finnr\\development\\masterion\\MasterThesisProject\\CustomerSimulation\\config\\archetypes.yaml",
+      "axes": [
+        "fatigue_rate",
+        "delayed_reward_strength",
+        "transition_coupling_strength"
+      ],
+      "dataset_sessions": 6000,
+      "eval_seed_base": 10000,
+      "eval_sessions": 5000,
+      "fqi_iters": 30,
+      "fqi_penalty": 0.15,
+      "gae_lambda": 0.95,
+      "gamma": 0.95,
+      "hidden_sizes": "128,64",
+      "lr": 0.0003,
+      "ppo_epochs": 4,
+      "ppo_iterations": 40,
+      "ppo_minibatch": 256,
+      "ppo_mode": "offline",
+      "ppo_rollout_sessions": 256,
+      "seeds": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "t_max": 20
+    },
+    "implementation_sha256": {
+      "CustomerSimulation/simulation/archetype.py": "49de65693eed7b5ae98f3b546ee0bb6bd0f88d18857b9760a20b282a83396629",
+      "CustomerSimulation/simulation/behavior_policy.py": "05e1485a2403c84e84f4c08b98b77a846ba1b688d22e4b4f520873095bfd36fe",
+      "CustomerSimulation/simulation/simulator.py": "559b80ee0e6394cfea944af0afa3799c4605a7a3978fe20e9d9c5eef1f9d30fc",
+      "CustomerSimulation/simulation/state.py": "2ed09f3da198f3e718f1dc1cb7e46544107976f43911f4df3be3173634597f66",
+      "Experiments/run_sequentiality_sweep.py": "e20c0eefe38430fb43285bf0b0ba683ea2b48cd9d4bee07fb3d827489cec07bb",
+      "OfflineTraining/eval_all_policies_sim.py": "99c05d25fa753224f00551c7bdb6ba942bdfe4cb10b043ff0d33b1b7724579c1",
+      "OfflineTraining/eval_policy_sim.py": "c153d25602f7e169aa72901a9b338e7adb5bfb33c273956cade8022b8a9a13d8",
+      "OfflineTraining/train_offline_policy.py": "3cc1f842deb20b7edfd9f26546658d2928fc86681d971548fc6d766aca640371",
+      "OfflineTraining/train_ppo_policy.py": "00c73acc0d57cf6882cb78746ec6dc57606d23aa0fcaf150d1865ec5b7f0ad5c",
+      "SharedSchema/shared_schema/constants.py": "022757744213bbbdc8a47a946caac7eba568c1abe3ec337d6ce9f40838eabd96",
+      "SharedSchema/shared_schema/features.py": "11c70ac822352d77bdadc118a2e0d00bc4120342b3d792fa38c13a9975c14514"
+    },
+    "runtime": {
+      "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+      "torch": "2.12.0+cpu"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}DemoShop – Welcome{% endblock %}
+
+{% block content %}
+<!-- Hero Banner -->
+<div class="hero-banner rounded-3 p-5 mb-4 text-center text-white">
+    <h1 class="display-5 fw-bold">Welcome to DemoShop</h1>
+    <p class="lead">Discover amazing products at great prices</p>
+    <a href="#featured" class="btn btn-light btn-lg">Browse Products</a>
+</div>
+
+<!-- Decision Point: Landing Page -->
+<div class="widget-slot mb-4" data-decision-point="landing"></div>
+
+<!-- Categories -->
+<h2 class="mb-3">Shop by Category</h2>
+<div class="row g-3 mb-5">
+    {% for cat in categories %}
+    <div class="col-6 col-md-4 col-lg-2">
+        <a href="/category/{{ cat.slug }}" class="card text-decoration-none h-100 category-card">
+            <div class="card-body text-center">
+                <h6 class="card-title mb-0">{{ cat.name }}</h6>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Featured Products -->
+<h2 id="featured" class="mb-3">Featured Products</h2>
+<div class="row g-4">
+    {% for product in featured %}
+    <div class="col-6 col-md-4 col-lg-3">
+        {% include "components/product_card.html" %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

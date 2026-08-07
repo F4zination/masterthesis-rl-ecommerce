@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}DemoShop{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">
+                <i class="bi bi-shop"></i> DemoShop
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    {% for cat in categories %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/category/{{ cat.slug }}">{{ cat.name }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <a href="/cart" class="btn btn-outline-light position-relative">
+                    <i class="bi bi-cart3"></i> Cart
+                    <span id="cart-badge"
+                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger {% if cart_count == 0 %}d-none{% endif %}">
+                        {{ cart_count }}
+                    </span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-1">DemoShop &mdash; Phase 1 Testground</p>
+            <small class="text-muted">Part of the RL E-Commerce Pipeline &bull; Master Thesis Project</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Session ID management – generate if not present
+        (function () {
+            if (!document.cookie.split(';').some(c => c.trim().startsWith('session_id='))) {
+                const sid = crypto.randomUUID();
+                document.cookie = `session_id=${sid};path=/;max-age=${60 * 60 * 24 * 30};SameSite=Lax`;
+            }
+            window.SESSION_ID = document.cookie.split(';')
+                .find(c => c.trim().startsWith('session_id='))
+                ?.split('=')[1]?.trim() || 'unknown';
+        })();
+    </script>
+    <script src="/static/js/tracking.js"></script>
+    <script src="/static/js/decision.js"></script>
+    <script src="/static/js/cart.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

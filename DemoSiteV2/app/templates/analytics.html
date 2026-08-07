@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bandit Analytics – DemoShop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f0f2f5;
+        }
+
+        .kpi-card {
+            border-left: 4px solid;
+            border-radius: 6px;
+        }
+
+        .kpi-card.c-primary {
+            border-color: #0d6efd;
+        }
+
+        .kpi-card.c-info {
+            border-color: #0dcaf0;
+        }
+
+        .kpi-card.c-success {
+            border-color: #198754;
+        }
+
+        .kpi-card.c-warning {
+            border-color: #ffc107;
+        }
+
+        .kpi-card.c-purple {
+            border-color: #6f42c1;
+        }
+
+        .kpi-card.c-danger {
+            border-color: #dc3545;
+        }
+
+        .kpi-value {
+            font-size: 1.9rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .chart-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .09);
+        }
+
+        .section-title {
+            font-size: .75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: #6c757d;
+        }
+
+        .action-dot {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            margin-right: 4px;
+            flex-shrink: 0;
+        }
+
+        .best-row td {
+            background: #d1fae5 !important;
+        }
+
+        #live-badge {
+            transition: background .3s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark sticky-top">
+        <div class="container-fluid px-3">
+            <span class="navbar-brand fw-bold mb-0">
+                <i class="bi bi-graph-up-arrow me-2"></i>Bandit Analytics
+            </span>
+            <div class="d-flex align-items-center gap-3">
+                <small id="last-updated" class="text-secondary"></small>
+                <span id="live-badge" class="badge bg-success">Live</span>
+                <a href="/" class="btn btn-sm btn-outline-light">
+                    <i class="bi bi-shop me-1"></i>Shop
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid py-4 px-3 px-md-4">
+
+        <!-- KPI Row -->
+        <div class="row g-3 mb-4" id="kpi-row">
+            <div class="col text-muted small py-4 text-center">Loading…</div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="row g-3 mb-4">
+            <div class="col-12">
+                <div class="chart-card p-3">
+                    <div class="section-title mb-3">
+                        <i class="bi bi-clock-history me-1"></i>Decisions over time
+                    </div>
+                    <canvas id="chart-timeline" height="70"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Distribution + Explore/Exploit -->
+        <div class="row g-3 mb-4">
+            <div class="col-lg-8">
+                <div class="chart-card p-3 h-100">
+                    <div class="section-title mb-3">
+                        <i class="bi bi-bar-chart me-1"></i>Action distribution per decision point
+                    </div>
+                    <canvas id="chart-action-dist" height="120"></canvas>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="chart-card p-3 h-100 d-flex flex-column">
+                    <div class="section-title mb-3">
+                        <i class="bi bi-pie-chart me-1"></i>Explore vs Exploit
+                    </div>
+                    <div class="flex-grow-1 d-flex align-items-center justify-content-center">
+                        <canvas id="chart-explore" style="max-height:220px;"></canvas>
+                    </div>
+                    <div class="text-center small text-muted mt-2" id="explore-detail"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arm Mean Estimates – the "agent learning" view -->
+        <div class="row g-3 mb-4">
+            <div class="col-12">
+                <div class="chart-card p-3">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <div class="section-title">
+                                <i class="bi bi-cpu me-1"></i>Bandit arm estimates — agent learning
+                            </div>
+                            <div class="text-muted" style="font-size:.75rem;">
+                                Higher = better expected reward. Prior mean = 0.0 (5 pseudo-counts).
+                                Best arm per point is highlighted.
+                            </div>
+                        </div>
+                        <select id="arm-filter" class="form-select form-select-sm w-auto">
+                            <option value="">All decision points</option>
+                            <option value="landing">landing</option>
+                            <option value="pdp">Product Detail Page</option>
+                            <option value="cart">cart</option>
+                            <option value="checkout">checkout</option>
+                        </select>
+                    </div>
+                    <canvas id="chart-arm-est" height="80"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arm Stats Table + Recent Decisions -->
+        <div class="row g-3">
+            <div class="col-lg-5">
+                <div class="chart-card p-3 h-100">
+                    <div class="section-title mb-3">
+                        <i class="bi bi-table me-1"></i>Arm statistics (aggregated)
+                    </div>
+                    <div style="max-height:440px; overflow-y:auto;">
+                        <table class="table table-sm table-hover mb-0 align-middle">
+                            <thead class="table-dark" style="position:sticky;top:0;">
+                                <tr>
+                                    <th>Point</th>
+                                    <th>Action</th>
+                                    <th>Impr.</th>
+                                    <th>Reward</th>
+                                    <th>Mean est.</th>
+                                </tr>
+                            </thead>
+                            <tbody id="arm-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="chart-card p-3 h-100">
+                    <div class="section-title mb-3">
+                        <i class="bi bi-list-ul me-1"></i>Recent decisions
+                        <span class="badge bg-secondary ms-1 fw-normal" id="recent-count"></span>
+                    </div>
+                    <div style="max-height:440px; overflow-y:auto;">
+                        <table class="table table-sm table-hover mb-0 align-middle">
+                            <thead class="table-dark" style="position:sticky;top:0;">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Session</th>
+                                    <th>Point</th>
+                                    <th>Action</th>
+                                    <th>Propensity</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /container -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script>
+        // ─────────────────────────────────────────────
+        //  Constants
+        // ─────────────────────────────────────────────
+        const REFRESH_MS = 12000;
+        const PRIOR_COUNT = 5;
+        const PRIOR_MEAN = 0.0;
+        const ALL_POINTS = ['landing', 'pdp', 'cart', 'checkout'];
+        const ALL_ACTIONS = ['no-op', 'trending_carousel', 'discount_banner',
+            'frequently_bought_together', 'trust_badge'];
+
+        const ACTION_COLORS = {
+            'no-op': '#6c757d',
+            'trending_carousel': '#0d6efd',
+            'discount_banner': '#fd7e14',
+            'frequently_bought_together': '#198754',
+            'trust_badge': '#0dcaf0',
+            'help_popup': '#6f42c1',
+        };
+        const POINT_COLORS = {
+            'landing': '#0d6efd',
+            'pdp': '#6f42c1',
+            'cart': '#fd7e14',
+            'checkout': '#dc3545',
+            'scroll_engagement': '#20c997',
+        };
+
+        const POINT_LABELS = {
+            'landing': 'Landing',
+            'pdp': 'Product Detail Page',
+            'cart': 'Cart',
+            'checkout': 'Checkout',
+            'scroll_engagement': 'Scroll Engagement',
+        };
+
+        function ac(a) { return ACTION_COLORS[a] || '#adb5bd'; }
+        function pc(p) { return POINT_COLORS[p] || '#adb5bd'; }
+        function pl(p) { return POINT_LABELS[p] || p; }
+        function toRgba(hex6, alpha) {
+            const r = parseInt(hex6.slice(1, 3), 16);
+            const g = parseInt(hex6.slice(3, 5), 16);
+            const b = parseInt(hex6.slice(5, 7), 16);
+            return `rgba(${r},${g},${b},${alpha})`;
+        }
+        function fmtBucket(b, granularity) {
+            if (!b) return '';
+            const d = new Date(), p = n => String(n).padStart(2, '0');
+            const today = `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+            if (granularity === 'day')
+                return b.slice(5);           // MM-DD
+            const timePart = b.slice(11, 16);  // HH:MM
+            const datePart = b.slice(0, 10);
+            return datePart === today ? timePart : b.slice(5, 10) + ' ' + timePart;
+        }
+
+        /** Generate every slot between min and max at the given step (ms). */
+        function fillSlots(minIso, maxIso, stepMs, truncate) {
+            const slots = [];
+            let cur = new Date(minIso);
+            const end = new Date(maxIso);
+            while (cur <= end) {
+                slots.push(truncate(new Date(cur)));
+                cur = new Date(cur.getTime() + stepMs);
+            }
+            return [...new Set(slots)];  // deduplicate
+        }
+
+        // Local-time helpers: produce strings matching the backend's Berlin-bucketed values.
+        function _localStr(d) {
+            const p = n => String(n).padStart(2, '0');
+            return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
+        }
+        function truncateMinute(d) { return _localStr(d).slice(0, 16); }
+        function truncateHour(d) { return _localStr(d).slice(0, 13) + ':00'; }
+        function truncateDay(d) { return _localStr(d).slice(0, 10); }
+
+        // ─────────────────────────────────────────────
+        //  Chart instances
+        // ─────────────────────────────────────────────
+        const charts = {};
+
+        function initCharts() {
+            charts.timeline = new Chart(document.getElementById('chart-timeline'), {
+                type: 'line',
+                data: { labels: [], datasets: [] },
+                options: {
+                    responsive: true, animation: false,
+                    plugins: { legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 } } } },
+                    scales: {
+                        x: { ticks: { maxTicksLimit: 14, font: { size: 11 } } },
+                        y: { beginAtZero: true, title: { display: true, text: 'Decisions' } },
+                    },
+                },
+            });
+
+            charts.actionDist = new Chart(document.getElementById('chart-action-dist'), {
+                type: 'bar',
+                data: { labels: [], datasets: [] },
+                options: {
+                    responsive: true, animation: false,
+                    plugins: { legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 } } } },
+                    scales: { x: {}, y: { beginAtZero: true } },
+                },
+            });
+
+            charts.explore = new Chart(document.getElementById('chart-explore'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Explore (random)', 'Exploit (greedy)'],
+                    datasets: [{ data: [0, 0], backgroundColor: ['#fd7e14', '#0d6efd'], borderWidth: 2 }],
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } },
+                },
+            });
+
+            charts.armEst = new Chart(document.getElementById('chart-arm-est'), {
+                type: 'bar',
+                data: { labels: [], datasets: [] },
+                options: {
+                    responsive: true, animation: false,
+                    plugins: { legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 } } } },
+                    scales: {
+                        y: { title: { display: true, text: 'Mean reward estimate' } },
+                    },
+                },
+            });
+        }
+
+        // ─────────────────────────────────────────────
+        //  KPI cards
+        // ─────────────────────────────────────────────
+        function renderKPIs(s) {
+            const defs = [
+                { label: 'Decisions', value: s.total_decisions, icon: 'bi-robot', color: 'c-primary' },
+                { label: 'Sessions', value: s.unique_sessions, icon: 'bi-people', color: 'c-info' },
+                { label: 'Purchases', value: s.purchases, icon: 'bi-bag-check', color: 'c-success' },
+                { label: 'Revenue', value: '€' + s.total_revenue.toFixed(2), icon: 'bi-currency-euro', color: 'c-warning' },
+                { label: 'Widget clicks', value: s.widget_clicks, icon: 'bi-cursor', color: 'c-purple' },
+                { label: 'Add to cart', value: s.add_to_cart_count, icon: 'bi-cart-plus', color: 'c-danger' },
+            ];
+            document.getElementById('kpi-row').innerHTML = defs.map(d => `
+        <div class="col-6 col-md-4 col-xl-2">
+            <div class="card kpi-card ${d.color} h-100">
+                <div class="card-body py-3">
+                    <div class="d-flex align-items-center gap-2 mb-1 text-muted" style="font-size:.72rem;">
+                        <i class="bi ${d.icon}"></i>${d.label}
+                    </div>
+                    <div class="kpi-value">${d.value}</div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+        }
+
+        // ─────────────────────────────────────────────
+        //  Timeline chart
+        // ─────────────────────────────────────────────
+        function updateTimeline(payload) {
+            const rows = payload.rows || [];
+            const granularity = payload.granularity || 'hour';
+
+            if (rows.length === 0) {
+                charts.timeline.data.labels = [];
+                charts.timeline.data.datasets = [];
+                charts.timeline.update('none');
+                return;
+            }
+
+            // Build a complete slot sequence from first to last data point
+            const stepMs = granularity === 'minute' ? 60000 : granularity === 'hour' ? 3600000 : 86400000;
+            const trunc = granularity === 'minute' ? truncateMinute : granularity === 'hour' ? truncateHour : truncateDay;
+            const allSlots = fillSlots(payload.min, payload.max, stepMs, trunc);
+
+            // Clamp maxTicksLimit based on total slots
+            const maxTicks = allSlots.length <= 30 ? allSlots.length : (allSlots.length <= 120 ? 20 : 14);
+            charts.timeline.options.scales.x.ticks.maxTicksLimit = maxTicks;
+
+            const points = [...new Set(rows.map(d => d.decision_point))];
+            // Build lookup: bucket+point → count
+            const lookup = {};
+            rows.forEach(d => { lookup[d.bucket + '|' + d.decision_point] = d.count; });
+
+            const datasets = points.map(p => ({
+                label: pl(p),
+                data: allSlots.map(s => lookup[s + '|' + p] || 0),
+                borderColor: pc(p),
+                backgroundColor: toRgba(pc(p).padEnd(7, '0'), 0.12),
+                fill: false, tension: 0.35, pointRadius: allSlots.length > 60 ? 0 : 3,
+            }));
+
+            charts.timeline.data.labels = allSlots.map(s => fmtBucket(s, granularity));
+            charts.timeline.data.datasets = datasets;
+            charts.timeline.update('none');
+        }
+
+        // ─────────────────────────────────────────────
+        //  Action distribution
+        // ─────────────────────────────────────────────
+        function updateActionDist(data) {
+            const actions = [...new Set(data.map(d => d.action))];
+            const datasets = actions.map(a => ({
+                label: a,
+                data: ALL_POINTS.map(p => (data.find(d => d.decision_point === p && d.action === a) || { count: 0 }).count),
+                backgroundColor: ac(a),
+            }));
+            charts.actionDist.data.labels = ALL_POINTS.map(pl);
+            charts.actionDist.data.datasets = datasets;
+            charts.actionDist.update('none');
+        }
+
+        // ─────────────────────────────────────────────
+        //  Explore/Exploit
+        // ─────────────────────────────────────────────
+        function updateExplore(s) {
+            charts.explore.data.datasets[0].data = [s.explore_count, s.exploit_count];
+            charts.explore.update('none');
+            const total = s.explore_count + s.exploit_count;
+            const pct = total > 0 ? ((s.explore_count / total) * 100).toFixed(1) : '0';
+            document.getElementById('explore-detail').textContent =
+                `${pct}% explore  ·  ε = 0.20`;
+        }
+
+        // ─────────────────────────────────────────────
+        //  Arm estimates
+        // ─────────────────────────────────────────────
+        let _rawArmData = [];
+
+        function aggregateArms(data, filter) {
+            const src = filter ? data.filter(d => d.decision_point === filter) : data;
+            const agg = {};
+            for (const d of src) {
+                const k = d.decision_point + '||' + d.action;
+                if (!agg[k]) agg[k] = { dp: d.decision_point, action: d.action, imp: 0, rsum: 0 };
+                agg[k].imp += d.impressions;
+                agg[k].rsum += d.reward_sum;
+            }
+            return Object.values(agg);
+        }
+
+        function updateArmEst(data, filter) {
+            _rawArmData = data;
+            renderArmEst(filter !== undefined ? filter : document.getElementById('arm-filter').value);
+        }
+
+        function renderArmEst(filter) {
+            const entries = aggregateArms(_rawArmData, filter);
+            const points = filter ? [filter] : ALL_POINTS;
+            const actions = [...new Set(entries.map(e => e.action))];
+            const mean = e => (e.rsum + PRIOR_COUNT * PRIOR_MEAN) / (e.imp + PRIOR_COUNT);
+
+            let labels, datasets;
+            if (filter) {
+                // one bar per action, colored by action
+                labels = actions;
+                const bestMean = Math.max(...entries.map(e => mean(e)));
+                datasets = [{
+                    label: pl(filter),
+                    data: actions.map(a => {
+                        const e = entries.find(x => x.action === a);
+                        return e ? +mean(e).toFixed(4) : PRIOR_MEAN;
+                    }),
+                    backgroundColor: actions.map(a => {
+                        const e = entries.find(x => x.action === a);
+                        const m = e ? mean(e) : PRIOR_MEAN;
+                        const col = ac(a);
+                        return m === bestMean && entries.length > 0 ? col : toRgba(col.padEnd(7, '0'), 0.55);
+                    }),
+                    borderWidth: 1,
+                }];
+            } else {
+                // grouped: one dataset per action, one group per decision point
+                datasets = actions.map(a => ({
+                    label: a,
+                    data: points.map(p => {
+                        const e = entries.find(x => x.dp === p && x.action === a);
+                        return e ? +mean(e).toFixed(4) : PRIOR_MEAN;
+                    }),
+                    backgroundColor: ac(a),
+                }));
+                labels = points.map(pl);
+            }
+
+            charts.armEst.data.labels = labels;
+            charts.armEst.data.datasets = datasets;
+            charts.armEst.update('none');
+        }
+
+        // ─────────────────────────────────────────────
+        //  Arm stats table
+        // ─────────────────────────────────────────────
+        function updateArmTable(data) {
+            const entries = aggregateArms(data, null);
+            const mean = e => (e.rsum + PRIOR_COUNT * PRIOR_MEAN) / (e.imp + PRIOR_COUNT);
+
+            // find best arm per decision point
+            const best = {};
+            for (const e of entries) {
+                const m = mean(e);
+                if (!best[e.dp] || m > best[e.dp].mean) best[e.dp] = { action: e.action, mean: m };
+            }
+
+            const sorted = [...entries].sort((a, b) =>
+                (a.dp + a.action).localeCompare(b.dp + b.action)
+            );
+            document.getElementById('arm-tbody').innerHTML = sorted.map(e => {
+                const m = mean(e);
+                const isBest = best[e.dp]?.action === e.action;
+                return `
+            <tr class="${isBest ? 'best-row' : ''}">
+                <td><span class="badge" style="background:${pc(e.dp)}">${pl(e.dp)}</span></td>
+                <td>
+                    <span class="action-dot" style="background:${ac(e.action)}"></span>${e.action}
+                    ${isBest ? '<i class="bi bi-star-fill text-warning ms-1" title="Best arm"></i>' : ''}
+                </td>
+                <td>${e.imp}</td>
+                <td>${e.rsum.toFixed(3)}</td>
+                <td><strong>${m.toFixed(4)}</strong></td>
+            </tr>`;
+            }).join('');
+        }
+
+        // ─────────────────────────────────────────────
+        //  Recent decisions table
+        // ─────────────────────────────────────────────
+        function updateRecent(data) {
+            document.getElementById('recent-count').textContent = data.length;
+            document.getElementById('recent-tbody').innerHTML = data.slice(0, 60).map(r => {
+                const t = r.timestamp ? r.timestamp.replace('T', ' ').slice(11, 19) : '';
+                const estTip = r.estimates
+                    ? Object.entries(r.estimates).map(([a, v]) => `${a}: ${(+v).toFixed(3)}`).join(' | ')
+                    : '';
+                const isExp = r.propensity <= 0.10;
+                return `
+            <tr title="${estTip}">
+                <td class="text-muted small">${r.id}</td>
+                <td class="font-monospace small">${r.session_id}</td>
+                <td><span class="badge" style="background:${pc(r.decision_point)}">${pl(r.decision_point)}</span></td>
+                <td>
+                    <span class="action-dot" style="background:${ac(r.action)}"></span>${r.action}
+                </td>
+                <td>
+                    <span class="badge ${isExp ? 'bg-warning text-dark' : 'bg-secondary'}">${r.propensity}</span>
+                </td>
+                <td class="text-muted small">${t}</td>
+            </tr>`;
+            }).join('');
+        }
+
+        // ─────────────────────────────────────────────
+        //  Fetch & refresh
+        // ─────────────────────────────────────────────
+        async function refreshAll() {
+            try {
+                const [summary, armStats, actionDist, timeline, recent] = await Promise.all([
+                    fetch('/api/analytics/summary').then(r => r.json()),
+                    fetch('/api/analytics/arm_stats').then(r => r.json()),
+                    fetch('/api/analytics/action_distribution').then(r => r.json()),
+                    fetch('/api/analytics/timeline').then(r => r.json()),
+                    fetch('/api/analytics/recent').then(r => r.json()),
+                ]);
+                renderKPIs(summary);
+                updateTimeline(timeline);
+                updateActionDist(actionDist);
+                updateExplore(summary);
+                updateArmEst(armStats);
+                updateArmTable(armStats);
+                updateRecent(recent);
+
+                document.getElementById('last-updated').textContent =
+                    'Updated ' + new Date().toLocaleTimeString();
+                document.getElementById('live-badge').className = 'badge bg-success';
+                document.getElementById('live-badge').textContent = 'Live';
+            } catch (err) {
+                document.getElementById('live-badge').className = 'badge bg-danger';
+                document.getElementById('live-badge').textContent = 'Error';
+                console.error(err);
+            }
+        }
+
+        // ─────────────────────────────────────────────
+        //  Bootstrap
+        // ─────────────────────────────────────────────
+        initCharts();
+        refreshAll();
+        setInterval(refreshAll, REFRESH_MS);
+
+        document.getElementById('arm-filter').addEventListener('change', function () {
+            renderArmEst(this.value);
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-1">DemoShop V2 — Phase 2 Contextual Bandits</p>
+            <small class="text-muted">Part of the RL E-Commerce Pipeline &bull; Master Thesis Project</small>
+        </div>
+    </footer>
+</body>
+
+</html>

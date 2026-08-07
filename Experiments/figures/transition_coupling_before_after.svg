@@ -1,0 +1,42 @@
+<svg width="680" viewBox="0 0 680 292" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Effect of Mechanism 3 (transition_coupling_strength) at node cart</title>
+<desc>Before/after of the outgoing transitions of the cart node: no-op versus trust_badge at strength 1.0.</desc>
+<style>text{font-family:Arial,Helvetica,"Segoe UI",sans-serif}</style>
+<defs><marker id="arw" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M2 2L8 5L2 8" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<g font-size="14" font-weight="500" fill="#182226" text-anchor="middle">
+<text x="168" y="34">no-op  →  base</text>
+<text x="498" y="34">trust_badge  →  strength = 1.0</text>
+</g>
+<line x1="333" y1="58" x2="333" y2="224" stroke="#c3cccd" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
+<g fill="none" stroke-linecap="round" marker-end="url(#arw)">
+<path d="M94 140 L206 90" stroke="#0d9488" stroke-width="6.2"/>
+<path d="M94 140 L206 143" stroke="#94a3b8" stroke-width="5.3"/>
+<path d="M94 140 L206 194" stroke="#e11d48" stroke-width="5.5"/>
+<path d="M424 140 L536 90" stroke="#0d9488" stroke-width="8.8"/>
+<path d="M424 140 L536 143" stroke="#94a3b8" stroke-width="4.6"/>
+<path d="M424 140 L536 194" stroke="#e11d48" stroke-width="3.5"/>
+</g>
+<g font-size="12" fill="#566169" text-anchor="middle">
+<text x="150" y="106">0.38</text><text x="150" y="132">0.30</text><text x="150" y="180">0.32</text>
+<text x="480" y="104">0.62</text><text x="480" y="132">0.24</text><text x="480" y="182">0.14</text>
+</g>
+<g>
+<rect x="30" y="120" width="64" height="40" rx="8" fill="#ffffff" stroke="#c3cccd" stroke-width="1.5"/><text x="62" y="145" text-anchor="middle" font-size="14" font-weight="500" fill="#182226">cart</text>
+<rect x="210" y="72" width="96" height="34" rx="8" fill="#ffffff" stroke="#c3cccd" stroke-width="1.5"/><text x="258" y="94" text-anchor="middle" font-size="14" fill="#182226">checkout</text>
+<rect x="210" y="126" width="96" height="34" rx="8" fill="#ffffff" stroke="#c3cccd" stroke-width="1.5"/><text x="258" y="148" text-anchor="middle" font-size="14" fill="#182226">pdp</text>
+<rect x="210" y="180" width="96" height="34" rx="8" fill="#ffffff" stroke="#c3cccd" stroke-width="1.5"/><text x="258" y="202" text-anchor="middle" font-size="14" fill="#182226">done</text>
+<rect x="360" y="120" width="64" height="40" rx="8" fill="#ffffff" stroke="#c3cccd" stroke-width="1.5"/><text x="392" y="145" text-anchor="middle" font-size="14" font-weight="500" fill="#182226">cart</text>
+<rect x="540" y="72" width="96" height="34" rx="8" fill="#ffffff" stroke="#c3cccd" stroke-width="1.5"/><text x="588" y="94" text-anchor="middle" font-size="14" fill="#182226">checkout</text>
+<rect x="540" y="126" width="96" height="34" rx="8" fill="#ffffff" stroke="#c3cccd" stroke-width="1.5"/><text x="588" y="148" text-anchor="middle" font-size="14" fill="#182226">pdp</text>
+<rect x="540" y="180" width="96" height="34" rx="8" fill="#ffffff" stroke="#c3cccd" stroke-width="1.5"/><text x="588" y="202" text-anchor="middle" font-size="14" fill="#182226">done</text>
+</g>
+<g fill="none" stroke-linecap="round">
+<line x1="30" y1="250" x2="52" y2="250" stroke="#0d9488" stroke-width="4"/>
+<line x1="214" y1="250" x2="236" y2="250" stroke="#e11d48" stroke-width="4"/>
+<line x1="400" y1="250" x2="422" y2="250" stroke="#94a3b8" stroke-width="4"/>
+</g>
+<g font-size="12" fill="#566169">
+<text x="58" y="254">grows → checkout</text><text x="242" y="254">shrinks → done</text><text x="428" y="254">unchanged → pdp</text>
+<text x="30" y="276">w[s′] = max(0, base + strength · lift[action][s′]), then renormalized  ·  values: Explorer, node cart</text>
+</g>
+</svg>

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Completion Code – DemoShop{% endblock %}
+{% block study_bar %}{% endblock %}
+
+{% block content %}
+<div class="text-center py-5">
+    <i class="bi bi-check-circle-fill display-1 text-success"></i>
+    <h1 class="mt-3">Thank you for participating!</h1>
+    <p class="lead">Your session is complete.</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card border-success">
+            <div class="card-body text-center">
+                <h5 class="card-title text-success">Study Completion Code</h5>
+                <p class="display-5 fw-bold font-monospace mb-2">{{ completion_code }}</p>
+                <p class="text-muted small mb-0">
+                    Copy this code and paste it into the completion-code field of the
+                    job you accepted. It is your proof of participation &mdash; keep this
+                    page open until you have submitted it.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
