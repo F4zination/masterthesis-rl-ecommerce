@@ -212,6 +212,24 @@ def evaluate_policy(
     }
 
 
+def group_by_session(rows: list[dict[str, Any]]) -> list[list[dict[str, Any]]]:
+    """Partition transitions into per-session clusters, order preserved.
+
+    Rows lacking a ``session_id`` fall back to being their own cluster, which
+    degrades to the row-level bootstrap for that row rather than silently
+    pooling unrelated transitions under a shared ``None`` key.
+    """
+    clusters: dict[Any, list[dict[str, Any]]] = {}
+    singletons: list[list[dict[str, Any]]] = []
+    for r in rows:
+        sid = r.get("session_id")
+        if sid is None:
+            singletons.append([r])
+        else:
+            clusters.setdefault(sid, []).append(r)
+    return list(clusters.values()) + singletons
+
+
 def bootstrap_ci(
     rows: list[dict[str, Any]],
     policy_prob: Callable[[dict[str, Any], str], float],
@@ -219,8 +237,35 @@ def bootstrap_ci(
     n_bootstrap: int,
     seed: int,
 ) -> dict[str, list[float]]:
+    """Percentile bootstrap CIs, resampling **sessions** rather than rows.
+
+    Transitions from one session are not independent: they share a latent
+    archetype, a fatigue counter and an accumulated priming credit, and the
+    policy's own earlier actions are what produced the later states. Resampling
+    individual rows i.i.d. treats them as independent, which is the wrong
+    sampling model regardless of how much difference it makes numerically. The
+    cluster bootstrap resamples whole sessions with replacement and keeps every
+    row of a drawn session together, preserving the dependence structure the
+    row-level version destroys.
+
+    On *this* dataset the numerical difference is small. The design effect for a
+    cluster bootstrap is roughly ``1 + (m - 1) * ICC`` for mean cluster size
+    ``m``; here sessions carry about three transitions each, and the measured
+    interval widths move by under 10% in either direction across IPS, SNIPS, DR
+    and DM -- i.e. within the noise of a few hundred bootstrap replicates. So
+    this change should be understood as using the correct sampling model, not as
+    a correction that materially moves any number. It would matter more on
+    longer sessions or a stronger within-session correlation, and it is the
+    version that stays right if either changes.
+
+    Reduces exactly to the row-level bootstrap when every session has one row,
+    which is asserted in the accompanying check.
+    """
     if not rows:
         return {"ips": [0.0, 0.0], "snips": [0.0, 0.0], "dr": [0.0, 0.0], "dm": [0.0, 0.0]}
+
+    clusters = group_by_session(rows)
+    n_clusters = len(clusters)
 
     rng = random.Random(seed)
     ips_vals = []
@@ -229,7 +274,9 @@ def bootstrap_ci(
     dm_vals = []
 
     for _ in range(n_bootstrap):
-        sample = [rows[rng.randrange(len(rows))] for _ in range(len(rows))]
+        sample: list[dict[str, Any]] = []
+        for _ in range(n_clusters):
+            sample.extend(clusters[rng.randrange(n_clusters)])
         est = evaluate_policy(sample, policy_prob, qhat)
         ips_vals.append(est["ips"])
         snips_vals.append(est["snips"])
@@ -337,6 +384,8 @@ def main() -> None:
         results["policies"][name] = {
             "point_estimate": point_est,
             "ci95": ci,
+            "ci_method": "percentile bootstrap over sessions (cluster bootstrap)",
+            "n_bootstrap_clusters": len(group_by_session(rows)),
         }
         print(f"[ope]   '{name}' done  — DR={point_est['dr']:.4f}  DM={point_est['dm']:.4f}  IPS={point_est['ips']:.4f}  SNIPS={point_est['snips']:.4f}")
 

@@ -1,0 +1,1494 @@
+{
+  "schema_version": 1,
+  "estimand": "equal-persona participant-level V3 minus V2 fixed-policy effect",
+  "policy_serving": "deterministic_frozen",
+  "personas": [
+    "fastbuyer",
+    "detailedcomparator",
+    "windowshopper"
+  ],
+  "seed": 20260721,
+  "bootstrap_replicates": 2000,
+  "randomization_permutations": 10000,
+  "inputs": {
+    "shop_databases": {
+      "v2": {
+        "path": "/tmp/claude-1000/-home-f4zination-MasterProject/124f5798-6014-4b12-b985-8db84c23e8fc/scratchpad/sd/DemoSiteV2/data/demosite.db",
+        "sha256": "2426da78b0e235c22da2b58525f5e816928c3031daf149a5f718f8ac84259802"
+      },
+      "v3": {
+        "path": "/tmp/claude-1000/-home-f4zination-MasterProject/124f5798-6014-4b12-b985-8db84c23e8fc/scratchpad/sd/DemoSiteV3/data/demosite.db",
+        "sha256": "62698b617eae85b97214b47f35be0f51c6875026bfa068e78f1116ae89c98fa9"
+      }
+    },
+    "dispatcher_database": {
+      "path": "/tmp/claude-1000/-home-f4zination-MasterProject/124f5798-6014-4b12-b985-8db84c23e8fc/scratchpad/sd/StudyDispatcher/data/dispatcher.db",
+      "sha256": "63e119cd4bf9274ea59101ca26823a33a280e70e7b35c6b79c4b4e17f14116e2"
+    },
+    "simulator_baseline": {
+      "path": "/home/f4zination/MasterProject/MasterThesisProject/Experiments/study_policy_baselines/clickworker_release_20260803/policy_archetype_baseline.json",
+      "sha256": "0e4a465f04d7d4a5f5eae7004d080ad681dbb6cecd784b6a601312ebd65e4e73",
+      "study_id": "clickworker_release_20260803"
+    }
+  },
+  "transition_ordering": {
+    "analysis_set": "Recorded-landing transition-ordering population",
+    "n": 31,
+    "estimand": "Direction of persona differences in conditional funnel-advance proportions, pooled over policy conditions, against the ordering predicted by the locked simulator reference",
+    "decision_rule": "Intersection-union over the confirmatory contrasts at one-sided alpha = 0.05; descriptive contrasts carry no confirmatory weight and a null there is uninformative",
+    "baseline_has_histograms": true,
+    "personas_present": [
+      "fastbuyer",
+      "detailedcomparator",
+      "windowshopper"
+    ],
+    "human": {
+      "fastbuyer": {
+        "n": 10,
+        "n_by_condition": {
+          "v2": 5,
+          "v3": 5
+        },
+        "progression": {
+          "landing_to_pdp": {
+            "reached": 10,
+            "advanced": 10,
+            "proportion": 1.0,
+            "wilson_ci95": [
+              0.7224672001371107,
+              0.9999999999999999
+            ]
+          },
+          "pdp_to_cart": {
+            "reached": 10,
+            "advanced": 9,
+            "proportion": 0.9,
+            "wilson_ci95": [
+              0.5958499732047615,
+              0.9821237869049271
+            ]
+          },
+          "cart_to_checkout": {
+            "reached": 9,
+            "advanced": 6,
+            "proportion": 0.6666666666666666,
+            "wilson_ci95": [
+              0.3542021355803963,
+              0.879416181613089
+            ]
+          },
+          "checkout_to_purchase": {
+            "reached": 6,
+            "advanced": 5,
+            "proportion": 0.8333333333333334,
+            "wilson_ci95": [
+              0.43649717781352987,
+              0.9699466302516935
+            ]
+          }
+        },
+        "progression_by_condition": {
+          "v2": {
+            "landing_to_pdp": {
+              "reached": 5,
+              "advanced": 5,
+              "proportion": 1.0
+            },
+            "pdp_to_cart": {
+              "reached": 5,
+              "advanced": 5,
+              "proportion": 1.0
+            },
+            "cart_to_checkout": {
+              "reached": 5,
+              "advanced": 3,
+              "proportion": 0.6
+            },
+            "checkout_to_purchase": {
+              "reached": 3,
+              "advanced": 3,
+              "proportion": 1.0
+            }
+          },
+          "v3": {
+            "landing_to_pdp": {
+              "reached": 5,
+              "advanced": 5,
+              "proportion": 1.0
+            },
+            "pdp_to_cart": {
+              "reached": 5,
+              "advanced": 4,
+              "proportion": 0.8
+            },
+            "cart_to_checkout": {
+              "reached": 4,
+              "advanced": 3,
+              "proportion": 0.75
+            },
+            "checkout_to_purchase": {
+              "reached": 3,
+              "advanced": 2,
+              "proportion": 0.6666666666666666
+            }
+          }
+        }
+      },
+      "detailedcomparator": {
+        "n": 11,
+        "n_by_condition": {
+          "v2": 5,
+          "v3": 6
+        },
+        "progression": {
+          "landing_to_pdp": {
+            "reached": 11,
+            "advanced": 9,
+            "proportion": 0.8181818181818182,
+            "wilson_ci95": [
+              0.523019438039156,
+              0.9486323102539149
+            ]
+          },
+          "pdp_to_cart": {
+            "reached": 9,
+            "advanced": 9,
+            "proportion": 1.0,
+            "wilson_ci95": [
+              0.7008549515804559,
+              1.0
+            ]
+          },
+          "cart_to_checkout": {
+            "reached": 9,
+            "advanced": 6,
+            "proportion": 0.6666666666666666,
+            "wilson_ci95": [
+              0.3542021355803963,
+              0.879416181613089
+            ]
+          },
+          "checkout_to_purchase": {
+            "reached": 6,
+            "advanced": 5,
+            "proportion": 0.8333333333333334,
+            "wilson_ci95": [
+              0.43649717781352987,
+              0.9699466302516935
+            ]
+          }
+        },
+        "progression_by_condition": {
+          "v2": {
+            "landing_to_pdp": {
+              "reached": 5,
+              "advanced": 5,
+              "proportion": 1.0
+            },
+            "pdp_to_cart": {
+              "reached": 5,
+              "advanced": 5,
+              "proportion": 1.0
+            },
+            "cart_to_checkout": {
+              "reached": 5,
+              "advanced": 2,
+              "proportion": 0.4
+            },
+            "checkout_to_purchase": {
+              "reached": 2,
+              "advanced": 2,
+              "proportion": 1.0
+            }
+          },
+          "v3": {
+            "landing_to_pdp": {
+              "reached": 6,
+              "advanced": 4,
+              "proportion": 0.6666666666666666
+            },
+            "pdp_to_cart": {
+              "reached": 4,
+              "advanced": 4,
+              "proportion": 1.0
+            },
+            "cart_to_checkout": {
+              "reached": 4,
+              "advanced": 4,
+              "proportion": 1.0
+            },
+            "checkout_to_purchase": {
+              "reached": 4,
+              "advanced": 3,
+              "proportion": 0.75
+            }
+          }
+        }
+      },
+      "windowshopper": {
+        "n": 10,
+        "n_by_condition": {
+          "v2": 5,
+          "v3": 5
+        },
+        "progression": {
+          "landing_to_pdp": {
+            "reached": 10,
+            "advanced": 8,
+            "proportion": 0.8,
+            "wilson_ci95": [
+              0.4901624715366418,
+              0.9433178485456248
+            ]
+          },
+          "pdp_to_cart": {
+            "reached": 8,
+            "advanced": 8,
+            "proportion": 1.0,
+            "wilson_ci95": [
+              0.6755924351161198,
+              1.0
+            ]
+          },
+          "cart_to_checkout": {
+            "reached": 8,
+            "advanced": 7,
+            "proportion": 0.875,
+            "wilson_ci95": [
+              0.5291118177871464,
+              0.9775825085499433
+            ]
+          },
+          "checkout_to_purchase": {
+            "reached": 7,
+            "advanced": 5,
+            "proportion": 0.7142857142857143,
+            "wilson_ci95": [
+              0.35893445183261935,
+              0.9177810759959433
+            ]
+          }
+        },
+        "progression_by_condition": {
+          "v2": {
+            "landing_to_pdp": {
+              "reached": 5,
+              "advanced": 4,
+              "proportion": 0.8
+            },
+            "pdp_to_cart": {
+              "reached": 4,
+              "advanced": 4,
+              "proportion": 1.0
+            },
+            "cart_to_checkout": {
+              "reached": 4,
+              "advanced": 3,
+              "proportion": 0.75
+            },
+            "checkout_to_purchase": {
+              "reached": 3,
+              "advanced": 1,
+              "proportion": 0.3333333333333333
+            }
+          },
+          "v3": {
+            "landing_to_pdp": {
+              "reached": 5,
+              "advanced": 4,
+              "proportion": 0.8
+            },
+            "pdp_to_cart": {
+              "reached": 4,
+              "advanced": 4,
+              "proportion": 1.0
+            },
+            "cart_to_checkout": {
+              "reached": 4,
+              "advanced": 4,
+              "proportion": 1.0
+            },
+            "checkout_to_purchase": {
+              "reached": 4,
+              "advanced": 4,
+              "proportion": 1.0
+            }
+          }
+        }
+      }
+    },
+    "simulator_pooled": {
+      "fastbuyer": {
+        "landing_to_pdp": {
+          "reached": 4000,
+          "advanced": 3469,
+          "proportion": 0.86725
+        },
+        "pdp_to_cart": {
+          "reached": 3469,
+          "advanced": 2066,
+          "proportion": 0.5955606803113289
+        },
+        "cart_to_checkout": {
+          "reached": 2066,
+          "advanced": 1544,
+          "proportion": 0.7473378509196515
+        },
+        "checkout_to_purchase": {
+          "reached": 1544,
+          "advanced": 924,
+          "proportion": 0.5984455958549223
+        }
+      },
+      "detailedcomparator": {
+        "landing_to_pdp": {
+          "reached": 4000,
+          "advanced": 3361,
+          "proportion": 0.84025
+        },
+        "pdp_to_cart": {
+          "reached": 3361,
+          "advanced": 1402,
+          "proportion": 0.41713775662005353
+        },
+        "cart_to_checkout": {
+          "reached": 1402,
+          "advanced": 829,
+          "proportion": 0.5912981455064193
+        },
+        "checkout_to_purchase": {
+          "reached": 829,
+          "advanced": 354,
+          "proportion": 0.4270205066344994
+        }
+      },
+      "windowshopper": {
+        "landing_to_pdp": {
+          "reached": 4000,
+          "advanced": 2109,
+          "proportion": 0.52725
+        },
+        "pdp_to_cart": {
+          "reached": 2109,
+          "advanced": 186,
+          "proportion": 0.08819345661450925
+        },
+        "cart_to_checkout": {
+          "reached": 186,
+          "advanced": 61,
+          "proportion": 0.3279569892473118
+        },
+        "checkout_to_purchase": {
+          "reached": 61,
+          "advanced": 8,
+          "proportion": 0.13114754098360656
+        }
+      }
+    },
+    "contrasts": [
+      {
+        "stage_pair": "landing_to_pdp",
+        "higher": "fastbuyer",
+        "lower": "detailedcomparator",
+        "confirmatory": false,
+        "simulator_higher_proportion": 0.86725,
+        "simulator_lower_proportion": 0.84025,
+        "simulator_gap": 0.026999999999999913,
+        "human_higher_reached": 10,
+        "human_higher_proportion": 1.0,
+        "human_lower_reached": 11,
+        "human_lower_proportion": 0.8181818181818182,
+        "estimable": true,
+        "human_gap": 0.18181818181818177,
+        "newcombe_ci95": [
+          -0.12484415020449541,
+          0.47698056196084404
+        ],
+        "one_sided_p": 0.05897081769380774,
+        "direction_matches": true,
+        "holds": false
+      },
+      {
+        "stage_pair": "landing_to_pdp",
+        "higher": "fastbuyer",
+        "lower": "windowshopper",
+        "confirmatory": true,
+        "simulator_higher_proportion": 0.86725,
+        "simulator_lower_proportion": 0.52725,
+        "simulator_gap": 0.33999999999999997,
+        "human_higher_reached": 10,
+        "human_higher_proportion": 1.0,
+        "human_lower_reached": 10,
+        "human_lower_proportion": 0.8,
+        "estimable": true,
+        "human_gap": 0.19999999999999996,
+        "newcombe_ci95": [
+          -0.11235310261222187,
+          0.5098375284633583
+        ],
+        "one_sided_p": 0.056923149003329065,
+        "direction_matches": true,
+        "holds": false
+      },
+      {
+        "stage_pair": "landing_to_pdp",
+        "higher": "detailedcomparator",
+        "lower": "windowshopper",
+        "confirmatory": true,
+        "simulator_higher_proportion": 0.84025,
+        "simulator_lower_proportion": 0.52725,
+        "simulator_gap": 0.31300000000000006,
+        "human_higher_reached": 11,
+        "human_higher_proportion": 0.8181818181818182,
+        "human_lower_reached": 10,
+        "human_lower_proportion": 0.8,
+        "estimable": true,
+        "human_gap": 0.018181818181818188,
+        "newcombe_ci95": [
+          -0.3099352895148518,
+          0.3543612716380556
+        ],
+        "one_sided_p": 0.45786409119128213,
+        "direction_matches": true,
+        "holds": false
+      },
+      {
+        "stage_pair": "pdp_to_cart",
+        "higher": "fastbuyer",
+        "lower": "detailedcomparator",
+        "confirmatory": false,
+        "simulator_higher_proportion": 0.5955606803113289,
+        "simulator_lower_proportion": 0.41713775662005353,
+        "simulator_gap": 0.17842292369127538,
+        "human_higher_reached": 10,
+        "human_higher_proportion": 0.9,
+        "human_lower_reached": 9,
+        "human_lower_proportion": 1.0,
+        "estimable": false
+      },
+      {
+        "stage_pair": "pdp_to_cart",
+        "higher": "fastbuyer",
+        "lower": "windowshopper",
+        "confirmatory": true,
+        "simulator_higher_proportion": 0.5955606803113289,
+        "simulator_lower_proportion": 0.08819345661450925,
+        "simulator_gap": 0.5073672236968196,
+        "human_higher_reached": 10,
+        "human_higher_proportion": 0.9,
+        "human_lower_reached": 8,
+        "human_lower_proportion": 1.0,
+        "estimable": false
+      },
+      {
+        "stage_pair": "pdp_to_cart",
+        "higher": "detailedcomparator",
+        "lower": "windowshopper",
+        "confirmatory": false,
+        "simulator_higher_proportion": 0.41713775662005353,
+        "simulator_lower_proportion": 0.08819345661450925,
+        "simulator_gap": 0.3289443000055443,
+        "human_higher_reached": 9,
+        "human_higher_proportion": 1.0,
+        "human_lower_reached": 8,
+        "human_lower_proportion": 1.0,
+        "estimable": false
+      },
+      {
+        "stage_pair": "cart_to_checkout",
+        "higher": "fastbuyer",
+        "lower": "detailedcomparator",
+        "confirmatory": false,
+        "simulator_higher_proportion": 0.7473378509196515,
+        "simulator_lower_proportion": 0.5912981455064193,
+        "simulator_gap": 0.1560397054132322,
+        "human_higher_reached": 9,
+        "human_higher_proportion": 0.6666666666666666,
+        "human_lower_reached": 9,
+        "human_lower_proportion": 0.6666666666666666,
+        "estimable": false
+      },
+      {
+        "stage_pair": "cart_to_checkout",
+        "higher": "fastbuyer",
+        "lower": "windowshopper",
+        "confirmatory": false,
+        "simulator_higher_proportion": 0.7473378509196515,
+        "simulator_lower_proportion": 0.3279569892473118,
+        "simulator_gap": 0.41938086167233973,
+        "human_higher_reached": 9,
+        "human_higher_proportion": 0.6666666666666666,
+        "human_lower_reached": 8,
+        "human_lower_proportion": 0.875,
+        "estimable": false
+      },
+      {
+        "stage_pair": "cart_to_checkout",
+        "higher": "detailedcomparator",
+        "lower": "windowshopper",
+        "confirmatory": false,
+        "simulator_higher_proportion": 0.5912981455064193,
+        "simulator_lower_proportion": 0.3279569892473118,
+        "simulator_gap": 0.26334115625910753,
+        "human_higher_reached": 9,
+        "human_higher_proportion": 0.6666666666666666,
+        "human_lower_reached": 8,
+        "human_lower_proportion": 0.875,
+        "estimable": false
+      },
+      {
+        "stage_pair": "checkout_to_purchase",
+        "higher": "fastbuyer",
+        "lower": "detailedcomparator",
+        "confirmatory": false,
+        "simulator_higher_proportion": 0.5984455958549223,
+        "simulator_lower_proportion": 0.4270205066344994,
+        "simulator_gap": 0.17142508922042288,
+        "human_higher_reached": 6,
+        "human_higher_proportion": 0.8333333333333334,
+        "human_lower_reached": 6,
+        "human_lower_proportion": 0.8333333333333334,
+        "estimable": false
+      },
+      {
+        "stage_pair": "checkout_to_purchase",
+        "higher": "fastbuyer",
+        "lower": "windowshopper",
+        "confirmatory": false,
+        "simulator_higher_proportion": 0.5984455958549223,
+        "simulator_lower_proportion": 0.13114754098360656,
+        "simulator_gap": 0.4672980548713157,
+        "human_higher_reached": 6,
+        "human_higher_proportion": 0.8333333333333334,
+        "human_lower_reached": 7,
+        "human_lower_proportion": 0.7142857142857143,
+        "estimable": false
+      },
+      {
+        "stage_pair": "checkout_to_purchase",
+        "higher": "detailedcomparator",
+        "lower": "windowshopper",
+        "confirmatory": false,
+        "simulator_higher_proportion": 0.4270205066344994,
+        "simulator_lower_proportion": 0.13114754098360656,
+        "simulator_gap": 0.2958729656508928,
+        "human_higher_reached": 6,
+        "human_higher_proportion": 0.8333333333333334,
+        "human_lower_reached": 7,
+        "human_lower_proportion": 0.7142857142857143,
+        "estimable": false
+      }
+    ],
+    "confirmatory_expected": [
+      [
+        "landing_to_pdp",
+        "fastbuyer",
+        "windowshopper"
+      ],
+      [
+        "landing_to_pdp",
+        "detailedcomparator",
+        "windowshopper"
+      ],
+      [
+        "pdp_to_cart",
+        "fastbuyer",
+        "windowshopper"
+      ]
+    ],
+    "analyzable": false,
+    "all_confirmatory_hold": false
+  },
+  "primary_fidelity": {
+    "analysis_set": "Recorded-landing fidelity population",
+    "n": 31,
+    "n_by_condition": {
+      "v3": 16,
+      "v2": 15
+    },
+    "n_by_persona": {
+      "windowshopper": 10,
+      "detailedcomparator": 11,
+      "fastbuyer": 10
+    },
+    "n_by_device": {
+      "desktop": 9,
+      "mobile": 21,
+      "tablet": 1
+    },
+    "n_by_traffic_source": {
+      "referral": 31
+    },
+    "n_by_device_and_traffic": {
+      "desktop|referral": 9,
+      "mobile|referral": 21,
+      "tablet|referral": 1
+    },
+    "simulation_uncertainty": "Parametric simulator-mean resampling combined with participant-level stratified bootstrap; context-stratified references are standardized to each resampled cell's joint device/traffic distribution",
+    "context_standardized": true,
+    "endpoints": {
+      "conversion": {
+        "margin": [
+          -0.05,
+          0.05
+        ],
+        "analyzable": true,
+        "missing_human_cells": [],
+        "estimate": 0.3744222222222222,
+        "bootstrap_ci90": [
+          0.24031298159190356,
+          0.5134661462517346
+        ],
+        "bootstrap_ci95": [
+          0.21232862818091242,
+          0.5376897620735137
+        ],
+        "equivalent": false,
+        "mean_absolute_cell_gap": 0.3744222222222222,
+        "simulator_aggregate_mc_se": 0.0041129113151610955,
+        "descriptive_persona_spearman": 0.0,
+        "cells": [
+          {
+            "condition": "v2",
+            "persona": "fastbuyer",
+            "human_n": 5,
+            "human_mean": 0.6,
+            "simulation_n": 1000,
+            "simulation_mean": 0.226,
+            "simulation_mean_se": 0.01345878589753442,
+            "simulation_context_weights": {
+              "desktop|referral": 0.4,
+              "mobile|referral": 0.6
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 0.374
+          },
+          {
+            "condition": "v2",
+            "persona": "detailedcomparator",
+            "human_n": 5,
+            "human_mean": 0.4,
+            "simulation_n": 1000,
+            "simulation_mean": 0.0976,
+            "simulation_mean_se": 0.009563859829047021,
+            "simulation_context_weights": {
+              "desktop|referral": 0.6,
+              "mobile|referral": 0.4
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 0.3024
+          },
+          {
+            "condition": "v2",
+            "persona": "windowshopper",
+            "human_n": 5,
+            "human_mean": 0.2,
+            "simulation_n": 1000,
+            "simulation_mean": 0.0012000000000000001,
+            "simulation_mean_se": 0.0006914305115516737,
+            "simulation_context_weights": {
+              "desktop|referral": 0.2,
+              "mobile|referral": 0.8
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 0.1988
+          },
+          {
+            "condition": "v3",
+            "persona": "fastbuyer",
+            "human_n": 5,
+            "human_mean": 0.4,
+            "simulation_n": 1000,
+            "simulation_mean": 0.23800000000000002,
+            "simulation_mean_se": 0.015752341811460614,
+            "simulation_context_weights": {
+              "mobile|referral": 0.8,
+              "tablet|referral": 0.2
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 0.162
+          },
+          {
+            "condition": "v3",
+            "persona": "detailedcomparator",
+            "human_n": 6,
+            "human_mean": 0.5,
+            "simulation_n": 1000,
+            "simulation_mean": 0.08866666666666667,
+            "simulation_mean_se": 0.009221536756254922,
+            "simulation_context_weights": {
+              "desktop|referral": 0.3333333333333333,
+              "mobile|referral": 0.6666666666666666
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 0.41133333333333333
+          },
+          {
+            "condition": "v3",
+            "persona": "windowshopper",
+            "human_n": 5,
+            "human_mean": 0.8,
+            "simulation_n": 1000,
+            "simulation_mean": 0.002,
+            "simulation_mean_se": 0.0016492422502470644,
+            "simulation_context_weights": {
+              "desktop|referral": 0.2,
+              "mobile|referral": 0.8
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 0.798
+          }
+        ]
+      },
+      "session_length_steps": {
+        "margin": [
+          -0.5,
+          0.5
+        ],
+        "analyzable": true,
+        "missing_human_cells": [],
+        "estimate": 7.513288888888888,
+        "bootstrap_ci90": [
+          6.1618647179057096,
+          8.891258244915269
+        ],
+        "bootstrap_ci95": [
+          5.911670593622737,
+          9.154029807565646
+        ],
+        "equivalent": false,
+        "mean_absolute_cell_gap": 7.513288888888888,
+        "simulator_aggregate_mc_se": 0.026282684954920324,
+        "descriptive_persona_spearman": -0.5,
+        "cells": [
+          {
+            "condition": "v2",
+            "persona": "fastbuyer",
+            "human_n": 5,
+            "human_mean": 7.8,
+            "simulation_n": 1000,
+            "simulation_mean": 2.9392,
+            "simulation_mean_se": 0.04309054641543504,
+            "simulation_context_weights": {
+              "desktop|referral": 0.4,
+              "mobile|referral": 0.6
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 4.860799999999999
+          },
+          {
+            "condition": "v2",
+            "persona": "detailedcomparator",
+            "human_n": 5,
+            "human_mean": 13.2,
+            "simulation_n": 1000,
+            "simulation_mean": 4.3564,
+            "simulation_mean_se": 0.09656809034119028,
+            "simulation_context_weights": {
+              "desktop|referral": 0.6,
+              "mobile|referral": 0.4
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 8.843599999999999
+          },
+          {
+            "condition": "v2",
+            "persona": "windowshopper",
+            "human_n": 5,
+            "human_mean": 11.0,
+            "simulation_n": 1000,
+            "simulation_mean": 1.934,
+            "simulation_mean_se": 0.039113654853413844,
+            "simulation_context_weights": {
+              "desktop|referral": 0.2,
+              "mobile|referral": 0.8
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 9.066
+          },
+          {
+            "condition": "v3",
+            "persona": "fastbuyer",
+            "human_n": 5,
+            "human_mean": 7.0,
+            "simulation_n": 1000,
+            "simulation_mean": 2.9060000000000006,
+            "simulation_mean_se": 0.04672479441180722,
+            "simulation_context_weights": {
+              "mobile|referral": 0.8,
+              "tablet|referral": 0.2
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 4.093999999999999
+          },
+          {
+            "condition": "v3",
+            "persona": "detailedcomparator",
+            "human_n": 6,
+            "human_mean": 10.166666666666666,
+            "simulation_n": 1000,
+            "simulation_mean": 4.181333333333333,
+            "simulation_mean_se": 0.08943295973158037,
+            "simulation_context_weights": {
+              "desktop|referral": 0.3333333333333333,
+              "mobile|referral": 0.6666666666666666
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 5.985333333333333
+          },
+          {
+            "condition": "v3",
+            "persona": "windowshopper",
+            "human_n": 5,
+            "human_mean": 14.2,
+            "simulation_n": 1000,
+            "simulation_mean": 1.9700000000000002,
+            "simulation_mean_se": 0.04443571835958393,
+            "simulation_context_weights": {
+              "desktop|referral": 0.2,
+              "mobile|referral": 0.8
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 12.229999999999999
+          }
+        ]
+      },
+      "funnel_depth": {
+        "margin": [
+          -0.5,
+          0.5
+        ],
+        "analyzable": true,
+        "missing_human_cells": [],
+        "estimate": 1.4472888888888886,
+        "bootstrap_ci90": [
+          1.0134465174809308,
+          1.838638144962211
+        ],
+        "bootstrap_ci95": [
+          0.9404003518689319,
+          1.9053995469946152
+        ],
+        "equivalent": false,
+        "mean_absolute_cell_gap": 1.4472888888888886,
+        "simulator_aggregate_mc_se": 0.01555180570001241,
+        "descriptive_persona_spearman": 0.5,
+        "cells": [
+          {
+            "condition": "v2",
+            "persona": "fastbuyer",
+            "human_n": 5,
+            "human_mean": 4.2,
+            "simulation_n": 1000,
+            "simulation_mean": 3.0056000000000003,
+            "simulation_mean_se": 0.045400286916540605,
+            "simulation_context_weights": {
+              "desktop|referral": 0.4,
+              "mobile|referral": 0.6
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 1.1944
+          },
+          {
+            "condition": "v2",
+            "persona": "detailedcomparator",
+            "human_n": 5,
+            "human_mean": 3.8,
+            "simulation_n": 1000,
+            "simulation_mean": 2.5456000000000003,
+            "simulation_mean_se": 0.0377049998545028,
+            "simulation_context_weights": {
+              "desktop|referral": 0.6,
+              "mobile|referral": 0.4
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 1.2543999999999995
+          },
+          {
+            "condition": "v2",
+            "persona": "windowshopper",
+            "human_n": 5,
+            "human_mean": 3.4,
+            "simulation_n": 1000,
+            "simulation_mean": 1.5768000000000002,
+            "simulation_mean_se": 0.0221683122527691,
+            "simulation_context_weights": {
+              "desktop|referral": 0.2,
+              "mobile|referral": 0.8
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 1.8231999999999997
+          },
+          {
+            "condition": "v3",
+            "persona": "fastbuyer",
+            "human_n": 5,
+            "human_mean": 3.8,
+            "simulation_n": 1000,
+            "simulation_mean": 2.9976000000000003,
+            "simulation_mean_se": 0.052154861126055704,
+            "simulation_context_weights": {
+              "mobile|referral": 0.8,
+              "tablet|referral": 0.2
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 0.8023999999999996
+          },
+          {
+            "condition": "v3",
+            "persona": "detailedcomparator",
+            "human_n": 6,
+            "human_mean": 3.5,
+            "simulation_n": 1000,
+            "simulation_mean": 2.5046666666666666,
+            "simulation_mean_se": 0.03772609271709639,
+            "simulation_context_weights": {
+              "desktop|referral": 0.3333333333333333,
+              "mobile|referral": 0.6666666666666666
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 0.9953333333333334
+          },
+          {
+            "condition": "v3",
+            "persona": "windowshopper",
+            "human_n": 5,
+            "human_mean": 4.2,
+            "simulation_n": 1000,
+            "simulation_mean": 1.586,
+            "simulation_mean_se": 0.0242742051171225,
+            "simulation_context_weights": {
+              "desktop|referral": 0.2,
+              "mobile|referral": 0.8
+            },
+            "simulation_standardization": "standardized to recorded joint device/traffic distribution",
+            "gap_human_minus_simulation": 2.614
+          }
+        ]
+      }
+    },
+    "all_endpoints_equivalent": false
+  },
+  "itt": {
+    "analysis_set": "Intention-to-treat",
+    "n": 31,
+    "n_by_condition": {
+      "v3": 16,
+      "v2": 15
+    },
+    "n_by_persona": {
+      "windowshopper": 10,
+      "detailedcomparator": 11,
+      "fastbuyer": 10
+    },
+    "outcomes": {
+      "session_reward": {
+        "estimand": "equal-persona average of within-persona V3 minus V2",
+        "estimate": 2.3116122222222217,
+        "heteroskedastic_robust_ci95": [
+          -3.2409017578851684,
+          7.8641262023296115
+        ],
+        "bootstrap_ci95": [
+          -2.5438586666666665,
+          7.228191638888886
+        ],
+        "stratified_randomization_p_two_sided": 0.43785621437856215
+      },
+      "conversion": {
+        "estimand": "equal-persona average of within-persona V3 minus V2",
+        "estimate": 0.1666666666666667,
+        "heteroskedastic_robust_ci95": [
+          -0.19708725418508147,
+          0.5304205875184149
+        ],
+        "bootstrap_ci95": [
+          -0.16666666666666669,
+          0.4888888888888889
+        ],
+        "stratified_randomization_p_two_sided": 0.42925707429257076
+      }
+    },
+    "cells": [
+      {
+        "condition": "v2",
+        "persona": "fastbuyer",
+        "n": 5,
+        "mean_session_reward": 7.895939999999999,
+        "conversion_rate": 0.6,
+        "mean_steps": 7.8,
+        "mean_funnel_depth": 4.2,
+        "mean_duration_s": 314.5030394,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 0.6,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      },
+      {
+        "condition": "v2",
+        "persona": "detailedcomparator",
+        "n": 5,
+        "mean_session_reward": 9.7579,
+        "conversion_rate": 0.4,
+        "mean_steps": 13.2,
+        "mean_funnel_depth": 3.8,
+        "mean_duration_s": 1295.5409599999998,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 1,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      },
+      {
+        "condition": "v2",
+        "persona": "windowshopper",
+        "n": 5,
+        "mean_session_reward": 3.2138999999999998,
+        "conversion_rate": 0.2,
+        "mean_steps": 11,
+        "mean_funnel_depth": 3.4,
+        "mean_duration_s": 1061.9342538,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 1,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      },
+      {
+        "condition": "v3",
+        "persona": "fastbuyer",
+        "n": 5,
+        "mean_session_reward": 5.47594,
+        "conversion_rate": 0.4,
+        "mean_steps": 7,
+        "mean_funnel_depth": 3.8,
+        "mean_duration_s": 1249.5056422,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 0.2,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      },
+      {
+        "condition": "v3",
+        "persona": "detailedcomparator",
+        "n": 6,
+        "mean_session_reward": 8.474916666666665,
+        "conversion_rate": 0.5,
+        "mean_steps": 10.166666666666666,
+        "mean_funnel_depth": 3.5,
+        "mean_duration_s": 214.24259683333332,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 0.3333333333333333,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      },
+      {
+        "condition": "v3",
+        "persona": "windowshopper",
+        "n": 5,
+        "mean_session_reward": 13.851719999999997,
+        "conversion_rate": 0.8,
+        "mean_steps": 14.2,
+        "mean_funnel_depth": 4.2,
+        "mean_duration_s": 335.2449734,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 0.8,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      }
+    ]
+  },
+  "quality_sensitivity": {
+    "analysis_set": "Quality-filtered sensitivity",
+    "n": 20,
+    "n_by_condition": {
+      "v3": 7,
+      "v2": 13
+    },
+    "n_by_persona": {
+      "windowshopper": 9,
+      "detailedcomparator": 7,
+      "fastbuyer": 4
+    },
+    "outcomes": {
+      "session_reward": {
+        "estimand": "equal-persona average of within-persona V3 minus V2",
+        "estimate": 6.272588888888888,
+        "heteroskedastic_robust_ci95": [
+          1.446479665755862,
+          11.098698112021914
+        ],
+        "bootstrap_ci95": [
+          2.17917886111111,
+          10.46643816666666
+        ],
+        "stratified_randomization_p_two_sided": 0.13928607139286073
+      },
+      "conversion": {
+        "estimand": "equal-persona average of within-persona V3 minus V2",
+        "estimate": 0.24444444444444446,
+        "heteroskedastic_robust_ci95": [
+          -0.05573599016934566,
+          0.5446248790582346
+        ],
+        "bootstrap_ci95": [
+          0.0,
+          0.48888888888888893
+        ],
+        "stratified_randomization_p_two_sided": 0.48095190480951905
+      }
+    },
+    "cells": [
+      {
+        "condition": "v2",
+        "persona": "fastbuyer",
+        "n": 3,
+        "mean_session_reward": 8.599933333333333,
+        "conversion_rate": 0.6666666666666666,
+        "mean_steps": 7.333333333333333,
+        "mean_funnel_depth": 4.333333333333333,
+        "mean_duration_s": 175.146751,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 1,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      },
+      {
+        "condition": "v2",
+        "persona": "detailedcomparator",
+        "n": 5,
+        "mean_session_reward": 9.7579,
+        "conversion_rate": 0.4,
+        "mean_steps": 13.2,
+        "mean_funnel_depth": 3.8,
+        "mean_duration_s": 1295.5409599999998,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 1,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      },
+      {
+        "condition": "v2",
+        "persona": "windowshopper",
+        "n": 5,
+        "mean_session_reward": 3.2138999999999998,
+        "conversion_rate": 0.2,
+        "mean_steps": 11,
+        "mean_funnel_depth": 3.4,
+        "mean_duration_s": 1061.9342538,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 1,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      },
+      {
+        "condition": "v3",
+        "persona": "fastbuyer",
+        "n": 1,
+        "mean_session_reward": 3.15,
+        "conversion_rate": 0,
+        "mean_steps": 11,
+        "mean_funnel_depth": 4,
+        "mean_duration_s": 271.394138,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 1,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      },
+      {
+        "condition": "v3",
+        "persona": "detailedcomparator",
+        "n": 2,
+        "mean_session_reward": 19.994849999999996,
+        "conversion_rate": 1,
+        "mean_steps": 14.5,
+        "mean_funnel_depth": 5,
+        "mean_duration_s": 294.1728205,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 1,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      },
+      {
+        "condition": "v3",
+        "persona": "windowshopper",
+        "n": 4,
+        "mean_session_reward": 17.244649999999996,
+        "conversion_rate": 1,
+        "mean_steps": 16.75,
+        "mean_funnel_depth": 5,
+        "mean_duration_s": 383.1012815,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 1,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      }
+    ]
+  },
+  "recorded_landing_policy_sensitivity": {
+    "analysis_set": "Recorded-landing policy sensitivity",
+    "n": 31,
+    "n_by_condition": {
+      "v3": 16,
+      "v2": 15
+    },
+    "n_by_persona": {
+      "windowshopper": 10,
+      "detailedcomparator": 11,
+      "fastbuyer": 10
+    },
+    "outcomes": {
+      "session_reward": {
+        "estimand": "equal-persona average of within-persona V3 minus V2",
+        "estimate": 2.3116122222222217,
+        "heteroskedastic_robust_ci95": [
+          -3.2409017578851684,
+          7.8641262023296115
+        ],
+        "bootstrap_ci95": [
+          -2.8410216388888903,
+          7.151515222222219
+        ],
+        "stratified_randomization_p_two_sided": 0.4383561643835616
+      },
+      "conversion": {
+        "estimand": "equal-persona average of within-persona V3 minus V2",
+        "estimate": 0.1666666666666667,
+        "heteroskedastic_robust_ci95": [
+          -0.19708725418508147,
+          0.5304205875184149
+        ],
+        "bootstrap_ci95": [
+          -0.15583333333333338,
+          0.4888888888888889
+        ],
+        "stratified_randomization_p_two_sided": 0.43385661433856615
+      }
+    },
+    "cells": [
+      {
+        "condition": "v2",
+        "persona": "fastbuyer",
+        "n": 5,
+        "mean_session_reward": 7.895939999999999,
+        "conversion_rate": 0.6,
+        "mean_steps": 7.8,
+        "mean_funnel_depth": 4.2,
+        "mean_duration_s": 314.5030394,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 0.6,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      },
+      {
+        "condition": "v2",
+        "persona": "detailedcomparator",
+        "n": 5,
+        "mean_session_reward": 9.7579,
+        "conversion_rate": 0.4,
+        "mean_steps": 13.2,
+        "mean_funnel_depth": 3.8,
+        "mean_duration_s": 1295.5409599999998,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 1,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      },
+      {
+        "condition": "v2",
+        "persona": "windowshopper",
+        "n": 5,
+        "mean_session_reward": 3.2138999999999998,
+        "conversion_rate": 0.2,
+        "mean_steps": 11,
+        "mean_funnel_depth": 3.4,
+        "mean_duration_s": 1061.9342538,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 1,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      },
+      {
+        "condition": "v3",
+        "persona": "fastbuyer",
+        "n": 5,
+        "mean_session_reward": 5.47594,
+        "conversion_rate": 0.4,
+        "mean_steps": 7,
+        "mean_funnel_depth": 3.8,
+        "mean_duration_s": 1249.5056422,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 0.2,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      },
+      {
+        "condition": "v3",
+        "persona": "detailedcomparator",
+        "n": 6,
+        "mean_session_reward": 8.474916666666665,
+        "conversion_rate": 0.5,
+        "mean_steps": 10.166666666666666,
+        "mean_funnel_depth": 3.5,
+        "mean_duration_s": 214.24259683333332,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 0.3333333333333333,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      },
+      {
+        "condition": "v3",
+        "persona": "windowshopper",
+        "n": 5,
+        "mean_session_reward": 13.851719999999997,
+        "conversion_rate": 0.8,
+        "mean_steps": 14.2,
+        "mean_funnel_depth": 4.2,
+        "mean_duration_s": 335.2449734,
+        "recorded_landing_rate": 1,
+        "quality_pass_rate": 0.8,
+        "mean_decision_errors": 0,
+        "mean_fallback_rate": 0.0
+      }
+    ]
+  },
+  "audit_summary": {
+    "assigned_records": 31,
+    "unobserved_assignments": 0,
+    "participants_with_duplicates": 0,
+    "decision_request_errors": 0,
+    "audit_events": 27
+  },
+  "audit_events": [
+    {
+      "type": "observed_without_dispatcher_assignment",
+      "worker_id": "audit-worker-1"
+    },
+    {
+      "type": "observed_without_dispatcher_assignment",
+      "worker_id": "audit-worker-2"
+    },
+    {
+      "type": "observed_without_dispatcher_assignment",
+      "worker_id": "audit-worker-3"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v2",
+      "session_id": "520acbb1-af5d-4cea-9858-c19fbc930f25"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v2",
+      "session_id": "fb75a3e3-4675-4a03-a536-a710bb3e23df"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v2",
+      "session_id": "de09a458-ff21-47c3-a4a9-60910492e80c"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v2",
+      "session_id": "b6399bfc-41e0-4bf1-be15-e17a72cfc46a"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v2",
+      "session_id": "c6c3a4e0-0c68-4270-9fa2-d39998d63e81"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v2",
+      "session_id": "3b68d214-5bf3-46b4-9f97-159b24c23352"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v2",
+      "session_id": "4c0f326f-68da-4efa-aa1c-ac74e0a4bb7b"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v2",
+      "session_id": "34e93fa6-6477-4e7c-a420-4aae77e072aa"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v2",
+      "session_id": "8a530b0b-57c2-47dc-acbc-ae276dcdbc8e"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v2",
+      "session_id": "9e985002-b91a-4e6d-970b-4a9415c814a6"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v2",
+      "session_id": "ae892146-b508-4c57-adec-a63407621d9f"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v2",
+      "session_id": "e26130f8-e498-4abf-98db-14fad0108025"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v2",
+      "session_id": "d5c888e7-b558-4a2b-9c29-f9b2f4e2bee7"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v2",
+      "session_id": "948d6b24-d7b8-4812-83ec-481a44dcc863"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v3",
+      "session_id": "fa9ad531-a1bf-47bf-8f07-1698f726bb3d"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v3",
+      "session_id": "d7760797-22ad-4647-81e6-10f23169b25c"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v3",
+      "session_id": "977e0e44-f41f-4d66-92f2-a000feb0c378"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v3",
+      "session_id": "unknown"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v3",
+      "session_id": "8dcb15f3-9434-4c2d-9850-c62de249ead1"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v3",
+      "session_id": "b9af3411-f30c-4a6a-a6c8-e58b4d2a1479"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v3",
+      "session_id": "b2d7847f-586c-4494-b496-283719ceca20"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v3",
+      "session_id": "c5c5817d-bb2b-4b89-85e1-7733bc8872c2"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v3",
+      "session_id": "92552f1b-6e78-4edf-a853-566146221037"
+    },
+    {
+      "type": "unattributed_session",
+      "condition": "v3",
+      "session_id": "cc3bc57f-b62a-4847-94ba-f242e52beac9"
+    }
+  ]
+}

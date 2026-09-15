@@ -422,3 +422,170 @@ is asserted.
 as `sweep_results_expose_history_v3/` and `sweep_results_offline_ppo_v3/`. Its
 cells may not be pooled with, or substituted for, the §D confirmatory grid, and
 no figure may combine cells from both.
+
+## J. Amendment: multiplicity control (2026-08-08)
+
+### J.1 What prompted it
+
+External review of the 2026-08-07 build observed that multiplicity is
+acknowledged in the thesis but not corrected: §E fixes a per-cell decision rule
+(interval excludes zero) and the confirmatory grid applies it twenty-four times
+— twelve mechanism cells for each of PPO and FQI in the Δ table — with no
+family-level control. The objection is correct. Disclosure is not a correction.
+
+### J.2 Status: post hoc, additive, non-replacing
+
+**This amendment is post hoc and is not presented otherwise.** It was specified
+after the confirmatory results were known. It therefore does *not* retroactively
+replace the §E decision rule, which remains the declared primary analysis and
+continues to determine which cells are set in bold. The adjustments below are
+reported alongside it. Where the two disagree, the disagreement is reported as
+the finding rather than resolved in favour of whichever is more convenient.
+
+### J.3 The two adjustments
+
+**Per cell.** For each of the twenty-four confirmatory cells, the per-seed
+anchor-adjusted deltas give a one-sample t statistic on df = n−1 and hence a
+two-sided p-value. Benjamini–Hochberg at q = 0.05 across the twenty-four
+controls the false discovery rate. BH rather than Bonferroni: the cells share
+seeds, share the anchor, and lie on monotone knob grids, which is the positively
+dependent regime BH targets and where Bonferroni is needlessly conservative.
+
+**Per axis.** The within-seed mean of Δ(v) over an axis's non-zero settings
+gives one value per seed, hence one interval per (arm, axis): six tests, Holm
+controlled. This matches the level at which the thesis argues its mechanism
+claims — by the shape of an axis rather than by any single cell — and is the
+analysis the Evaluation chapter now leads with.
+
+The descriptive `t_max` axis is excluded from both families: it tests no
+hypothesis and carries no claim.
+
+### J.4 Result on the §D confirmatory grid
+
+Of the fifteen cells the §E rule accepts, **twelve survive BH**. The three that
+fall are the delayed-credit cells at σ = 1.0 and σ = 2.0 (lower endpoints +0.008
+and +0.010, already flagged in the thesis as cells nothing should rest on) and
+the tabular fatigue cell at ρ = 0.2 (the isolated positive on an axis where
+nothing else clears). No cell that carries an argument is removed.
+
+At axis level, both supported mechanisms survive family-wise correction:
+delayed credit +0.204 (p_Holm = 0.0048) and transition coupling +0.298
+(p_Holm = 0.0009) for PPO. The fatigue null is unchanged (p_Holm = 1.000). For
+FQI, the coupling deterioration survives (−0.648, p_Holm = 0.0002) and the
+delayed-credit contrast does not clear (p_Holm = 1.000).
+
+### J.5 Implementation
+
+`Experiments/compute_multiplicity_control.py`. It reproduces every published
+per-cell mean and interval from the run's own `summary.json` before adjusting
+anything, using the same three-decimal t-table constants the sweep runner uses
+so that the reproduced decisions are bit-faithful to the published ones rather
+than merely close. The Student-t tail is implemented in-file rather than
+imported, because `Experiments/requirements.txt` does not declare scipy; the
+implementation is validated in `--self-check` against the Cauchy and df = 2
+closed forms and against the critical values the sweep hard-codes.
+
+Outputs are written beside the run: `multiplicity_control.csv`,
+`multiplicity_control.json`, `multiplicity_table.tex`.
+
+### J.6 Scope
+
+The axis-level statistic answers a coarser question than the per-cell one: it
+establishes that an axis carries a non-zero average effect, not that any
+particular setting does. It does not license reading individual cells that BH
+rejects.
+
+## K. Amendment: 15-seed replication (2026-08-08)
+
+### K.1 Standing: a replication, not a replacement
+
+The §D confirmatory grid on seeds 10–14 **remains the confirmatory evidence of
+this thesis**. This amendment declares an additional, higher-powered replication
+on seeds 10–24. It does not supersede §D, its cells are not pooled with §D, and
+no confirmatory claim is restated on its numbers.
+
+The reason for that boundary is specific and is recorded rather than left
+implicit. The replication was specified after the §D results were known, and it
+changes the reading of one preregistered null (§K.4). Adopting it as the
+confirmatory basis would mean changing the seed count after observing that doing
+so converts a null into a positive result, which is the precise manoeuvre a
+preregistration exists to prevent — regardless of the 15-seed estimate being the
+better one. It is therefore reported alongside §D, in full, including the part
+that is inconvenient.
+
+### K.2 What was run
+
+`Experiments/run_seed15_sweeps.sh`, all four grids on seeds 10–24, into
+`sweep_results_{confirmatory,myopic,offline_ppo,expose_history}_v3_s15/`.
+Completed 2026-08-08 05:42Z, 7 h 48 m, zero failed cells (285 + 225 + 225 + 75).
+Every parameter other than the seed list is identical to §D and §F.
+
+The myopic grid was extended alongside the confirmatory one because `D(v)` and
+`D_FQI(v)` are within-seed paired contrasts: extending one run alone would leave
+nothing to pair against.
+
+### K.3 Validation
+
+Seeds 10–24 are a deliberate superset of 10–14 rather than a fresh set, so the
+overlap is a reproducibility test. **All 270 shared cells across the four grids
+are bit-identical** to their §D and §F counterparts. The environment did not
+drift between the runs and the two sets of numbers are directly comparable.
+
+### K.4 What it shows
+
+**The two supported mechanisms tighten and nothing load-bearing moves.** The
+horizon contrast on delayed credit is −0.700 (was −0.710) for PPO and −0.096
+(was −0.099) for FQI, so the ratio between what the horizon is worth under the
+two representations is 7.3 against 7.2. Delayed credit at axis level is
++0.215 ± 0.067 (was +0.204 ± 0.069); coupling +0.341 ± 0.061 (was
++0.298 ± 0.062); the FQI coupling deterioration −0.567 ± 0.066 (was
+−0.648 ± 0.083). The anchor falls from +0.141 ± 0.052 to +0.098 ± 0.057 and
+still excludes zero.
+
+Three qualifications that §D required are removed at higher power: the
+delayed-credit cells at σ = 1.0 and σ = 2.0 are no longer marginal
+(+0.140 ± 0.080 and +0.145 ± 0.074), the horizon contribution at κ = 3.0 is
+bounded at ±0.050 where §D could not bound it at all (±0.159), and all four
+`D_FQI` delayed-credit cells exclude zero where three did narrowly. Under the
+§J multiplicity correction, **all eighteen cells that clear the per-cell rule
+also survive BH** — no decision changes, where three of fifteen fell at §D.
+
+**The fatigue null does not survive the additional power, and this is the
+finding of the replication.** In §D no fatigue setting produced an advantage the
+decision rule would accept, and ρ = 0.1 favoured the bandit. At fifteen seeds:
+
+| Cell | §D (5 seeds) | §K (15 seeds) |
+|---|---|---|
+| PPO ρ = 0.1 | −0.051 ± 0.028 (sig.) | −0.035 ± 0.061 (n.s.) |
+| PPO ρ = 0.2 | −0.100 ± 0.112 | +0.005 ± 0.081 |
+| PPO ρ = 0.4 | +0.052 ± 0.076 | **+0.114 ± 0.070** |
+| PPO ρ = 0.6 | +0.059 ± 0.084 | **+0.117 ± 0.073** |
+| FQI axis | +0.078 ± 0.078 | **+0.096 ± 0.048** (p_Holm = 0.002) |
+
+The §F.1 history-exposure ablation moves the same way: ρ = 0.4 (+0.089 ± 0.075)
+and ρ = 0.6 (+0.136 ± 0.074) are positive and exclude zero *with the exposure
+count supplied to the bandit*, where at five seeds only ρ = 0.2 cleared and did
+so negatively.
+
+The coherent reading is that intervention fatigue does confer a sequential
+advantage where the mechanism is strong enough to bite — the upper half of the
+grid — and that five seeds could not resolve it. The PPO fatigue *axis* mean
+remains non-significant (+0.050 ± 0.064, p_Holm = 0.235), so this is a
+within-axis pattern concentrated at high ρ rather than a uniform axis effect.
+
+### K.5 Consequence for the thesis's claims
+
+The §D null is retained as the confirmatory result and is **relabelled**: it is
+evidence that no fatigue effect was resolvable at five seeds, not evidence that
+none exists. Every statement of the form "fatigue produces no sequential
+advantage" is qualified accordingly wherever it appears, and the framing "two of
+the three mechanisms produce an advantage" is scoped to the confirmatory grid
+with the replication named alongside it.
+
+No other confirmatory claim changes.
+
+### K.6 Standing of the directories
+
+The `_v3_s15` directories are declared replication artefacts. Their cells may not
+be pooled with or substituted for the §D grid, and no figure may combine cells
+from both, on the same terms as §I.6.

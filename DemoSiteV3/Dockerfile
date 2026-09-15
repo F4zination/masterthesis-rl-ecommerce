@@ -1,7 +1,8 @@
 # DemoSiteV3 — Sequential RL / PPO shop (Clickworker experiment, condition V3)
 #
 # IMPORTANT: build from the repository root, not from DemoSiteV3/, because:
-#   1. requirements.txt installs the shared package via `-e ../SharedSchema`.
+#   1. requirements.lock pins dependencies and SharedSchema is installed from
+#      the release commit.
 #   2. config.py resolves the frozen policy artifacts at
 #      PROJECT_ROOT/OfflineTraining/outputs (ppo_policy.pt, trained_policy.json),
 #      which must be baked into the image for the frozen-policy A/B test.
@@ -31,10 +32,11 @@ COPY OfflineTraining/outputs /app/OfflineTraining/outputs
 COPY DemoSiteV3 /app/DemoSiteV3
 
 # ── Python dependencies ────────────────────────────────────────────────────────
-# Run from the app directory so the relative `-e ../SharedSchema` resolves to
-# /app/SharedSchema.
+# Install the resolved container-platform lock, then the local shared package
+# without allowing its install to alter the locked dependency set.
 WORKDIR /app/DemoSiteV3
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.lock \
+    && pip install --no-cache-dir --no-deps -e ../SharedSchema
 
 # ── Persistent volume for SQLite database ─────────────────────────────────────
 VOLUME ["/app/data"]

@@ -155,14 +155,19 @@ def test_linkage() -> None:
     att = db.query(Event).filter(Event.event_type == "attention_check").first()
     assert att is not None and att.worker_id == WID and att.persona == PERSONA
     assert att.metadata_json.get("passed") is True, att.metadata_json
-    assert re.search(r"\b\d{6}\b", out.body.decode()), "no completion code rendered"
+    saved_code = str(att.metadata_json.get("completion_code", ""))
+    assert re.fullmatch(r"\d{6}", saved_code), "completion code not persisted"
+    rendered = out.body.decode()
+    assert saved_code in rendered, "persisted completion code not rendered"
+    assert "saved automatically" in rendered
+    assert "job you accepted" not in rendered
 
     # 5) cell recovery: distinct (worker_id, persona) reconstructs the assignment
     cells = db.query(Event.worker_id, Event.persona).distinct().all()
     assert (WID, PERSONA) in cells
     db.close()
     print("[linkage] OK — worker_id/persona on Event, Order, DecisionLog, "
-          "attention_check; completion code revealed post-attention")
+          "attention_check; completion code persisted before rendering")
 
 
 def test_new_worker_gets_fresh_session_without_breaking_resume() -> None:

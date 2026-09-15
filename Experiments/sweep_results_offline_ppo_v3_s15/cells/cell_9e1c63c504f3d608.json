@@ -1,0 +1,36 @@
+{
+  "cache_schema_version": 1,
+  "identity": {
+    "axis": "fatigue_rate",
+    "seed": 10,
+    "value": 0.4
+  },
+  "run_fingerprint": "68d43764174a4005e1fd13ccb5efe5cfa71f1635adbc12b2b6cfa0ad82d68388",
+  "stats": {
+    "bandit_v2": {
+      "mean_reward": 1.0748721357070323,
+      "purchase_rate": 0.0802,
+      "std_reward": 3.1431975657082996
+    },
+    "fqi_v3": {
+      "mean_reward": 1.0209152196177522,
+      "purchase_rate": 0.0756,
+      "std_reward": 3.0601188125500824
+    },
+    "no_op": {
+      "mean_reward": 1.3099376113040386,
+      "purchase_rate": 0.0808,
+      "std_reward": 3.1665527241720315
+    },
+    "ppo_v3": {
+      "mean_reward": 1.2809263723029019,
+      "purchase_rate": 0.0854,
+      "std_reward": 3.194721398084137
+    },
+    "uniform": {
+      "mean_reward": 0.9004217375400886,
+      "purchase_rate": 0.0786,
+      "std_reward": 3.094555524171504
+    }
+  }
+}

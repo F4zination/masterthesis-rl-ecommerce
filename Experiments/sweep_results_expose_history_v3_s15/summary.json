@@ -1,0 +1,154 @@
+{
+  "anchor": {
+    "fatigue_rate": {
+      "anchor_gap_fqi_ci95": 0.0344240735193897,
+      "anchor_gap_fqi_mean": -0.10806326886478647,
+      "anchor_gap_ppo_ci95": 0.0658022259699589,
+      "anchor_gap_ppo_mean": 0.10907559816408496,
+      "anchor_value": 0.0,
+      "n_seeds": 15
+    }
+  },
+  "axes": {
+    "fatigue_rate": [
+      {
+        "bandit_mean": 1.4835781990641002,
+        "complete": true,
+        "delta_fqi_minus_bandit_ci95": 0.0,
+        "delta_fqi_minus_bandit_mean": 0.0,
+        "delta_ppo_minus_bandit_ci95": 0.0,
+        "delta_ppo_minus_bandit_mean": 0.0,
+        "fqi_mean": 1.3755149301993135,
+        "fqi_minus_bandit_ci95": 0.0344240735193897,
+        "fqi_minus_bandit_mean": -0.10806326886478647,
+        "n_seeds": 15,
+        "n_seeds_delta": 15,
+        "ppo_mean": 1.592653797228185,
+        "ppo_minus_bandit_ci95": 0.0658022259699589,
+        "ppo_minus_bandit_mean": 0.10907559816408496,
+        "value": 0.0
+      },
+      {
+        "bandit_mean": 1.2711760727404806,
+        "complete": true,
+        "delta_fqi_minus_bandit_ci95": 0.029039645323275253,
+        "delta_fqi_minus_bandit_mean": 0.09461193226174239,
+        "delta_ppo_minus_bandit_ci95": 0.0640250562140125,
+        "delta_ppo_minus_bandit_mean": -0.052120905509901186,
+        "fqi_mean": 1.2577247361374364,
+        "fqi_minus_bandit_ci95": 0.03075800595399188,
+        "fqi_minus_bandit_mean": -0.013451336603044088,
+        "n_seeds": 15,
+        "n_seeds_delta": 15,
+        "ppo_mean": 1.3281307653946643,
+        "ppo_minus_bandit_ci95": 0.02841079699125189,
+        "ppo_minus_bandit_mean": 0.05695469265418378,
+        "value": 0.1
+      },
+      {
+        "bandit_mean": 1.1737972988046226,
+        "complete": true,
+        "delta_fqi_minus_bandit_ci95": 0.03497071212789389,
+        "delta_fqi_minus_bandit_mean": 0.1114745013350667,
+        "delta_ppo_minus_bandit_ci95": 0.08619504533976356,
+        "delta_ppo_minus_bandit_mean": -0.012966783081900024,
+        "fqi_mean": 1.1772085312749028,
+        "fqi_minus_bandit_ci95": 0.02731058357582745,
+        "fqi_minus_bandit_mean": 0.003411232470280234,
+        "n_seeds": 15,
+        "n_seeds_delta": 15,
+        "ppo_mean": 1.2699061138868075,
+        "ppo_minus_bandit_ci95": 0.03913418011973853,
+        "ppo_minus_bandit_mean": 0.09610881508218494,
+        "value": 0.2
+      },
+      {
+        "bandit_mean": 1.0818170066412094,
+        "complete": true,
+        "delta_fqi_minus_bandit_ci95": 0.052295615180480204,
+        "delta_fqi_minus_bandit_mean": 0.09130870997270851,
+        "delta_ppo_minus_bandit_ci95": 0.07531128460806626,
+        "delta_ppo_minus_bandit_mean": 0.08923951116510649,
+        "fqi_mean": 1.0650624477491315,
+        "fqi_minus_bandit_ci95": 0.04870482006124637,
+        "fqi_minus_bandit_mean": -0.01675455889207796,
+        "n_seeds": 15,
+        "n_seeds_delta": 15,
+        "ppo_mean": 1.2801321159704009,
+        "ppo_minus_bandit_ci95": 0.036919020218188166,
+        "ppo_minus_bandit_mean": 0.19831510932919144,
+        "value": 0.4
+      },
+      {
+        "bandit_mean": 1.0376311821316704,
+        "complete": true,
+        "delta_fqi_minus_bandit_ci95": 0.06031016267825089,
+        "delta_fqi_minus_bandit_mean": 0.047811502854079445,
+        "delta_ppo_minus_bandit_ci95": 0.07377429915203759,
+        "delta_ppo_minus_bandit_mean": 0.13617644967591283,
+        "fqi_mean": 0.9773794161209634,
+        "fqi_minus_bandit_ci95": 0.03953544027138117,
+        "fqi_minus_bandit_mean": -0.060251766010707024,
+        "n_seeds": 15,
+        "n_seeds_delta": 15,
+        "ppo_mean": 1.2828832299716681,
+        "ppo_minus_bandit_ci95": 0.045634008578734786,
+        "ppo_minus_bandit_mean": 0.24525204783999782,
+        "value": 0.6
+      }
+    ]
+  },
+  "axis_roles": {
+    "fatigue_rate": "confirmatory mechanism axis"
+  },
+  "ci_method": "pointwise two-sided 95% Student-t interval across seeds",
+  "config": {
+    "archetypes": "C:\\Users\\finnr\\development\\masterion\\MasterThesisProject\\CustomerSimulation\\config\\archetypes.yaml",
+    "axes": [
+      "fatigue_rate"
+    ],
+    "axis_values": [],
+    "dataset_sessions": 6000,
+    "eval_seed_base": 10000,
+    "eval_sessions": 5000,
+    "expose_history_to_bandit": true,
+    "fqi_iters": 30,
+    "fqi_penalty": 0.15,
+    "gae_lambda": 0.95,
+    "gamma": 0.95,
+    "hidden_sizes": "128,64",
+    "lr": 0.0003,
+    "out_dir": "Experiments/sweep_results_expose_history_v3_s15",
+    "ppo_epochs": 4,
+    "ppo_iterations": 40,
+    "ppo_minibatch": 256,
+    "ppo_mode": "online",
+    "ppo_rollout_sessions": 256,
+    "seeds": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24
+    ],
+    "smoke": false,
+    "t_max": 20
+  },
+  "run_fingerprint": "b62d3747f8ec37ef13fc6ec30d0df548c617eec509c7da249e1bc70a459aef99",
+  "run_status": {
+    "completed_cells": 75,
+    "expected_cells": 75,
+    "failed_cells": [],
+    "state": "complete"
+  }
+}

@@ -21,10 +21,10 @@
 - "Users who see a discount widget *before* viewing 3 products rarely convert — wait longer"
 - "Trust badges are most effective on mobile users *right after* they add to cart, not before"
 
-**Connection to session-clustering work:** Behavioural session clustering (episode sequences, cluster profiles, behavioural segments) provides exactly the **state representations** a sequential agent needs. The trajectory clusters define where a user is in their journey. A natural pipeline:
+**Connection to MouseTracking work:** The session clustering in `MouseTracking/` (episode sequences, cluster profiles, behavioral segments) provides exactly the **state representations** a sequential agent needs. The trajectory clusters define where a user is in their journey. A natural pipeline:
 
 ```
-Event stream → session state vector → RL policy → widget timing + selection
+Mouse + event stream → session state vector → RL policy → widget timing + selection
 ```
 
 **Classification:** Upgrade from a contextual bandit (stateless, single-step) to a full **Markov Decision Process** solved by a sequential RL policy — the bandit becomes the baseline, the RL agent becomes the full solution.

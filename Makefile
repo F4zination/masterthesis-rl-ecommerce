@@ -150,7 +150,7 @@ help:
 	@echo "  docker-run-v3    Build + run DemoSiteV3 (frozen) on http://127.0.0.1:$(DOCKER_PORT_V3)"
 	@echo ""
 	@echo "VPS updates (run after pulling the corresponding repository):"
-	@echo "  update-shops         Rebuild V2/V3 and reload the shared nginx"
+	@echo "  update-shops         Rebuild V2/V3/dispatcher and reload shared nginx"
 	@echo "  update-stundenplaner Rebuild Stundenplaner and reload the shared nginx"
 	@echo "  update-magliosite    Rebuild MaglioSite with all shared gateway routes"
 	@echo ""
@@ -412,12 +412,12 @@ vps-check-stundenplaner:
 	@$(STUNDENPLANER_COMPOSE) config --quiet
 
 update-shops: vps-check-gateway vps-check-shop-artifacts
-	@echo "### Rebuilding DemoSiteV2 and DemoSiteV3 ..."
-	$(STUDY_VPS_COMPOSE) up -d --build --no-deps v2 v3
+	@echo "### Rebuilding DemoSiteV2, DemoSiteV3, and the dispatcher ..."
+	$(STUDY_VPS_COMPOSE) up -d --build --no-deps v2 v3 dispatcher
 	@echo "### Testing and reloading the shared nginx ..."
 	$(GATEWAY_COMPOSE) exec -T nginx nginx -t
 	$(GATEWAY_COMPOSE) exec -T nginx nginx -s reload
-	$(STUDY_VPS_COMPOSE) ps v2 v3
+	$(STUDY_VPS_COMPOSE) ps v2 v3 dispatcher
 
 update-stundenplaner: vps-check-gateway vps-check-stundenplaner
 	@echo "### Rebuilding Stundenplaner ..."

@@ -1,0 +1,36 @@
+{
+  "cache_schema_version": 1,
+  "identity": {
+    "axis": "transition_coupling_strength",
+    "seed": 20,
+    "value": 0.5
+  },
+  "run_fingerprint": "68d43764174a4005e1fd13ccb5efe5cfa71f1635adbc12b2b6cfa0ad82d68388",
+  "stats": {
+    "bandit_v2": {
+      "mean_reward": 2.6239857720930866,
+      "purchase_rate": 0.1536,
+      "std_reward": 4.217319637970784
+    },
+    "fqi_v3": {
+      "mean_reward": 2.1988633753646294,
+      "purchase_rate": 0.133,
+      "std_reward": 3.997310214433744
+    },
+    "no_op": {
+      "mean_reward": 1.2186434814011158,
+      "purchase_rate": 0.0724,
+      "std_reward": 3.0375124764631543
+    },
+    "ppo_v3": {
+      "mean_reward": 2.790822218255215,
+      "purchase_rate": 0.1646,
+      "std_reward": 4.385517856173561
+    },
+    "uniform": {
+      "mean_reward": 2.2362838711418065,
+      "purchase_rate": 0.13,
+      "std_reward": 4.033919869049696
+    }
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "baseline": {
+    "git_head": "2d672c36dc8a5e50756b0885b4f483629737ec00",
+    "n_cells": 6,
+    "path": "/home/f4zination/MasterProject/MasterThesisProject/Experiments/study_policy_baselines/clickworker_release_20260803/policy_archetype_baseline.json",
+    "personas": [
+      "FastBuyer",
+      "DetailedComparator",
+      "WindowShopper"
+    ],
+    "sessions_per_cell": 2000,
+    "sha256": "0e4a465f04d7d4a5f5eae7004d080ad681dbb6cecd784b6a601312ebd65e4e73",
+    "study_id": "clickworker_release_20260803"
+  },
+  "endpoints": {
+    "conversion": {
+      "5": {
+        "assumed_human_sd": "equal_to_simulator_cell_sd",
+        "assumed_true_gap": 0.0,
+        "cell_standard_errors": [
+          0.18712903268867714,
+          0.1268515983344317,
+          0.02236060989776442,
+          0.1902730508374741,
+          0.12750035097990906,
+          0.01732913370598773
+        ],
+        "floor": 0.08926609044223649,
+        "floor_analytic": 0.08928910377867218,
+        "h0_upper": 0.1472243863386806,
+        "headroom_vs_h0_upper": 0.6792352984916248,
+        "n_per_cell": 5,
+        "tolerance": 0.1
+      },
+      "6": {
+        "assumed_human_sd": "equal_to_simulator_cell_sd",
+        "assumed_true_gap": 0.0,
+        "cell_standard_errors": [
+          0.17086724830015457,
+          0.11582801042925671,
+          0.020417440461527006,
+          0.17373804671113352,
+          0.11642038552876668,
+          0.01582320684943479
+        ],
+        "floor": 0.08158491139366204,
+        "floor_analytic": 0.08152975113824654,
+        "h0_upper": 0.13426132844286637,
+        "headroom_vs_h0_upper": 0.74481610721254,
+        "n_per_cell": 6,
+        "tolerance": 0.1
+      }
+    },
+    "funnel_depth": {
+      "5": {
+        "assumed_human_sd": "equal_to_simulator_cell_sd",
+        "assumed_true_gap": 0.0,
+        "cell_standard_errors": [
+          0.6240684422283286,
+          0.5195951477436825,
+          0.28640087767212885,
+          0.6302232720919968,
+          0.5164816203235756,
+          0.285571783658349
+        ],
+        "floor": 0.38088471347379005,
+        "floor_analytic": 0.3806363010539095,
+        "h0_upper": 0.598164453351206,
+        "headroom_vs_h0_upper": 1.6717810535171678,
+        "n_per_cell": 5,
+        "tolerance": 1.0
+      },
+      "6": {
+        "assumed_human_sd": "equal_to_simulator_cell_sd",
+        "assumed_true_gap": 0.0,
+        "cell_standard_errors": [
+          0.5698359893300012,
+          0.47444157568419554,
+          0.2615122259516008,
+          0.5754559555503699,
+          0.47159861831335365,
+          0.26075518141029563
+        ],
+        "floor": 0.3477641827295873,
+        "floor_analytic": 0.3475584543443541,
+        "h0_upper": 0.5458708647519066,
+        "headroom_vs_h0_upper": 1.831935105117748,
+        "n_per_cell": 6,
+        "tolerance": 1.0
+      }
+    },
+    "transition_count": {
+      "5": {
+        "assumed_human_sd": "equal_to_simulator_cell_sd",
+        "assumed_true_gap": 0.0,
+        "cell_standard_errors": [
+          0.5900354403851137,
+          1.2680396461752037,
+          0.5200319475649973,
+          0.5855277648256236,
+          1.2569837724099906,
+          0.5238091976452579
+        ],
+        "floor": 0.6309298015626373,
+        "floor_analytic": 0.6309176111224033,
+        "h0_upper": 1.0080044840363616,
+        "headroom_vs_h0_upper": 0.9920590789395012,
+        "n_per_cell": 5,
+        "tolerance": 1.0
+      },
+      "6": {
+        "assumed_human_sd": "equal_to_simulator_cell_sd",
+        "assumed_true_gap": 0.0,
+        "cell_standard_errors": [
+          0.5387605047149617,
+          1.1578451615144207,
+          0.47484041696741963,
+          0.5346445527003894,
+          1.1477500592169663,
+          0.47828941853645685
+        ],
+        "floor": 0.5757513319989496,
+        "floor_analytic": 0.5760899555118313,
+        "h0_upper": 0.921229663057675,
+        "headroom_vs_h0_upper": 1.0855056454444558,
+        "n_per_cell": 6,
+        "tolerance": 1.0
+      }
+    }
+  },
+  "interpretation": "The floor is the MACE expected from sampling noise alone under perfect calibration; h0_upper is the one-sided 95% limit under that null. A tolerance must sit clearly above h0_upper for the endpoint to be able to detect miscalibration; otherwise report it as inconclusive rather than as a pass. Recompute at the achieved sample size before unblinding.",
+  "method": "Parametric bootstrap under zero true discrepancy in every cell. Per-cell SE combines human sampling error (sd/sqrt(n_per_cell), human variance assumed equal to the simulator cell variance) with simulator Monte Carlo error (sd/sqrt(n_sessions)). Conversion uses the Bernoulli sd sqrt(p(1-p)).",
+  "purpose": "Null-calibration floors for the ClickworkerPreregistration.md \u00a77.1 cell-level (MACE) calibration endpoint.",
+  "replicates": 200000,
+  "seed": 20260802
+}

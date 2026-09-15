@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import argparse
 import json
 import sqlite3
 import tempfile
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
 
 from Experiments import analyze_clickworker_study as analysis
@@ -74,15 +76,17 @@ def _shop_db(path: Path, rows: list[dict]) -> None:
     conn.close()
 
 
-def _dispatcher_db(path: Path, assignments: list[tuple[str, str, str]]) -> None:
+def _dispatcher_db(path: Path, assignments: list[tuple]) -> None:
     conn = sqlite3.connect(path)
     conn.execute(
         "CREATE TABLE assignments (pid TEXT, wid TEXT, condition TEXT, persona TEXT, created_at REAL)"
     )
-    for index, (wid, condition, persona) in enumerate(assignments):
+    for index, row in enumerate(assignments):
+        wid, condition, persona = row[:3]
+        created_at = float(row[3]) if len(row) > 3 else float(index)
         conn.execute(
             "INSERT INTO assignments VALUES (?,?,?,?,?)",
-            (f"pid-{index}", wid, condition, persona, float(index)),
+            (f"pid-{index}", wid, condition, persona, created_at),
         )
     conn.commit()
     conn.close()
@@ -368,6 +372,61 @@ class ClickworkerAnalysisTests(unittest.TestCase):
         self.assertFalse(result["analyzable"])
         self.assertFalse(result["all_confirmatory_hold"])
         self.assertEqual(result["contrasts"], [])
+
+    def test_cutoff_date_keeps_the_named_day_whole(self) -> None:
+        self.assertEqual(
+            analysis.parse_cutoff("2026-08-24"), datetime(2026, 8, 25, 0, 0, 0)
+        )
+        self.assertEqual(
+            analysis.parse_cutoff("2026-08-24T12:30:00"), datetime(2026, 8, 24, 12, 30, 0)
+        )
+        self.assertEqual(
+            analysis.parse_cutoff("2026-08-24T14:30:00+02:00"),
+            datetime(2026, 8, 24, 12, 30, 0),
+        )
+        with self.assertRaises(argparse.ArgumentTypeError):
+            analysis.parse_cutoff("last Tuesday")
+
+    def test_cutoff_drops_out_of_window_assignments_and_sessions(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            dispatcher = Path(tmp) / "dispatcher.db"
+            in_window = datetime(2026, 8, 20, 9, 0, 0, tzinfo=timezone.utc)
+            out_window = datetime(2026, 8, 26, 9, 0, 0, tzinfo=timezone.utc)
+            _dispatcher_db(dispatcher, [
+                ("w-in", "v2", "fastbuyer", in_window.timestamp()),
+                ("w-out", "v2", "fastbuyer", out_window.timestamp()),
+            ])
+            sessions = [
+                analysis.RawSession(
+                    condition="v2", session_id="in", worker_id="w-in",
+                    persona="fastbuyer",
+                    timestamps=[in_window.replace(tzinfo=None)],
+                ),
+                analysis.RawSession(
+                    condition="v2", session_id="out", worker_id="w-out",
+                    persona="fastbuyer",
+                    timestamps=[out_window.replace(tzinfo=None)],
+                ),
+            ]
+            assignments = analysis.load_assignments(dispatcher)
+            kept_sessions, kept_assignments, dropped_sessions, dropped_assignments = (
+                analysis.apply_cutoff(sessions, assignments, analysis.parse_cutoff("2026-08-24"))
+            )
+            self.assertEqual((dropped_sessions, dropped_assignments), (1, 1))
+            self.assertEqual([s.worker_id for s in kept_sessions], ["w-in"])
+            self.assertEqual([a.worker_id for a in kept_assignments], ["w-in"])
+
+            records, _ = analysis.build_participant_records(kept_sessions, kept_assignments)
+            self.assertEqual([r.worker_id for r in records], ["w-in"])
+
+    def test_cutoff_keeps_sessions_that_carry_no_timestamp(self) -> None:
+        undated = analysis.RawSession(condition="v2", session_id="s", worker_id="w")
+        kept, assignments, dropped_sessions, dropped_assignments = analysis.apply_cutoff(
+            [undated], None, analysis.parse_cutoff("2026-08-24")
+        )
+        self.assertEqual(kept, [undated])
+        self.assertIsNone(assignments)
+        self.assertEqual((dropped_sessions, dropped_assignments), (0, 0))
 
     def test_wilson_interval_brackets_the_proportion(self) -> None:
         low, high = analysis._wilson_ci(8, 10)

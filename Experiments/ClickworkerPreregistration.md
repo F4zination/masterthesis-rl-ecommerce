@@ -2,13 +2,13 @@
 
 *(Filenames retain the historical "Clickworker" prefix; the recruited sample is a convenience sample as of Design Revision 1, below.)*
 
-**Status**: draft; commit and timestamp before confirmatory recruitment
+**Status**: locked 2026-08-02
 
 **Operational protocol**: [`ClickworkerExperiment.md`](ClickworkerExperiment.md)
 
-**Study release commit**: `TO_BE_FILLED`
+**Study release commit**: `76b62e9d385682fe5c856438de2a480dc4008e41`
 
-**Reference-data manifest**: `TO_BE_FILLED`
+**Reference-data manifest**: `Experiments/study_releases/clickworker_release_final/release_manifest.json`
 
 **Planned recruitment date**: `03.08.2026`
 
@@ -28,6 +28,10 @@ After supervisor consultation the study was redesigned before any data collectio
 4. **Dates.** Recruitment 03.08.2026 to 24.08.2026 (three weeks, hard stop), driven by the 16.09.2026 thesis submission deadline.
 
 The superseded design (2 × 5 cells, 300–400 crowdworkers, equivalence primary) is preserved in this file's git history. Nothing in this revision was informed by human data; the simulator reference and power calculations that motivated it are committed artifacts.
+
+### Operational Revision 2 — 2026-08-02, pre-recruitment walkthrough, no confirmatory outcome observed
+
+The excluded go-live walkthrough exposed obsolete crowd-platform wording beneath the completion code even though Design Revision 1 recruits an uncompensated convenience sample. The wording is now platform-neutral. Submitting the final attention questions already persisted the six-digit reference code in the attributed `attention_check` event before the completion page rendered; the interface now states that explicitly and no longer asks participants to copy or send the code. This changes neither the scenario manipulation, assignment, treatments, endpoints, exclusions, nor collected fields, and is deployed identically in V2 and V3. All walkthrough and legacy ledgers remain excluded and are archived and cleared before confirmatory recruitment.
 
 ## 1. Study purpose and hierarchy
 
@@ -383,25 +387,150 @@ The author attests on **2026-08-02**, before recruitment, that the following wer
 
 | Approval | Obtained | Reference / date of record |
 |---|---|---|
-| Ethics and privacy approval for an uncompensated personal-network sample | Yes | `RECORD_REFERENCE_PENDING` |
-| Supervisor sign-off on Design Revision 1 (sample, three personas, directional primary endpoint) | Yes | `RECORD_REFERENCE_PENDING` |
+| Ethics and privacy approval for an uncompensated personal-network sample | Yes | 2026-07-23 |
+| Supervisor sign-off on Design Revision 1 (sample, three personas, directional primary endpoint) | Yes | 2026-07-23 |
 
-The supporting documents are held outside this repository. `RECORD_REFERENCE_PENDING` marks the identifier or date of each record, to be filled from the approval correspondence; these are bookkeeping fields and do not affect any analysis. Should either approval be qualified or conditioned in a way that changes the protocol, that is a preregistration amendment under the rule at the head of this document.
+The supporting documents are held outside this repository; the dates above
+identify the approval records. Should either approval be qualified or
+conditioned in a way that changes the protocol, that is a preregistration
+amendment under the rule at the head of this document.
 
 ### 13.2 Sign-off checklist
 
-- [ ] Fill all `TO_BE_FILLED` fields (study release commit; reference-data manifest path). Both are derived from the final release cut and are therefore filled last.
+- [x] Fill the study release commit and reference-data manifest fields. Both are derived from the final release cut and are therefore filled last.
 - [x] Regenerate the simulator reference from the release commit with the current `evaluate_study_policy_baseline.py`, so every cell carries `funnel_depth_histogram`/`funnel_progression`, and record the reference's pooled per-persona progression values as the locked Section 7 prediction (done 2026-08-02, `clickworker_release_20260803`). The predicted ordering holds on all four stage pairs in the regenerated reference.
 - [x] Compute the Section 7.2 null-calibration floors from the locked reference over the recruited cells across the plausible achieved-n range (done 2026-08-02, `mace_floors_recruited.json`; conversion does not clear its floor at small n and is exploratory accordingly). Recompute at the achieved n before unblinding.
 - [x] Lock dependencies reproducibly for the container platform (done 2026-08-02, `deploy/lock-dependencies.sh`, five `requirements.lock` files resolved for Python 3.12 on Linux).
 - [x] Obtain the required ethics/privacy approvals for an uncompensated personal-network sample (see Section 13.1).
 - [x] Obtain supervisor sign-off on Design Revision 1 (see Section 13.1).
-- [ ] Set `STUDY_PERSONAS=fastbuyer,detailedcomparator,windowshopper` in the deployment environment and verify via the dispatcher that only the three recruited cells receive assignments.
-- [ ] Archive any pilot/test volumes and deploy clean shop and dispatcher ledgers.
-- [ ] Obtain immutable image identifiers for all five deployment images.
-- [ ] Verify checkpoint fail-fast and zero fallback in smoke tests.
-- [ ] Verify block randomization and the assignment registry.
-- [ ] Verify participation is uncompensated and the participant-facing flow is identical across cells.
-- [ ] Generate the final release manifest and archive it alongside the policy artifacts.
-- [ ] Commit and timestamp this preregistration with `Status` changed from draft to locked.
+- [x] Set `STUDY_PERSONAS=fastbuyer,detailedcomparator,windowshopper` in the deployment environment and verify via the dispatcher that only the three recruited cells receive assignments.
+- [x] Archive any pilot/test volumes and deploy clean shop and dispatcher ledgers.
+- [x] Obtain immutable image identifiers for all five deployment images.
+- [x] Verify checkpoint fail-fast and zero fallback in smoke tests.
+- [x] Verify block randomization and the assignment registry.
+- [x] Verify participation is uncompensated and the participant-facing flow is identical across cells.
+- [x] Generate and validate the byte-exact release audit and archive it alongside the policy artifacts; the immutable post-lock manifest is written immediately after this lock commit.
+- [x] Commit and timestamp this preregistration with `Status` changed from draft to locked.
 - [ ] Run and freeze `evaluate_study_policy_baseline.py` and `analyze_clickworker_study.py` before unblinding.
+
+---
+
+## 14. Post-result record (2026-08-20; not a preregistration amendment)
+
+This section records the confirmatory analysis after outcomes were observed. It
+changes no estimand, tolerance, decision rule or population definition. Where the
+executed analysis departs from Sections 7.1–7.2, the departure is stated here
+rather than absorbed.
+
+### 14.1 Extract analysed
+
+Recruitment opened 2026-08-03. The analysis below was run on the study extract of
+2026-08-16 (`Backups/20260816T103004Z/study-data.tar.gz`), at which point the
+dispatcher ledger held 31 randomized participants and the most recent assignment
+was dated 2026-08-12. **The recruitment window of Section "Design Revision 1"
+runs to 2026-08-24 and had not closed when this extract was taken.** Recruitment
+was not stopped early and no stopping rule was invoked; the extract is an interim
+cut taken because collection had effectively ceased twelve days into the window.
+Any participant recorded between 2026-08-17 and the hard stop is therefore absent
+from these figures, and re-running the commands in
+`clickworker_analysis_20260816/README.md` against a later extract supersedes them.
+
+Achieved sample: 31 participants, 15 V2 / 16 V3, and 10 FastBuyer /
+11 DetailedComparator / 10 WindowShopper — five per cell except V3/DetailedComparator
+with six, against a planning target of 40 per persona. No participant was excluded;
+every randomized assignment produced an observed session; no duplicates; no logged
+decision-request errors. 174/174 V3 decisions were served by the PPO policy
+(0% fallback, intended 0%), both arms carried the frozen flag, and the V3 timing
+gate was disabled throughout.
+
+### 14.2 Deviation: `--personas` restriction added to the analysis script
+
+`analyze_clickworker_study.py` hard-coded the full five-archetype set and required
+all ten policy × persona cells to be populated before evaluating any cell-averaged
+estimand. Under Design Revision 1 only six cells are ever assigned, so the
+`explorer` and `discounthunter` cells are absent by construction. Run as written,
+the script therefore returned the Section 7.1 aggregate and the Section 7.2 MACE as
+**not analyzable** — a property of the tooling, not of the data.
+
+A `--personas` option was added on 2026-08-20 to restrict every cell-averaged
+estimand to the recruited personas, mirroring the option `calculate_mace_floors.py`
+already carried for the same reason. The recruited-cell restriction is what
+Sections 7.1 and 7.2 specify: §7.2 defines MACEₘ as a 1/6 sum over two policies and
+three personas, and §7.1 defines Δₘ over the same six cells. The change therefore
+implements the locked estimand rather than altering it.
+
+**Disclosure.** The change was made after the primary outcome had been observed. It
+was not motivated by any observed value: the defect is structural, it was found
+while running the script for the first time on real data, and it makes the
+difference between an unresolvable estimand and a computable one rather than
+between one result and another. It does not touch the primary endpoint of Section 7,
+which was already restricted to the recruited personas and returned the same result
+before and after. The affected outputs are the Section 7.1 and 7.2 secondary
+families only. The ITT and quality-subset policy *point estimates* are unchanged to
+four decimal places, as expected: no participant was assigned to a non-recruited
+persona, so the restriction removes no observation. Their robust CIs do change, from
+`[NA, NA]` to computed limits — the robust variance estimator also required all cells
+to be populated — while the bootstrap intervals and randomization p-values are
+identical throughout.
+
+### 14.3 Deviation: the Section 7.2 test statistic was not computed
+
+Section 7.2 prescribes testing MACEₘ against its tolerance via the one-sided upper
+limit of a 95% percentile bootstrap using the Section 7.1 resampling scheme. The
+script reports MACEₘ as a point estimate only; that bootstrap upper limit is **not
+implemented and was not computed.** The endpoint is therefore assessed on the point
+estimate against the tolerance, which is a weaker test than the one specified. It is
+recorded as a deviation rather than treated as equivalent. The observed values exceed
+their tolerances by factors of 1.4 (funnel depth), 3.7 (conversion) and 7.5
+(transition count). Because the prescribed statistic is an *upper* limit and so lies
+above the point estimate, computing it could only have moved each endpoint further
+past its tolerance; the failures are therefore robust to the omission. A pass could
+not have been claimed on this basis, and none is claimed.
+
+### 14.4 Null-calibration floors at the achieved sample
+
+Section 7.2 requires the floors to be reported at the achieved sample size rather
+than at the planning values. Recomputed at five participants per cell
+(`clickworker_analysis_20260816/mace_floors_achieved_n5.json`):
+
+| Endpoint | Tolerance | Null floor | Null 95% ceiling | Observed MACE |
+|---|---:|---:|---:|---:|
+| Conversion | 0.10 | 0.089 | 0.147 | **0.374** |
+| Transition count | 1.00 | 0.631 | 1.008 | **7.513** |
+| Maximum funnel depth | 1.00 | 0.381 | 0.598 | **1.447** |
+
+Two tolerances are **not comfortably above their null ceiling** at this sample:
+conversion (0.10 against 0.147) and transition count (1.00 against 1.008). Under the
+Section 7.2 rule, neither endpoint had the power to return a credible *pass* at
+n = 5 per cell, and had either come in below tolerance it would have been reported
+as inconclusive. Both instead exceed their ceiling by a wide margin, so the failures
+stand on their own terms. Maximum funnel depth has a tolerance comfortably above its
+ceiling and fails as well.
+
+### 14.5 Outcomes
+
+- **Primary (Section 7, transition ordering): NOT ANALYZABLE.** Two of the three
+  confirmatory contrasts were estimable and neither rejected (one-sided p = 0.057
+  and p = 0.458, both in the predicted direction). The third — FastBuyer vs.
+  WindowShopper on PDP→cart — was not estimable: the WindowShopper conditioning set
+  holds 8 participants against the floor of 10. Under the intersection-union rule
+  the global claim requires all three, so it is reported as not analyzable rather
+  than as a failure. Recorded without interpretation: on the untested contrast the
+  human point estimate runs opposite to the predicted ordering (WindowShopper 8/8,
+  FastBuyer 9/10).
+- **Secondary aggregate (7.1) and cell-level (7.2) calibration: NOT ESTABLISHED**
+  on all three endpoints. Human-minus-simulator gaps are +0.374 conversion,
+  +7.513 transition count, +1.447 funnel depth; every bootstrap interval lies wholly
+  outside its equivalence margin. All 18 cell gaps carry the same sign, so the
+  aggregate and the mean absolute error coincide and no offsetting of per-persona
+  errors is masked.
+- **Key-secondary (Section 8, frozen-policy ITT): no detectable difference.**
+  V3 − V2 session reward +2.312 (randomization p = 0.438), conversion +0.167
+  (p = 0.429). Exploratory by declaration and reported as such.
+
+### 14.6 Artifacts
+
+`Experiments/clickworker_analysis_20260816/` holds `analysis_results.json`,
+`analysis_report.md`, the recomputed floors, and a README with the exact
+regeneration commands. Participant-level output is deliberately not stored there
+and is regenerated locally from the backup when required.

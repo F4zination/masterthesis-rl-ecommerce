@@ -9,10 +9,11 @@ FROM python:3.12-slim
 WORKDIR /app
 
 COPY SharedSchema /app/SharedSchema
-COPY StudyDispatcher/requirements.txt /app/StudyDispatcher/requirements.txt
+COPY StudyDispatcher/requirements.lock /app/StudyDispatcher/requirements.lock
 
 WORKDIR /app/StudyDispatcher
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.lock \
+    && pip install --no-cache-dir --no-deps -e ../SharedSchema
 
 COPY StudyDispatcher/app ./app
 

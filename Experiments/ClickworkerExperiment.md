@@ -131,10 +131,9 @@ V2 must fail its readiness check if the mounted database lacks trained bandit ro
 
 ### Session completion and compensation
 
-- Display a six-digit completion code through the same end-session mechanism in every policy, persona, and purchase outcome.
+- Display a six-digit reference code through the same end-session mechanism in every policy, persona, and purchase outcome. The final-question submit action persists the code with the attributed session before rendering the completion page; participants do not copy or send it manually.
 - The end-session control is available without a minimum duration or page count in every cell; duration and page views do not gate the completion code.
-- Pay a fixed fee (approximately £1.80 for a 12-minute task, adjusted to the platform's fair-pay rules) regardless of purchase, checkout, reward, clicks, or persona.
-- **Do not pay a checkout- or purchase-contingent bonus.** Such a bonus would directly manipulate conversion and would be especially incompatible with the WindowShopper scenario.
+- Participation in the convenience sample is voluntary and uncompensated; no payment, course credit, checkout-contingent reward, or purchase-contingent bonus is offered.
 - Use the same post-session attention questions in every cell. Attention-check performance flags a sensitivity subset; it does not determine the primary ITT analysis or base compensation.
 
 ### Data collection

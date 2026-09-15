@@ -1,8 +1,8 @@
 # DemoSiteV2 — Contextual Bandit shop (Clickworker experiment, condition V2)
 #
 # IMPORTANT: build from the repository root, not from DemoSiteV2/, because
-# requirements.txt installs the shared package via `-e ../SharedSchema`, which
-# lives outside this directory.
+# requirements.lock pins third-party packages while SharedSchema is installed
+# separately from the release commit; both live outside this directory.
 #
 #   docker build -f DemoSiteV2/Dockerfile -t demosite-v2 .
 #   (or simply `make docker-build-v2`)
@@ -23,10 +23,11 @@ COPY SharedSchema /app/SharedSchema
 COPY DemoSiteV2 /app/DemoSiteV2
 
 # ── Python dependencies ────────────────────────────────────────────────────────
-# Run from the app directory so the relative `-e ../SharedSchema` resolves to
-# /app/SharedSchema.
+# Install the resolved container-platform lock, then the local shared package
+# without allowing its install to alter the locked dependency set.
 WORKDIR /app/DemoSiteV2
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.lock \
+    && pip install --no-cache-dir --no-deps -e ../SharedSchema
 
 # ── Persistent volume for SQLite database ─────────────────────────────────────
 # Mount a pre-trained demosite.db here for the frozen-policy experiment so the

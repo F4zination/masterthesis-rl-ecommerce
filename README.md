@@ -13,6 +13,8 @@ Two things are deliberately **not** included:
 
 Everything the thesis cites is present, in particular both preregistrations, the sequentiality-sweep runner, and all four result sets under [`Experiments/`](Experiments/).
 
+This snapshot is the state the thesis was submitted from on 15 September 2026. The human-study numbers it reports come from [`Experiments/clickworker_analysis_20260902/`](Experiments/clickworker_analysis_20260902/), the extract taken after the preregistered recruitment window closed; the earlier `clickworker_analysis_20260816/` cut is kept alongside it as an interim record. Participant-level output is not stored in either, and the worker identifiers in their audit blocks are pseudonymized.
+
 
 ## 📁 Project Structure
 

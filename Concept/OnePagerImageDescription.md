@@ -69,6 +69,7 @@ The key open step is transitioning from a mostly per-opportunity policy (with ti
 Prepared conceptual foundations already exist in:
 - `Concept/MDP_SequentialAgent.md`
 - `Concept/ImprovementsV3.md`
+- `MouseTracking/` behavioral sequence and clustering analyses
 
 ## 6) Why this status is strong for the thesis
 - The project is not just conceptual; it includes a **running full pipeline** from data generation to deployment.

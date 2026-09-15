@@ -35,7 +35,7 @@ import sqlite3
 import sys
 from collections import Counter, defaultdict
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from statistics import mean
 from typing import Any, Iterable, Sequence
@@ -52,13 +52,20 @@ from shared_schema.features import (  # noqa: E402
 )
 
 
-PERSONAS = (
+ALL_PERSONAS = (
     "explorer",
     "fastbuyer",
     "detailedcomparator",
     "discounthunter",
     "windowshopper",
 )
+# The recruited subset, narrowed by --personas at startup.  A design may assign
+# fewer archetypes than the locked simulator reference evaluates (Design
+# Revision 1 recruits three of five), and every estimand that averages over
+# policy x persona cells must then average over the recruited cells only.
+# Cells outside this set are absent by design, not missing data, so leaving the
+# full set in place makes those estimands unresolvable rather than restricted.
+PERSONAS = ALL_PERSONAS
 CONDITIONS = ("v2", "v3")
 DEVICE_STRATA = ("unknown", "mobile", "tablet", "desktop")
 TRAFFIC_STRATA = ("direct", "search", "social", "referral")
@@ -146,6 +153,55 @@ def _timestamp(value: Any) -> datetime | None:
         return parsed
     except ValueError:
         return None
+
+
+def parse_cutoff(value: str) -> datetime:
+    """Parse a recruitment-window bound into a naive-UTC exclusive upper bound.
+
+    A bare ``YYYY-MM-DD`` names a day that is kept in full, so the bound is the
+    following midnight; an explicit datetime is used as given.  Session and
+    assignment timestamps are compared in UTC.
+    """
+    text = value.strip().replace("Z", "+00:00")
+    date_only = ":" not in text
+    try:
+        parsed = datetime.fromisoformat(text.replace(" ", "T"))
+    except ValueError as error:
+        raise argparse.ArgumentTypeError(
+            f"expected an ISO date or datetime, got {value!r}"
+        ) from error
+    if parsed.tzinfo is not None:
+        parsed = parsed.astimezone(timezone.utc).replace(tzinfo=None)
+    return parsed + timedelta(days=1) if date_only else parsed
+
+
+def apply_cutoff(
+    sessions: Sequence[RawSession],
+    assignments: Sequence[Assignment] | None,
+    cutoff: datetime,
+) -> tuple[list[RawSession], list[Assignment] | None, int, int]:
+    """Truncate sessions and assignments at an exclusive naive-UTC bound.
+
+    Sessions carrying no parsable timestamp cannot be placed in time and are
+    left to the attribution audit rather than silently dropped.
+    """
+    cutoff_epoch = cutoff.replace(tzinfo=timezone.utc).timestamp()
+    kept_sessions = [
+        session for session in sessions
+        if not session.timestamps or session.first_seen < cutoff
+    ]
+    if assignments is None:
+        return kept_sessions, None, len(sessions) - len(kept_sessions), 0
+    kept_assignments = [
+        assignment for assignment in assignments
+        if assignment.assigned_at is None or assignment.assigned_at < cutoff_epoch
+    ]
+    return (
+        kept_sessions,
+        kept_assignments,
+        len(sessions) - len(kept_sessions),
+        len(assignments) - len(kept_assignments),
+    )
 
 
 def _table_exists(conn: sqlite3.Connection, name: str) -> bool:
@@ -1318,6 +1374,14 @@ def _report(results: dict[str, Any]) -> str:
         "The main analysis is participant-level intention-to-treat. Quality-filtered results are a sensitivity analysis because duration, navigation, dwell and dismissals can be affected by policy.",
         "",
     ]
+    cutoff = results.get("cutoff")
+    if cutoff:
+        lines.extend([
+            f"Recruitment-window cutoff: data from {cutoff['exclusive_utc_bound']} UTC "
+            f"onward excluded ({cutoff['dropped_assignments']} assignments, "
+            f"{cutoff['dropped_sessions']} sessions dropped).",
+            "",
+        ])
     ordering = results["transition_ordering"]
     lines.extend([
         "## Transition-ordering endpoint",
@@ -1459,10 +1523,42 @@ def main(argv: Sequence[str] | None = None) -> int:
         help="policy-matched 2 x 5 simulator reference JSON",
     )
     parser.add_argument("--out-dir", type=Path, default=Path("Experiments/clickworker_analysis"))
+    parser.add_argument(
+        "--cutoff",
+        type=parse_cutoff,
+        default=None,
+        help=(
+            "drop assignments made, and sessions first seen, after this UTC "
+            "bound (e.g. the close of the preregistered recruitment window). "
+            "A bare YYYY-MM-DD keeps that whole day. Default: keep everything."
+        ),
+    )
     parser.add_argument("--bootstrap", type=int, default=2000)
     parser.add_argument("--permutations", type=int, default=10000)
     parser.add_argument("--seed", type=int, default=20260721)
+    parser.add_argument(
+        "--personas",
+        default="",
+        help=(
+            "comma-separated recruited personas to restrict every cell-averaged "
+            "estimand to (e.g. the recruited subset of a design that assigns "
+            "fewer personas than the reference evaluates). Empty means all "
+            "personas."
+        ),
+    )
     args = parser.parse_args(argv)
+
+    global PERSONAS
+    requested = [item.strip() for item in args.personas.split(",") if item.strip()]
+    if requested:
+        unknown = sorted(set(requested) - set(ALL_PERSONAS))
+        if unknown:
+            parser.error(
+                f"personas not recognized: {unknown}; available: {list(ALL_PERSONAS)}"
+            )
+        PERSONAS = tuple(item for item in ALL_PERSONAS if item in requested)
+    else:
+        PERSONAS = ALL_PERSONAS
 
     specs = dict(args.db)
     if set(specs) != set(CONDITIONS):
@@ -1481,6 +1577,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     for condition in CONDITIONS:
         sessions.extend(load_shop_sessions(condition, specs[condition]))
     assignments = load_assignments(args.dispatcher_db) if args.dispatcher_db else None
+
+    dropped_sessions = 0
+    dropped_assignments = 0
+    if args.cutoff is not None:
+        sessions, assignments, dropped_sessions, dropped_assignments = apply_cutoff(
+            sessions, assignments, args.cutoff
+        )
+
     records, audit = build_participant_records(sessions, assignments)
     # When an assignment ledger is available, observed but unrandomized rows
     # are audit records rather than members of the randomized population.
@@ -1496,6 +1600,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         "schema_version": 1,
         "estimand": "equal-persona participant-level V3 minus V2 fixed-policy effect",
         "policy_serving": "deterministic_frozen",
+        "personas": list(PERSONAS),
+        "cutoff": (
+            {
+                "exclusive_utc_bound": args.cutoff.isoformat(),
+                "dropped_assignments": dropped_assignments,
+                "dropped_sessions": dropped_sessions,
+            }
+            if args.cutoff is not None else None
+        ),
         "seed": args.seed,
         "bootstrap_replicates": args.bootstrap,
         "randomization_permutations": args.permutations,

@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Verify Clickworker completion codes against the collected study databases.
+"""Audit completion codes recorded in the collected study databases.
 
 A participant finishes a session, the shop shows them a 6-digit completion code,
-and they paste that code back into the crowd platform. This tool lets you check
-those submissions against what the apps actually recorded.
+and the final-question submission saves that code automatically with the session.
+The convenience-sample flow does not require the participant to copy or send it;
+this tool audits the persisted completion records directly.
 
 It reads the SQLite databases directly (no app / SharedSchema imports needed),
 so you can run it anywhere Python is available:

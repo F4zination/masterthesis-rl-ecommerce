@@ -13,6 +13,25 @@
 post-result record is `preregistration_v3.md` §H; the thesis reports them in
 Section `sec:ExpSweep` of `MasterThesis/Content/Experiments.tex`.
 
+## The `_v3_s15` replication (2026-08-08) is not confirmatory
+
+`sweep_results_{confirmatory,myopic,offline_ppo,expose_history}_v3_s15/` hold a
+15-seed replication of the whole family (seeds 10–24), run by
+`Experiments/run_seed15_sweeps.sh` and declared in `preregistration_v3.md` §K.
+Zero failed cells; all 270 cells shared with the `_v3` runs are **bit-identical**,
+which is what licenses comparing the two.
+
+**They do not replace the `_v3` runs and their cells may not be pooled with them.**
+The replication was specified after the §D results were known and it overturns
+one preregistered null (the fatigue axis), so adopting it as the confirmatory
+basis would mean changing the seed count after seeing that doing so changes a
+result. §K.1 records that reasoning; the thesis reports the replication in
+`subsec:SweepSeed15` and keeps every confirmatory number on the five-seed grid.
+
+Re-run the dependent analyses against a replication directory with
+`--run-dir` / `--discounted-dir` / `--myopic-dir`; both
+`compute_horizon_contrast.py` and `compute_multiplicity_control.py` take them.
+
 ## Do not cite the pre-`33378f3` runs
 
 `sweep_results_confirmatory/`, `sweep_results_expose_history/` and
